@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "../table/table";
 import "./Inquiry.css";
-import moment from "moment";
+import { fetchArray, getDate } from "../../Utils/utils";
 
 const AllInquiries = () => {
   //popup the page in this section
@@ -22,9 +22,7 @@ const AllInquiries = () => {
       created_at: "",
     },
   ]);
-  const getDate = (dateString) => {
-    return moment(dateString).format("DD-MM-YYYY");
-  };
+
   const columns = [
     {
       title: "ID",
@@ -86,28 +84,11 @@ const AllInquiries = () => {
     },
   ];
   //Get api url
-   const api = "/api/inquiries";
-   const token = localStorage.getItem("token");
-  //calling Api get method
-  const fetchArray = async () => {
-    try {
-      let res = await fetch(api, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-      res = await res.json();
-      setData(res.data);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
+  const api = "/api/inquiries";
 
+  //calling Api get method
   useEffect(() => {
-    fetchArray();
+    fetchArray(api, setData);
   }, []);
 
   const users = [
@@ -124,4 +105,3 @@ const AllInquiries = () => {
 };
 
 export default AllInquiries;
- 
