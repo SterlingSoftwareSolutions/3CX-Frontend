@@ -11,11 +11,9 @@ const AllInquiries = () => {
       brand: "",
       brand_availability: "",
       product_category: "",
-
       action: "",
       status_remark: "",
       open: "",
-
       user_id: "",
       customer_id: "",
       call_type_id: "",
@@ -91,11 +89,6 @@ const AllInquiries = () => {
     fetchArray(api, setData);
   }, []);
 
-  const users = [
-    { id: 1, name: "Alice", email: "alice@example.com" },
-    { id: 2, name: "Bob", email: "bob@example.com" },
-    { id: 3, name: "Charlie", email: "charlie@example.com" },
-  ];
   return (
     <div className="table-container">
       <h2 className="inquiries-title">Inquiries</h2>
