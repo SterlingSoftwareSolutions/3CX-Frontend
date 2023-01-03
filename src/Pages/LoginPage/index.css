@@ -21,7 +21,7 @@ body {
   color: white;
   border: none;
   height: 45px;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 6px;
   width: 100px;
   margin: auto;
@@ -47,6 +47,13 @@ body {
 
 .ant-card-head-title {
   text-align: center;
+}
+span {
+  color: red;
+}
+
+.row-style {
+  margin-bottom: 7%;
 }
 
 @media (max-width: 1366px) {
