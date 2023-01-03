@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form, Modal, ModalHeader } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { fetchArray } from "../../Utils/utils";
 
 const Types = () => {
   useEffect(() => {
@@ -10,12 +11,12 @@ const Types = () => {
 
   //popup the page in this section
   const [show, setShow] = useState(false);
-  const [arr, setArr] = useState([]);
+  const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const token = localStorage.getItem("token");
-  
+
   //save data localStorage
   useEffect(() => {
     localStorage.setItem("call_type_id", filter);
@@ -25,32 +26,8 @@ const Types = () => {
   const api = "/api/call_types";
 
   //calling Api get method
-  const fetchArray = async () => {
-    try {
-      let res = await fetch(api,{
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      });
-      res = await res.json();
-      if (res.error) {
-        console.error(res.error);
-        alert(res.error);
-      } else {
-        let arrayTemp = ["", ...new Set(res.data.map((item) => item))];
-        setArr(arrayTemp);
-        console.log(res.data);
-      }
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
   useEffect(() => {
-    fetchArray();
+    fetchArray(api, setData);
   }, []);
 
   return (
@@ -65,10 +42,11 @@ const Types = () => {
           {/* set the option value  */}
           <Form.Select
             aria-label="Default select example"
-            id="arrayselect"
+            id="dataayselect"
             value={filter}
-            onChange={(e) => setFilter(e.target.value)}>
-            {arr.map((item, index) => (
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            {data.map((item, index) => (
               <option key={index} value={item.id}>
                 {item.name}
               </option>
@@ -77,22 +55,24 @@ const Types = () => {
         </Form>
         <Modal.Footer>
           {/* close button */}
-          <Link to='/customer/:phone'>
-          <Button
-            className="btn btn mt-3"
-            style={{ backgroundColor: "#16c5d5", color: "white" }}
-            onClick={handleClose}>
-            Back
-          </Button>
+          <Link to="/customer/:phone">
+            <Button
+              className="btn btn mt-3"
+              style={{ backgroundColor: "#16c5d5", color: "white" }}
+              onClick={handleClose}
+            >
+              Back
+            </Button>
           </Link>
           {/* Next button */}
-          <Link to='/inquiry-popup'>
-          <Button
-            className="btn btn mt-3"
-            style={{ backgroundColor: "#16c5d5", color: "white" }}>
-            Next
-          </Button></Link>
-          
+          <Link to="/inquiry-popup">
+            <Button
+              className="btn btn mt-3"
+              style={{ backgroundColor: "#16c5d5", color: "white" }}
+            >
+              Next
+            </Button>
+          </Link>
         </Modal.Footer>
       </Modal.Body>
     </Modal>
