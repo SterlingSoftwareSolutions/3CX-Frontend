@@ -13,8 +13,12 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "animated-number-react": "^0.1.2",
     "antd": "^5.0.7",
     "bootstrap": "^5.2.3",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "proptype": "^1.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
@@ -22,8 +26,10 @@
     "react-hook-form": "^7.41.0",
     "react-icons": "^4.7.1",
     "react-icons-kit": "^2.0.0",
-    "react-router-dom": "^6.4.5",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.7",
     "recharts": "^2.2.0",
     "web-vitals": "^2.1.4"
   },
@@ -50,5 +56,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://192.168.100.80:8000/"
 }

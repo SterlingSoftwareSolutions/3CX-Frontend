@@ -1,0 +1,23 @@
+.errorpage{
+    /* left: 50%; */
+    width: 150vh;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 15vh;
+}
+/* .sidebar-col{
+    flex-basis: 0;
+} */
+
+@media (max-width: 1366px) {
+    .errorpage {
+        width: 120vh;
+    }
+  }
+  @media (max-width: 1366px) and (min-width: 1900px) {
+    .errorpage {
+        width: 130vh;
+    }
+  }

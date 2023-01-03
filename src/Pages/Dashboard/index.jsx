@@ -1,201 +1,87 @@
-import { Card, Col, Row } from 'antd';
-import React from 'react'
-import { PieChart, Pie, Tooltip, Cell, Legend, } from 'recharts';
+import { Col, Row } from "antd";
+import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import "./index.css";
+import AnimatedNumber from "./Components/AnimatedNumber";
+import AgentList from "./Components/AgentList";
+import PieCharts from "./Components/PieCharts";
 
 const projectdata = [
-  {name: "Abans", value:207},
-  {name: "Koko", value:302},
-  {name: "Big Deals", value:159},
-]
+  { name: "Abans", value: 207 },
+  { name: "Koko", value: 302 },
+  { name: "Big Deals", value: 159 },
+];
 
 const agentdata = [
-  {name: "John", value:54},
-  {name: "David", value:67},
-  {name: "Katy", value:61},
-  {name: "Jane", value:51},
-  {name: "Kevin", value:71},
-]
+  { name: "John", value: 54 },
+  { name: "David", value: 67 },
+  { name: "Katy", value: 61 },
+  { name: "Jane", value: 51 },
+  { name: "Kevin", value: 71 },
+];
 
 const inbounddata = [
-  {name: "Abans", value:89},
-  {name: "Koko", value:98},
-  {name: "Big Deals", value:75},
-]
+  { name: "Abans", value: 89 },
+  { name: "Koko", value: 98 },
+  { name: "Big Deals", value: 75 },
+];
 
 const outbounddata = [
-  {name: "Abans", value:76},
-  {name: "Koko", value:94},
-  {name: "Big Deals", value:81},
-]
+  { name: "Abans", value: 76 },
+  { name: "Koko", value: 94 },
+  { name: "Big Deals", value: 81 },
+];
 
 const resolveddata = [
-  {name: "Abans", value:31},
-  {name: "Koko", value:54},
-  {name: "Big Deals", value:41},
-]
+  { name: "Abans", value: 31 },
+  { name: "Koko", value: 54 },
+  { name: "Big Deals", value: 41 },
+];
 
 const unresolveddata = [
-  {name: "Abans", value:12},
-  {name: "Koko", value:7},
-  {name: "Big Deals", value:6},
-]
+  { name: "Abans", value: 12 },
+  { name: "Koko", value: 7 },
+  { name: "Big Deals", value: 6 },
+];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#fc4242'];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#fc4242"];
 
 const Dashboard = () => {
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const loggedInUser = localStorage.getItem("authenticated");
+  const [authenticated, setauthenticated] = useState(
+    loggedInUser ? loggedInUser : false
+  );
 
+  useEffect(() => {
+    if (loggedInUser) {
+      setauthenticated(true);
+    }
+  }, []);
 
-  return (
-    <div className="site-card-wrapper">
-    <Row>
-      <Col span={12}>
-        <div className="card">
-          <h2 className='title'>Project Vice calls</h2>
-          <h4>Total calls: </h4>
-          <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={projectdata}
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-            label= "value"
-          >
-            {projectdata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
-      <Col span={12}>
-      <div className="card">
-      <h2 className='title'>Agent Vice calls</h2>
-      <h4>Total calls: </h4>
-      <PieChart width={400} height={400}>
-      <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={agentdata}
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-            label= "value"
-          >
-            {agentdata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
+  if (!authenticated) {
+    return <Navigate replace to="/login" />;
+  } else {
+    return (
+      <div className="dashboard-row">
+        <Row style={{ marginTop: "6%", width: "1100px" }}>
+          <AnimatedNumber />
+        </Row>
+        <Row style={{ marginTop: "1%", width: "1100px" }}>
+          <Col span={16}></Col>
+          <Col span={8}>
+            <AgentList />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={6}>{/* <PieCharts /> */}</Col>
+          <Col span={6}>{/* <PieCharts /> */}</Col>
+          <Col span={6}>{/* <PieCharts /> */}</Col>
+          <Col span={6}>{/* <PieCharts /> */}</Col>
+        </Row>
+      </div>
+    );
+  }
+};
 
-      <Col span={12}>
-      <div className="card">
-      <h2 className='title'>Inbound calls</h2>
-      <h4>Total calls: </h4>
-      <PieChart width={400} height={400}>
-      <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={inbounddata}
-            label= "name"
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-          >
-            {inbounddata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
-
-      <Col span={12}>
-      <div className="card">
-      <h2 className='title'>Outbound calls</h2>
-      <h4>Total calls: </h4>
-      <PieChart width={400} height={400}>
-      <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={outbounddata}
-            label= "name"
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-          >
-            {outbounddata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
-
-      <Col span={12}>
-        <div className="card">
-        <h2 className='title'>Resolved Cases</h2>
-          <h4>Total cases: </h4>
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={resolveddata}
-            label= "name"
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-          >
-            {resolveddata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
-
-      <Col span={12}>
-          <div className="card">
-          <h2 className='title'>Unresolved Cases</h2>
-          <h4>Total cases: </h4>
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={unresolveddata}
-            label= "name"
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-          >
-            {unresolveddata.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend/>
-        </PieChart>
-        </div>
-      </Col>
-
-
-      
-    </Row> 
-  </div>
-  )
-}
-
-export default Dashboard
+export default Dashboard;
