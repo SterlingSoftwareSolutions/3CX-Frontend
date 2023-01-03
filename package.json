@@ -57,5 +57,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.100.80:8000/"
+  "proxy": "http://3cx-crm-backend.ap-southeast-1.elasticbeanstalk.com/"
 }
