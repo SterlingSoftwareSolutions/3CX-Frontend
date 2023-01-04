@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Form, Modal, ModalHeader, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "./CustomerPopUp.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CustomerPopUp = () => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -13,7 +14,8 @@ const CustomerPopUp = () => {
   const customer_address_api = "/api/customer_addresses/";
   const [url, setUrl] = useState("None");
   const [Iscostomer_available, setcustomeravailability] = useState(false);
-  const [error, setError] = useState("");
+  const [valerror, setError] = useState(false);
+  const [locerror, setLocError] = useState(false);
   const token = localStorage.getItem("token");
 
   const [customer_address, setCustomerData] = useState({
@@ -35,10 +37,10 @@ const CustomerPopUp = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-        }
+        },
       })
         .then((response) => response.json())
-        .then(async (customerdata) => {         
+        .then(async (customerdata) => {
           if (customerdata.success) {
             setData(customerdata.data);
             await setCustomerData(customerdata.data.customer_address[0]);
@@ -75,56 +77,66 @@ const CustomerPopUp = () => {
 
   let handleSubmit = async (e) => {
     data.phone = url;
-    if (data.name.length == 0) {
+    if (!data.name && !data.location) {
       setError(true);
+      setLocError(true);
+    } 
+    else if (!data.location) {
+      setLocError(true);
+      setError(false);
+    } 
+    else if (!data.name) {
+      setError(true);
+      setLocError(false);
+    } 
+    else {
+      let method = Iscostomer_available ? "PUT" : "POST";
+      let TempCustomerApi = Iscostomer_available
+        ? customer_api + url
+        : customer_api;
+      let TempCustomerAddressApi = Iscostomer_available
+        ? customer_address_api + url
+        : customer_address_api;
+
+      if (method === "PUT") {
+        delete data.id;
+        delete data.phone;
+        delete data.created_at;
+        delete data.updated_at;
+        delete data.customer_address;
+      }
+      const response = await fetch(TempCustomerApi, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+
+      let new_customer_id = result.data.id;
+      localStorage.setItem("customer_id", new_customer_id);
+      if (method === "POST") {
+        customer_address.customer_id = new_customer_id;
+      } else if (method === "PUT") {
+        delete customer_address.id;
+        delete customer_address.created_at;
+        delete customer_address.updated_at;
+      }
+
+      const customer_address_responce = await fetch(TempCustomerAddressApi, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(customer_address),
+      });
+      await customer_address_responce.json();
+      handleClose();
+      navigate("/types");
     }
-
-    let method = Iscostomer_available ? "PUT" : "POST";
-    let TempCustomerApi = Iscostomer_available
-      ? customer_api + url
-      : customer_api;
-    let TempCustomerAddressApi = Iscostomer_available
-      ? customer_address_api + url
-      : customer_address_api;
-
-    if (method === "PUT") {
-      delete data.id;
-      delete data.phone;
-      delete data.created_at;
-      delete data.updated_at;
-      delete data.customer_address;
-    }
-    const response = await fetch(TempCustomerApi, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-
-    let new_customer_id = result.data.id;
-    localStorage.setItem("customer_id", new_customer_id);
-    if (method === "POST") {
-      customer_address.customer_id = new_customer_id;
-    } else if (method === "PUT") {
-      delete customer_address.id;
-      delete customer_address.created_at;
-      delete customer_address.updated_at;
-    }
-
-    const customer_address_responce = await fetch(TempCustomerAddressApi, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(customer_address),
-    });
-    const customer_address_result = await customer_address_responce.json();
-    console.log(customer_address);
-    handleClose();
   };
 
   return (
@@ -170,7 +182,7 @@ const CustomerPopUp = () => {
                       name="name"
                       value={data.name}
                     />
-                    {error && data.name.length <= 0 ? (
+                    {valerror ? (
                       <Form.Label className="input-label">
                         Customer Name cannot be empty
                       </Form.Label>
@@ -226,6 +238,13 @@ const CustomerPopUp = () => {
                       type="text"
                       placeholder="Location"
                     />
+                    {locerror ? (
+                      <Form.Label className="input-label">
+                        Location cannot be empty
+                      </Form.Label>
+                    ) : (
+                      ""
+                    )}
                   </Form.Group>
                 </Col>
               </Row>
@@ -247,14 +266,14 @@ const CustomerPopUp = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer className="footer">
-          <Link to="/types">
-            <Button
-              className="btn btn mt-3 button-style"
-              onClick={(e) => handleSubmit(e)}
-            >
-              Next
-            </Button>
-          </Link>
+          {/* <Link to="/types"> */}
+          <Button
+            className="btn btn mt-3 button-style"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Next
+          </Button>
+          {/* </Link> */}
         </Modal.Footer>
       </Modal>
     </div>
