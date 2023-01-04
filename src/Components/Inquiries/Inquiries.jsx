@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "../table/table";
 import "./Inquiry.css";
-import moment from "moment";
+import { fetchArray, getDate } from "../../Utils/utils";
 
 const AllInquiries = () => {
   //popup the page in this section
@@ -11,20 +11,16 @@ const AllInquiries = () => {
       brand: "",
       brand_availability: "",
       product_category: "",
-
       action: "",
       status_remark: "",
       open: "",
-
       user_id: "",
       customer_id: "",
       call_type_id: "",
       created_at: "",
     },
   ]);
-  const getDate = (dateString) => {
-    return moment(dateString).format("DD-MM-YYYY");
-  };
+
   const columns = [
     {
       title: "ID",
@@ -86,35 +82,13 @@ const AllInquiries = () => {
     },
   ];
   //Get api url
-   const api = "/api/inquiries";
-   const token = localStorage.getItem("token");
-  //calling Api get method
-  const fetchArray = async () => {
-    try {
-      let res = await fetch(api, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-      res = await res.json();
-      setData(res.data);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
+  const api = "/api/inquiries";
 
+  //calling Api get method
   useEffect(() => {
-    fetchArray();
+    fetchArray(api, setData);
   }, []);
 
-  const users = [
-    { id: 1, name: "Alice", email: "alice@example.com" },
-    { id: 2, name: "Bob", email: "bob@example.com" },
-    { id: 3, name: "Charlie", email: "charlie@example.com" },
-  ];
   return (
     <div className="table-container">
       <h2 className="inquiries-title">Inquiries</h2>
@@ -124,4 +98,3 @@ const AllInquiries = () => {
 };
 
 export default AllInquiries;
- 
