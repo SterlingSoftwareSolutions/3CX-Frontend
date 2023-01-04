@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
-import { Card, Form, Input, Checkbox } from "antd";
+import { Card, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import Dashboard from "../Dashboard/index";
 
 const LoginPage = () => {
   const [email, setUsername] = useState("");
@@ -50,7 +49,7 @@ const LoginPage = () => {
       <Form>
         <div className="row-style">
           <p>
-            Email <span>*</span>
+            Email <span style={{ color: "red" }}>*</span>
           </p>
           <Form.Item
             className="input-style"

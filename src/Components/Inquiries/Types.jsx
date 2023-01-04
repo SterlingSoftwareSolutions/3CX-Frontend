@@ -15,7 +15,6 @@ const Types = () => {
   const [filter, setFilter] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const token = localStorage.getItem("token");
 
   //save data localStorage
   useEffect(() => {
