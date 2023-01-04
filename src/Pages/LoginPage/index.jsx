@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
-import { Card, Form, Input, Checkbox } from "antd";
+import { Card, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
-import Dashboard from "../Dashboard/index";
 
 const LoginPage = () => {
   const [email, setUsername] = useState("");
@@ -48,26 +47,33 @@ const LoginPage = () => {
       style={{ boxShadow: "0 0 5px rgba(0,0,0,1" }}
     >
       <Form>
-        <Form.Item
-          className="input-style"
-          label="Username"
-          name="email"
-          onChange={(e) => setUsername(e.target.value)}
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          className="input-style"
-          label="Password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <p className="error">{error}</p>
+        <div className="row-style">
+          <p>
+            Email <span style={{ color: "red" }}>*</span>
+          </p>
+          <Form.Item
+            className="input-style"
+            name="email"
+            onChange={(e) => setUsername(e.target.value)}
+            rules={[{ required: true, message: "Please input your username!" }]}
+          >
+            <Input />
+          </Form.Item>
+        </div>
+        <div>
+          <p>
+            Password <span>*</span>
+          </p>
+          <Form.Item
+            className="input-style"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <p className="error">{error}</p>
+        </div>
 
         <div className="d-grid">
           <button onClick={handleSubmit} type="submit" className="button-style">

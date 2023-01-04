@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from "../../Components/table/table";
-import moment from "moment";
+import { fetchArray, getDate } from "../../Utils/utils";
 
 const Users = () => {
   const [data, setData] = useState([
@@ -12,9 +12,6 @@ const Users = () => {
     },
   ]);
 
-  const getDate = (dateString) => {
-    return moment(dateString).format("DD-MM-YYYY");
-  };
   const columns = [
     {
       title: "ID",
@@ -40,25 +37,10 @@ const Users = () => {
   ];
   //Get api url
   const api = "/api/users";
-  const token = localStorage.getItem("token");
+
   //calling Api get method
-  const fetchArray = async () => {
-    try {
-      let res = await fetch(api,{
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      });
-      res = await res.json();
-      setData(res.data);
-    } catch (error) {
-      alert("Only Admins View");
-    }
-  };
   useEffect(() => {
-    fetchArray();
+    fetchArray(api, setData);
   }, []);
 
   return (
