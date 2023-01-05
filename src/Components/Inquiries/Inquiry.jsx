@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Form, Modal, ModalHeader } from "react-bootstrap";
+import React, { useEffect, useState, useContext, createContext } from "react";
+import { Form, Modal, ModalHeader, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "./Inquiry.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Inquiry = () => {
+const Inquiry = (props) => {
   useEffect(() => {
     handleShow(true);
   }, []);
-
-  //popup the page in this section
+  const location = useLocation();
+  const [localState, setLocalState] = useState(location.state.object);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -142,100 +142,162 @@ const Inquiry = () => {
 
         <Modal.Body>
           <Form>
-            {/* Product Category */}
-            <Form.Group className="mb-3">
-              <Form.Label>Product Category</Form.Label>
-              <Form.Select
-                aria-label="Product Category"
-                id="product_category"
-                value={product_category}
-                onChange={(e) => setproduct_category(e.target.value)}
-              >
-                {arr.map((item, index) => (
-                  <option key={index} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </Form.Select>
-              {/* error message */}
-              {error ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )}
-            </Form.Group>
+            {/* do not change == to === */}
+            {localState.call_type_group_id == "1" ? (
+              <div>
+                <Form.Group className="mb-3">
+                  {/* Product Category */}
+                  <Form.Label>Product Category</Form.Label>
+                  <Form.Select
+                    aria-label="Product Category"
+                    id="product_category"
+                    value={product_category}
+                    onChange={(e) => setproduct_category(e.target.value)}
+                  >
+                    {arr.map((item, index) => (
+                      <option key={index} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* error message */}
+                  {error ? (
+                    <Form.Label className="form-validation">
+                      This field is required
+                    </Form.Label>
+                  ) : (
+                    ""
+                  )}
+                </Form.Group>
 
-            {/* Brand or Model text line */}
-            <Form.Group className="mb-3">
-              <Form.Label>Brand or Model</Form.Label>
-              <Form.Control
-                onChange={(e) => onChangeValue("brand", e.target.value)}
-                id="brand"
-                value={data.brand}
-                type="text"
-                placeholder="Brand or Model"
-              />
-              {/* error message */}
-              {error ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )}
-            </Form.Group>
+                {/* Brand or Model text line */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Brand or Model</Form.Label>
+                  <Form.Control
+                    onChange={(e) => onChangeValue("brand", e.target.value)}
+                    id="brand"
+                    value={data.brand}
+                    type="text"
+                    placeholder="Brand or Model"
+                  />
+                  {/* error message */}
+                  {error ? (
+                    <Form.Label className="form-validation">
+                      This field is required
+                    </Form.Label>
+                  ) : (
+                    ""
+                  )}
+                </Form.Group>
 
-            {/* Brand Availablility */}
-            <Form.Group className="mb-3">
-              <Form.Label>Brand Availablility</Form.Label>
-              <Form.Select
-                aria-label="Brand Availablility"
-                id="brandcd_availability"
-                onChange={(e) => set_select_brand_availability(e.target.value)}
-                value={brand_availability_selet}
-              >
-                {brand_availability.map((item, index) => (
-                  <option key={index} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </Form.Select>
-              {/* error message */}
-              {error ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )}
-            </Form.Group>
+                {/* Brand Availablility */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Brand Availablility</Form.Label>
+                  <Form.Select
+                    aria-label="Brand Availablility"
+                    id="brandcd_availability"
+                    onChange={(e) =>
+                      set_select_brand_availability(e.target.value)
+                    }
+                    value={brand_availability_selet}
+                  >
+                    {brand_availability.map((item, index) => (
+                      <option key={index} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* error message */}
+                  {error ? (
+                    <Form.Label className="form-validation">
+                      This field is required
+                    </Form.Label>
+                  ) : (
+                    ""
+                  )}
+                </Form.Group>
 
-            {/* Feedback */}
-            <Form.Group className="mb-3">
-              <Form.Label>Feedback</Form.Label>
-              <Form.Select
-                aria-label="Feedback"
-                id="arrayselect"
-                value={feedback}
-                onChange={(e) => setfeedback(e.target.value)}
-              >
-                {feedbacks.map((item, index) => (
-                  <option key={index} value={item.feedback}>
-                    {item.feedback}
-                  </option>
-                ))}
-              </Form.Select>
-              {/* error message */}
-              {error ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )}
-            </Form.Group>
+                {/* Feedback */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Feedback</Form.Label>
+                  <Form.Select
+                    aria-label="Feedback"
+                    id="arrayselect"
+                    value={feedback}
+                    onChange={(e) => setfeedback(e.target.value)}
+                  >
+                    {feedbacks.map((item, index) => (
+                      <option key={index} value={item.feedback}>
+                        {item.feedback}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* error message */}
+                  {error ? (
+                    <Form.Label className="form-validation">
+                      This field is required
+                    </Form.Label>
+                  ) : (
+                    ""
+                  )}
+                </Form.Group>
+              </div>
+            ) : (
+              <></>
+            )}
+            {/* do not change == to === */}
+            {localState.call_type_group_id == "2" ? (
+              <div>
+                {/* Order ID text line */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Order ID</Form.Label>
+                  <Form.Control
+                    onChange={(e) =>
+                      onChangeValue("status_remark", e.target.value)
+                    }
+                    id="order_id"
+                    value={data.status_remark}
+                    type="text"
+                    placeholder="Order ID"
+                  />
+                </Form.Group>
+                {/* Inquiry Id text line */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Inquiry ID</Form.Label>
+                  <Form.Control
+                    onChange={(e) =>
+                      onChangeValue("status_remark", e.target.value)
+                    }
+                    id="inquiry_id"
+                    value={data.status_remark}
+                    type="text"
+                    placeholder="Inquiry ID"
+                  />
+                </Form.Group>
+              </div>
+            ) : (
+              <></>
+            )}
+            {/* do not change == to === */}
+            {localState.call_type_group_id == "4" ? (
+              <div>
+                {/* Inquiry Id text line */}
+                <Form.Group className="mb-3">
+                  <Form.Label>Inquiry ID</Form.Label>
+                  <Form.Control
+                    onChange={(e) =>
+                      onChangeValue("status_remark", e.target.value)
+                    }
+                    id="inquiry_id"
+                    value={data.status_remark}
+                    type="text"
+                    placeholder="Inquiry ID"
+                  />
+                </Form.Group>
+              </div>
+            ) : (
+              <></>
+            )}
 
             {/* Follow or Closeup */}
             <Form.Group className="mb-3">

@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import "./CustomerPopUp.css";
 import { Link } from "react-router-dom";
 
-const CustomerPopUp = () => {
+const CustomerPopUp = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -27,7 +27,7 @@ const CustomerPopUp = () => {
     location: "",
     comment: "",
   });
-
+  console.log(props);
   const fetchData = async (customer_number) => {
     try {
       fetch(customer_api + customer_number, {
@@ -35,10 +35,10 @@ const CustomerPopUp = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-        }
+        },
       })
         .then((response) => response.json())
-        .then(async (customerdata) => {         
+        .then(async (customerdata) => {
           if (customerdata.success) {
             setData(customerdata.data);
             await setCustomerData(customerdata.data.customer_address[0]);
