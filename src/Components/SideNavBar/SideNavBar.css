@@ -59,7 +59,7 @@ menu-item {
   color: var(--dark);
   text-decoration: none;
   text-transform: uppercase;
-  margin: auto 40px;
+  margin: auto 40px auto 16px;
   border-radius: 10px;
   position: relative;
   text-align: center;
@@ -112,16 +112,16 @@ menu-item {
 }
 
 .sidebar-visible {
-  margin: 1%;
+  margin-left: 7px;
 }
 
 .container-one {
-  margin-left: 5px;
+  margin-left: 7px;
 }
 
 .menu-item-sidebar {
   margin-left: 10px;
 }
 .sidebar-collapsed {
-  margin: 14%;
+  margin-left: 7px;
 }
