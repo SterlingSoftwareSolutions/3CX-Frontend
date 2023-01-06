@@ -16,6 +16,7 @@
     "animated-number-react": "^0.1.2",
     "antd": "^5.0.7",
     "bootstrap": "^5.2.3",
+    "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "proptype": "^1.0.0",
@@ -56,6 +57,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://3cx-crm-backend.ap-southeast-1.elasticbeanstalk.com/"
+  }
 }
