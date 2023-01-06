@@ -13,7 +13,11 @@ const Inquiry = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [error, setError] = useState(false);
+  const [producterror, setError] = useState("");
+  const [brandError, setBrandError] = useState("");
+  const [brandAvierror, setBrandAviError] = useState("");
+  const [feedbackerror, setFeedbackError] = useState("");
+  const [followerror, setFollowError] = useState("");
   const token = localStorage.getItem("token");
   const call_type_id = localStorage.getItem("call_type_id");
   const user_id = localStorage.getItem("user_id");
@@ -57,17 +61,17 @@ const Inquiry = () => {
     { name: "Special Offer" },
     { name: "Other" },
   ]);
-  const [brand_availability, setbrand_availability] = useState([
+  const [brand_availability] = useState([
     { name: " " },
     { name: "Yes" },
     { name: "No" },
   ]);
-  const [followupStatus, setfollowupStatus] = useState([
+  const [followupStatus] = useState([
     { id: "", name: " " },
     { id: 1, name: "Follow Up" },
     { id: 0, name: "Close" },
   ]);
-  const [feedbacks, setFeedbacks] = useState([
+  const [feedbacks] = useState([
     { feedback: " " },
     { feedback: "Not Intrested" },
     { feedback: "Actively Purchasing" },
@@ -100,36 +104,110 @@ const Inquiry = () => {
   //post method
   let handleSubmit = async (e) => {
     //error message
-    if (
-      data.brand.length === 0 &&
-      data.availibility.length === 0 &&
-      data.follow.length === 0 &&
-      data.catagory.length === 0
-    ) {
-      setError(true);
+    // if (
+    //   !data.product_category &&
+    //   !data.brand &&
+    //   !data.availibility &&
+    //   !data.follow &&
+    //   !data.open
+    // ) {
+    //   setError(true);
+    //   setBrandError(true);
+    //   setBrandAviError(true);
+    //   setFeedbackError(true);
+    //   setFollowError(true);
+    // } else if (!data.product_category) {
+    //   setError(true);
+    //   setBrandError(false);
+    //   setBrandAviError(false);
+    //   setFeedbackError(false);
+    //   setFollowError(false);
+    // } else if (!data.brand) {
+    //   setError(false);
+    //   setBrandError(true);
+    //   setBrandAviError(false);
+    //   setFeedbackError(false);
+    //   setFollowError(false);
+    // } else if (!data.availibility) {
+    //   setError(false);
+    //   setBrandError(false);
+    //   setBrandAviError(true);
+    //   setFeedbackError(false);
+    //   setFollowError(false);
+    // } else if (!data.follow) {
+    //   setError(false);
+    //   setBrandError(false);
+    //   setBrandAviError(false);
+    //   setFeedbackError(true);
+    //   setFollowError(false);
+    // } else if (!data.open) {
+    //   setError(false);
+    //   setBrandError(false);
+    //   setBrandAviError(false);
+    //   setFeedbackError(false);
+    //   setFollowError(true);
+    // }
+    if (!product_category) {
+      setError("Field Required");
+    } else {
+      setError("");
+      console.log(product_category);
     }
-    data.call_type_id = call_type_id;
-    data.customer_id = customer_id;
-    data.user_id = user_id;
-    data.product_category = product_category;
-    data.user_id = user_id;
-    data.brand_availability = brand_availability_selet;
-    data.feedback = feedback;
-    data.open = followOrCloseup;
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    };
-    const responce = await fetch(api, requestOptions).then((response) =>
-      response.json()
-    );
-    console.log(JSON.stringify(responce));
-    handleClose();
+    if (!data.brand) {
+      setBrandError("Field Required");
+    } else {
+      setBrandError("");
+    }
+    if (!brand_availability_selet) {
+      setBrandAviError("Field Required");
+    } else {
+      setBrandAviError("");
+    }
+    if (!feedback) {
+      setFeedbackError("Field Required");
+    } else {
+      setFeedbackError("");
+    }
+    if (!followOrCloseup) {
+      setFollowError("Field Required");
+    } else {
+      setFollowError("");
+    }
+    if (
+      product_category &&
+      data.brand &&
+      brand_availability_selet &&
+      feedback &&
+      followOrCloseup
+    ) {
+      data.call_type_id = call_type_id;
+      data.customer_id = customer_id;
+      data.user_id = user_id;
+      data.product_category = product_category;
+      data.user_id = user_id;
+      data.brand_availability = brand_availability_selet;
+      data.feedback = feedback;
+      data.open = followOrCloseup;
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
+      };
+      const responce = await fetch(api, requestOptions).then((response) =>
+        response.json()
+      );
+      console.log(JSON.stringify(responce));
+      handleClose();
+    }
   };
+  // console.log(producterror);
+  // // console.log(setBrandError);
+  // console.log(setBrandAviError);
+  // console.log(setFeedbackError);
+  // console.log(setFollowError);
 
   //required field
   return (
@@ -157,14 +235,15 @@ const Inquiry = () => {
                   </option>
                 ))}
               </Form.Select>
+              <p className="form-validation">{producterror}</p>
               {/* error message */}
-              {error ? (
+              {/* {producterror ? (
                 <Form.Label className="form-validation">
                   This field is required
                 </Form.Label>
               ) : (
                 ""
-              )}
+              )} */}
             </Form.Group>
 
             {/* Brand or Model text line */}
@@ -177,14 +256,15 @@ const Inquiry = () => {
                 type="text"
                 placeholder="Brand or Model"
               />
+              <p className="form-validation">{brandError}</p>
               {/* error message */}
-              {error ? (
+              {/* {brandError ? (
                 <Form.Label className="form-validation">
                   This field is required
                 </Form.Label>
               ) : (
                 ""
-              )}
+              )} */}
             </Form.Group>
 
             {/* Brand Availablility */}
@@ -202,14 +282,15 @@ const Inquiry = () => {
                   </option>
                 ))}
               </Form.Select>
+              <p className="form-validation">{brandAvierror}</p>
               {/* error message */}
-              {error ? (
+              {/* {brandAvierror ? (
                 <Form.Label className="form-validation">
                   This field is required
                 </Form.Label>
               ) : (
                 ""
-              )}
+              )} */}
             </Form.Group>
 
             {/* Feedback */}
@@ -227,14 +308,15 @@ const Inquiry = () => {
                   </option>
                 ))}
               </Form.Select>
+              <p className="form-validation">{feedbackerror}</p>
               {/* error message */}
-              {error ? (
+              {/* {feedbackerror ? (
                 <Form.Label className="form-validation">
                   This field is required
                 </Form.Label>
               ) : (
                 ""
-              )}
+              )} */}
             </Form.Group>
 
             {/* Follow or Closeup */}
@@ -252,14 +334,15 @@ const Inquiry = () => {
                   </option>
                 ))}
               </Form.Select>
+              <p className="form-validation">{followerror}</p>
               {/* error message */}
-              {error ? (
+              {/* {followerror ? (
                 <Form.Label className="form-validation">
                   This field is required
                 </Form.Label>
               ) : (
                 ""
-              )}
+              )} */}
             </Form.Group>
 
             {/* Status Remark text line */}
