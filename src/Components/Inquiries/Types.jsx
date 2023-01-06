@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, createContext } from "react";
 import { Form, Modal, ModalHeader } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchArray } from "../../Utils/utils";
 
 const Types = () => {
   useEffect(() => {
     handleShow(true);
   }, []);
-
+  const navigate = useNavigate();
   //popup the page in this section
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -28,6 +28,19 @@ const Types = () => {
   useEffect(() => {
     fetchArray(api, setData);
   }, []);
+
+  //calling Api get method
+  const handleSubmit = () => {
+    navigate("/inquiry-popup", {
+      state: {
+        object: object,
+      },
+    });
+  };
+  {
+    /* do not change == to === */
+  }
+  const object = filter ? data.find((obj) => obj.id == filter) : data[0];
 
   return (
     <Modal onHide={handleClose} show={show}>
@@ -53,25 +66,14 @@ const Types = () => {
           </Form.Select>
         </Form>
         <Modal.Footer>
-          {/* close button */}
-          <Link to="/customer/:phone">
-            <Button
-              className="btn btn mt-3"
-              style={{ backgroundColor: "#16c5d5", color: "white" }}
-              onClick={handleClose}
-            >
-              Back
-            </Button>
-          </Link>
-          {/* Next button */}
-          <Link to="/inquiry-popup">
-            <Button
-              className="btn btn mt-3"
-              style={{ backgroundColor: "#16c5d5", color: "white" }}
-            >
-              Next
-            </Button>
-          </Link>
+          <Button
+            className="btn btn mt-3"
+            onClick={handleSubmit}
+            style={{ backgroundColor: "#16c5d5", color: "white" }}
+          >
+            Next
+          </Button>
+          {/* </Link> */}
         </Modal.Footer>
       </Modal.Body>
     </Modal>

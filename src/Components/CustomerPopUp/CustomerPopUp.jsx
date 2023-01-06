@@ -80,16 +80,13 @@ const CustomerPopUp = () => {
     if (!data.name && !data.location) {
       setError(true);
       setLocError(true);
-    } 
-    else if (!data.location) {
+    } else if (!data.location) {
       setLocError(true);
       setError(false);
-    } 
-    else if (!data.name) {
+    } else if (!data.name) {
       setError(true);
       setLocError(false);
-    } 
-    else {
+    } else {
       let method = Iscostomer_available ? "PUT" : "POST";
       let TempCustomerApi = Iscostomer_available
         ? customer_api + url
