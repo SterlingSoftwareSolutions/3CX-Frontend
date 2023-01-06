@@ -9,8 +9,7 @@ import { ReactComponent as UsersIcon } from "../../Assets/icons/users.svg";
 import { ReactComponent as AgentsIcon } from "../../Assets/icons/support-svgrepo-com.svg";
 import { ReactComponent as Logout } from "../../Assets/logout.svg";
 import { ReactComponent as Logo } from "../../Assets/icons/logo.svg";
-import { ReactComponent as SidebarOpen } from "../../Assets/sidebar-show.svg";
-import { ReactComponent as SidebarHide } from "../../Assets/sidebar-hide.svg";
+import { ReactComponent as SidebarOpen } from "../../Assets/hamburger-menu.svg";
 import { ReactComponent as Customers } from "../../Assets/customers.svg";
 
 const SideNavBar = () => {
@@ -55,16 +54,17 @@ const SideNavBar = () => {
             <div className="nav-heading">
               <div className="container-one">
                 <Row>
-                  {isExpanded && <Logo />}
-
                   <Button
                     type="link"
                     className={
                       isExpanded ? "sidebar-visible" : "sidebar-collapsed"
                     }
                     onClick={() => setExpandedState(!isExpanded)}
-                    icon={isExpanded ? <SidebarHide /> : <SidebarOpen />}
+                    icon={<SidebarOpen />}
                   />
+                  <span style={{ marginTop: "-14px", marginLeft: "16px" }}>
+                    {isExpanded && <Logo />}
+                  </span>
                 </Row>
               </div>
             </div>
