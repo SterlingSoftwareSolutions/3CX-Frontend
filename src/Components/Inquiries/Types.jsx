@@ -43,7 +43,7 @@ const Types = () => {
   const object = filter ? data.find((obj) => obj.id == filter) : data[0];
 
   return (
-    <Modal onHide={handleClose} show={show}>
+    <Modal onHide={handleClose} show={show} backdrop="static" keyboard={false}>
       <ModalHeader>
         {/* page header title */}
         <Modal.Title>Types</Modal.Title>
