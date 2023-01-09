@@ -9,3 +9,28 @@
 .inquiries-title {
   color: #726666;
 }
+
+.react-datepicker__input-container {
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ced4da !important;
+}
+.react-time-picker__inputGroup {
+  height: 25px;
+  margin: 5px;
+}
+.react-time-picker__wrapper {
+  border-radius: 6px;
+  border: 1px solid #ced4da !important;
+}
+.react-time-picker__inputGroup__amPm {
+  margin-left: 20px;
+}
+.react-datepicker-wrapper {
+  border-radius: 6px;
+}
+.example-custom-input {
+  background-color: white;
+  border: none;
+  margin: 5px 0 0 5px;
+}

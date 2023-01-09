@@ -12,6 +12,7 @@ import { Col, Row } from "antd";
 import Inquiry from "./Components/Inquiries/Inquiry";
 import AllInquiry from "./Components/Inquiries/Inquiries";
 import Errorpage from "./Pages/404/404";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   const loggedInUser = localStorage.getItem("authenticated");

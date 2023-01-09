@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useContext, createContext } from "react";
-import { Form, Modal, ModalHeader, InputGroup } from "react-bootstrap";
+import React, { useEffect, useState, forwardRef } from "react";
+import { Form, Modal, ModalHeader, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import "./Inquiry.css";
 import { Link, useLocation } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import TimePicker from "react-time-picker";
+import moment from "moment";
 
 const Inquiry = (props) => {
   useEffect(() => {
@@ -81,6 +84,8 @@ const Inquiry = (props) => {
     { feedback: "No answer" },
     { feedback: "Looking for Insallment plan - No credit Card" },
   ]);
+  const [followUpDate, setFollowUpDate] = useState(new Date());
+  const [time, setTime] = useState(moment().format("hh:mm"));
 
   //set path api
   const api = "/api/inquiries";
@@ -103,50 +108,6 @@ const Inquiry = (props) => {
 
   //post method
   let handleSubmit = async (e) => {
-    //error message
-    // if (
-    //   !data.product_category &&
-    //   !data.brand &&
-    //   !data.availibility &&
-    //   !data.follow &&
-    //   !data.open
-    // ) {
-    //   setError(true);
-    //   setBrandError(true);
-    //   setBrandAviError(true);
-    //   setFeedbackError(true);
-    //   setFollowError(true);
-    // } else if (!data.product_category) {
-    //   setError(true);
-    //   setBrandError(false);
-    //   setBrandAviError(false);
-    //   setFeedbackError(false);
-    //   setFollowError(false);
-    // } else if (!data.brand) {
-    //   setError(false);
-    //   setBrandError(true);
-    //   setBrandAviError(false);
-    //   setFeedbackError(false);
-    //   setFollowError(false);
-    // } else if (!data.availibility) {
-    //   setError(false);
-    //   setBrandError(false);
-    //   setBrandAviError(true);
-    //   setFeedbackError(false);
-    //   setFollowError(false);
-    // } else if (!data.follow) {
-    //   setError(false);
-    //   setBrandError(false);
-    //   setBrandAviError(false);
-    //   setFeedbackError(true);
-    //   setFollowError(false);
-    // } else if (!data.open) {
-    //   setError(false);
-    //   setBrandError(false);
-    //   setBrandAviError(false);
-    //   setFeedbackError(false);
-    //   setFollowError(true);
-    // }
     if (!product_category) {
       setError("Field Required");
     } else {
@@ -203,16 +164,21 @@ const Inquiry = (props) => {
       handleClose();
     }
   };
-  // console.log(producterror);
-  // // console.log(setBrandError);
-  // console.log(setBrandAviError);
-  // console.log(setFeedbackError);
-  // console.log(setFollowError);
 
-  //required field
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button className="example-custom-input" onClick={onClick} ref={ref}>
+      {value}
+    </button>
+  ));
+
   return (
     <div>
-      <Modal onHide={handleClose} show={show}>
+      <Modal
+        onHide={handleClose}
+        show={show}
+        backdrop="static"
+        keyboard={false}
+      >
         <ModalHeader>
           {/* page header title */}
           <Modal.Title>Add Inquiry</Modal.Title>
@@ -375,7 +341,28 @@ const Inquiry = (props) => {
                 ""
               )} */}
             </Form.Group>
-
+            {followOrCloseup == "1" ? (
+              <div>
+                {/* Select Date */}
+                <Form.Group>
+                  <Form.Label>Follow Up Date</Form.Label>
+                  <DatePicker
+                    selected={followUpDate}
+                    onChange={(date: Date) => setFollowUpDate(date)}
+                    customInput={<ExampleCustomInput />}
+                  />
+                </Form.Group>
+                {/* Select Time */}
+                <Form.Group>
+                  <Form.Label>Follow Up Time</Form.Label>
+                  <Row>
+                    <TimePicker onChange={setTime} value={time} />
+                  </Row>
+                </Form.Group>
+              </div>
+            ) : (
+              <></>
+            )}
             {/* Status Remark text line */}
             <Form.Group className="mb-3">
               <Form.Label>Status Remark</Form.Label>
