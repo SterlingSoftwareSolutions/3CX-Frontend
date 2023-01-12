@@ -12,7 +12,7 @@ const Types = () => {
   //popup the page in this section
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState(1);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 

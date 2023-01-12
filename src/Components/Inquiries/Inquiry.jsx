@@ -21,6 +21,8 @@ const Inquiry = (props) => {
   const [brandAvierror, setBrandAviError] = useState("");
   const [feedbackerror, setFeedbackError] = useState("");
   const [followerror, setFollowError] = useState("");
+  const [orderError, setOrderError] = useState("");
+  const [inqError, setInqError] = useState("");
   const [timeError, setTimeError] = useState("");
   const [dateError, setDateError] = useState("");
   const token = localStorage.getItem("token");
@@ -87,9 +89,7 @@ const Inquiry = (props) => {
     { feedback: "Looking for Insallment plan - No credit Card" },
   ]);
   const [followUpDate, setFollowUpDate] = useState(new Date());
-  const [time, setTime] = useState(moment().format("hh:mm"));
-
-  // console.log(localState, "this is State");
+  const [time, setTime] = useState(moment().format("hh:mm:ss"));
 
   //set path api
   const api = "/api/inquiries";
@@ -156,24 +156,36 @@ const Inquiry = (props) => {
       data.brand_availability = brand_availability_selet;
       data.feedback = feedback;
       data.open = followOrCloseup;
-      data.time = followUpDate + " " + time;
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
 
-     await apiRequest(api , data);
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
 
-      const dataFollowup = ({
+      const dataFollowup = {
         user_id: data.user_id,
-        customer_id:data.customer_id,
+        customer_id: data.customer_id,
         call_type_id: data.call_type_id,
         time: data.time,
-      });
+        inquiry_id: Inquiry_id_new,
+      };
 
-      await apiRequest(followUpApi , dataFollowup);
-     
+      await apiRequest(followUpApi, dataFollowup);
+
       handleClose();
     }
   };
 
   let handleSubmitTwo = async (e) => {
+    if (!data.order_id) {
+      setOrderError("Field Required");
+    } else {
+      setOrderError("");
+    }
+    if (!data.inquiry_id_ext) {
+      setInqError("Field Required");
+    } else {
+      setInqError("");
+    }
     if (!followOrCloseup) {
       setFollowError("Field Required");
     } else {
@@ -189,23 +201,32 @@ const Inquiry = (props) => {
     } else {
       setTimeError("");
     }
-    if (followOrCloseup && followUpDate && time) {
+    if (
+      data.order_id &&
+      data.inquiry_id_ext &&
+      followOrCloseup &&
+      followUpDate &&
+      time
+    ) {
       data.call_type_id = call_type_id;
       data.customer_id = customer_id;
       data.user_id = user_id;
       data.open = followOrCloseup;
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(data),
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
       };
-      const responce = await fetch(api, requestOptions).then((response) =>
-        response.json()
-      );
-      // console.log(JSON.stringify(responce));
+
+      await apiRequest(followUpApi, dataFollowup);
+
       handleClose();
     }
   };
@@ -231,18 +252,65 @@ const Inquiry = (props) => {
       data.customer_id = customer_id;
       data.user_id = user_id;
       data.open = followOrCloseup;
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(data),
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
       };
-      const responce = await fetch(api, requestOptions).then((response) =>
-        response.json()
-      );
-     
+
+      await apiRequest(followUpApi, dataFollowup);
+
+      handleClose();
+    }
+  };
+
+  let handleSubmitFour = async (e) => {
+    if (!data.inquiry_id_ext) {
+      setInqError("Field Required");
+    } else {
+      setInqError("");
+    }
+    if (!followOrCloseup) {
+      setFollowError("Field Required");
+    } else {
+      setFollowError("");
+    }
+    if (!followUpDate) {
+      setDateError("Field Required");
+    } else {
+      setDateError("");
+    }
+    if (!time) {
+      setTimeError("Field Required");
+    } else {
+      setTimeError("");
+    }
+    if (data.inquiry_id_ext && followOrCloseup && followUpDate && time) {
+      data.call_type_id = call_type_id;
+      data.customer_id = customer_id;
+      data.user_id = user_id;
+      data.open = followOrCloseup;
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
+      };
+
+      await apiRequest(followUpApi, dataFollowup);
       handleClose();
     }
   };
@@ -259,48 +327,9 @@ const Inquiry = (props) => {
     const response = await fetch(followUpApi, requestOptions).then((response) =>
       response.json()
     );
-    console.log(followUpApi);
-     console.log(JSON.stringify(response));
+    console.log(response);
     return response;
   };
-
-  let handleSubmitFour = async (e) => {
-    if (!followOrCloseup) {
-      setFollowError("Field Required");
-    } else {
-      setFollowError("");
-    }
-    if (!followUpDate) {
-      setDateError("Field Required");
-    } else {
-      setDateError("");
-    }
-    if (!time) {
-      setTimeError("Field Required");
-    } else {
-      setTimeError("");
-    }
-    if (followOrCloseup && followUpDate && time) {
-      data.call_type_id = call_type_id;
-      data.customer_id = customer_id;
-      data.user_id = user_id;
-      data.open = followOrCloseup;
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(data),
-      };
-      const responce = await fetch(api, requestOptions).then((response) =>
-        response.json()
-      );
-      // console.log(JSON.stringify(responce));
-      handleClose();
-    }
-  };
-  // console.log(data);
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input" onClick={onClick} ref={ref}>
@@ -412,6 +441,7 @@ const Inquiry = (props) => {
                     type="text"
                     placeholder="Order ID"
                   />
+                  <p className="form-validation">{orderError}</p>
                 </Form.Group>
                 {/* Inquiry Id text line */}
                 <Form.Group className="mb-3">
@@ -425,6 +455,7 @@ const Inquiry = (props) => {
                     type="text"
                     placeholder="Inquiry ID"
                   />
+                  <p className="form-validation">{inqError}</p>
                 </Form.Group>
               </div>
             ) : (
@@ -476,6 +507,7 @@ const Inquiry = (props) => {
                 ""
               )} */}
             </Form.Group>
+
             {followOrCloseup == "1" ? (
               <div>
                 {/* Select Date */}
@@ -484,6 +516,7 @@ const Inquiry = (props) => {
                   <DatePicker
                     selected={followUpDate}
                     onSelect={(date) => setFollowUpDate(date)}
+                    dateFormat="MM/dd/yyyy"
                   />
                   <p className="form-validation">{dateError}</p>
                 </Form.Group>
@@ -502,6 +535,7 @@ const Inquiry = (props) => {
             ) : (
               <></>
             )}
+
             {/* Status Remark text line */}
             <Form.Group className="mb-3">
               <Form.Label>Status Remark</Form.Label>
