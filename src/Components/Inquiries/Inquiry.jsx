@@ -21,6 +21,10 @@ const Inquiry = (props) => {
   const [brandAvierror, setBrandAviError] = useState("");
   const [feedbackerror, setFeedbackError] = useState("");
   const [followerror, setFollowError] = useState("");
+  const [orderError, setOrderError] = useState("");
+  const [inqError, setInqError] = useState("");
+  const [timeError, setTimeError] = useState("");
+  const [dateError, setDateError] = useState("");
   const token = localStorage.getItem("token");
   const call_type_id = localStorage.getItem("call_type_id");
   const user_id = localStorage.getItem("user_id");
@@ -85,10 +89,11 @@ const Inquiry = (props) => {
     { feedback: "Looking for Insallment plan - No credit Card" },
   ]);
   const [followUpDate, setFollowUpDate] = useState(new Date());
-  const [time, setTime] = useState(moment().format("hh:mm"));
+  const [time, setTime] = useState(moment().format("hh:mm:ss"));
 
   //set path api
   const api = "/api/inquiries";
+  const followUpApi = "/api/follow_ups";
 
   const [data, setData] = useState({
     brand: "",
@@ -100,6 +105,8 @@ const Inquiry = (props) => {
     user_id: "",
     customer_id: "",
     call_type_id: "",
+    inquiry_id_ext: "",
+    order_id: "",
   });
 
   const onChangeValue = (key, value) => {
@@ -107,12 +114,11 @@ const Inquiry = (props) => {
   };
 
   //post method
-  let handleSubmit = async (e) => {
+  let handleSubmitOne = async (e) => {
     if (!product_category) {
       setError("Field Required");
     } else {
       setError("");
-      console.log(product_category);
     }
     if (!data.brand) {
       setBrandError("Field Required");
@@ -145,24 +151,182 @@ const Inquiry = (props) => {
       data.customer_id = customer_id;
       data.user_id = user_id;
       data.product_category = product_category;
-      data.user_id = user_id;
       data.brand_availability = brand_availability_selet;
       data.feedback = feedback;
       data.open = followOrCloseup;
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(data),
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
       };
-      const responce = await fetch(api, requestOptions).then((response) =>
-        response.json()
-      );
-      console.log(JSON.stringify(responce));
+
+      await apiRequest(followUpApi, dataFollowup);
+
       handleClose();
     }
+  };
+
+  let handleSubmitTwo = async (e) => {
+    if (!data.order_id) {
+      setOrderError("Field Required");
+    } else {
+      setOrderError("");
+    }
+    if (!data.inquiry_id_ext) {
+      setInqError("Field Required");
+    } else {
+      setInqError("");
+    }
+    if (!followOrCloseup) {
+      setFollowError("Field Required");
+    } else {
+      setFollowError("");
+    }
+    if (!followUpDate) {
+      setDateError("Field Required");
+    } else {
+      setDateError("");
+    }
+    if (!time) {
+      setTimeError("Field Required");
+    } else {
+      setTimeError("");
+    }
+    if (
+      data.order_id &&
+      data.inquiry_id_ext &&
+      followOrCloseup &&
+      followUpDate &&
+      time
+    ) {
+      data.call_type_id = call_type_id;
+      data.customer_id = customer_id;
+      data.user_id = user_id;
+      data.open = followOrCloseup;
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
+      };
+
+      await apiRequest(followUpApi, dataFollowup);
+
+      handleClose();
+    }
+  };
+
+  let handleSubmitThree = async (e) => {
+    if (!followOrCloseup) {
+      setFollowError("Field Required");
+    } else {
+      setFollowError("");
+    }
+    if (!followUpDate) {
+      setDateError("Field Required");
+    } else {
+      setDateError("");
+    }
+    if (!time) {
+      setTimeError("Field Required");
+    } else {
+      setTimeError("");
+    }
+    if (followOrCloseup && followUpDate && time) {
+      data.call_type_id = call_type_id;
+      data.customer_id = customer_id;
+      data.user_id = user_id;
+      data.open = followOrCloseup;
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
+      };
+
+      await apiRequest(followUpApi, dataFollowup);
+
+      handleClose();
+    }
+  };
+
+  let handleSubmitFour = async (e) => {
+    if (!data.inquiry_id_ext) {
+      setInqError("Field Required");
+    } else {
+      setInqError("");
+    }
+    if (!followOrCloseup) {
+      setFollowError("Field Required");
+    } else {
+      setFollowError("");
+    }
+    if (!followUpDate) {
+      setDateError("Field Required");
+    } else {
+      setDateError("");
+    }
+    if (!time) {
+      setTimeError("Field Required");
+    } else {
+      setTimeError("");
+    }
+    if (data.inquiry_id_ext && followOrCloseup && followUpDate && time) {
+      data.call_type_id = call_type_id;
+      data.customer_id = customer_id;
+      data.user_id = user_id;
+      data.open = followOrCloseup;
+      data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
+
+      const response = await apiRequest(api, data);
+      const Inquiry_id_new = response.data.id;
+
+      const dataFollowup = {
+        user_id: data.user_id,
+        customer_id: data.customer_id,
+        call_type_id: data.call_type_id,
+        time: data.time,
+        inquiry_id: Inquiry_id_new,
+      };
+
+      await apiRequest(followUpApi, dataFollowup);
+      handleClose();
+    }
+  };
+
+  let apiRequest = async (followUpApi, apiData) => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(apiData),
+    };
+    const response = await fetch(followUpApi, requestOptions).then((response) =>
+      response.json()
+    );
+    console.log(response);
+    return response;
   };
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -269,27 +433,27 @@ const Inquiry = (props) => {
                 <Form.Group className="mb-3">
                   <Form.Label>Order ID</Form.Label>
                   <Form.Control
-                    onChange={(e) =>
-                      onChangeValue("status_remark", e.target.value)
-                    }
+                    onChange={(e) => onChangeValue("order_id", e.target.value)}
                     id="order_id"
-                    value={data.status_remark}
+                    value={data.order_id}
                     type="text"
                     placeholder="Order ID"
                   />
+                  <p className="form-validation">{orderError}</p>
                 </Form.Group>
                 {/* Inquiry Id text line */}
                 <Form.Group className="mb-3">
                   <Form.Label>Inquiry ID</Form.Label>
                   <Form.Control
                     onChange={(e) =>
-                      onChangeValue("status_remark", e.target.value)
+                      onChangeValue("inquiry_id_ext", e.target.value)
                     }
                     id="inquiry_id"
-                    value={data.status_remark}
+                    value={data.inquiry_id_ext}
                     type="text"
                     placeholder="Inquiry ID"
                   />
+                  <p className="form-validation">{inqError}</p>
                 </Form.Group>
               </div>
             ) : (
@@ -303,10 +467,10 @@ const Inquiry = (props) => {
                   <Form.Label>Inquiry ID</Form.Label>
                   <Form.Control
                     onChange={(e) =>
-                      onChangeValue("status_remark", e.target.value)
+                      onChangeValue("inquiry_id_ext", e.target.value)
                     }
                     id="inquiry_id"
-                    value={data.status_remark}
+                    value={data.inquiry_id_ext}
                     type="text"
                     placeholder="Inquiry ID"
                   />
@@ -331,16 +495,11 @@ const Inquiry = (props) => {
                   </option>
                 ))}
               </Form.Select>
+               {/* error message */}
               <p className="form-validation">{followerror}</p>
-              {/* error message */}
-              {/* {followerror ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )} */}
+             
             </Form.Group>
+
             {followOrCloseup == "1" ? (
               <div>
                 {/* Select Date */}
@@ -348,21 +507,27 @@ const Inquiry = (props) => {
                   <Form.Label>Follow Up Date</Form.Label>
                   <DatePicker
                     selected={followUpDate}
-                    onChange={(date: Date) => setFollowUpDate(date)}
-                    customInput={<ExampleCustomInput />}
+                    onSelect={(date) => setFollowUpDate(date)}
+                    dateFormat="MM/dd/yyyy"
                   />
+                  <p className="form-validation">{dateError}</p>
                 </Form.Group>
                 {/* Select Time */}
                 <Form.Group>
                   <Form.Label>Follow Up Time</Form.Label>
                   <Row>
-                    <TimePicker onChange={setTime} value={time} />
+                    <TimePicker
+                      value={time}
+                      onChange={(time) => setTime(time)}
+                    />
+                    <p className="form-validation">{timeError}</p>
                   </Row>
                 </Form.Group>
               </div>
             ) : (
               <></>
             )}
+
             {/* Status Remark text line */}
             <Form.Group className="mb-3">
               <Form.Label>Status Remark</Form.Label>
@@ -392,7 +557,13 @@ const Inquiry = (props) => {
           <Button
             className="btn btn mt-3"
             style={{ backgroundColor: "#16c5d5", color: "white" }}
-            onClick={(e) => handleSubmit(e)}
+            onClick={(e) => {
+              if (localState.call_type_group_id === 1) handleSubmitOne(e);
+              if (localState.call_type_group_id === 2) handleSubmitTwo(e);
+              if (localState.call_type_group_id === 3) handleSubmitThree(e);
+              if (localState.call_type_group_id === 4) handleSubmitFour(e);
+              if (localState.call_type_group_id === 5) handleSubmitThree(e);
+            }}
           >
             Save
           </Button>
