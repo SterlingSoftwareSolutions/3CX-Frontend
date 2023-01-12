@@ -115,12 +115,10 @@ const Inquiry = (props) => {
 
   //post method
   let handleSubmitOne = async (e) => {
-    // console.log("text");
     if (!product_category) {
       setError("Field Required");
     } else {
       setError("");
-      // console.log(product_category);
     }
     if (!data.brand) {
       setBrandError("Field Required");
@@ -497,15 +495,9 @@ const Inquiry = (props) => {
                   </option>
                 ))}
               </Form.Select>
+               {/* error message */}
               <p className="form-validation">{followerror}</p>
-              {/* error message */}
-              {/* {followerror ? (
-                <Form.Label className="form-validation">
-                  This field is required
-                </Form.Label>
-              ) : (
-                ""
-              )} */}
+             
             </Form.Group>
 
             {followOrCloseup == "1" ? (
