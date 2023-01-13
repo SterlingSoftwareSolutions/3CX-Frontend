@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sterlingbpo.com.au",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -59,5 +60,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://3cx-crm-backend.ap-southeast-1.elasticbeanstalk.com/"
+  "proxy": "http://backend.sterlingbpo.com.au/"
 }
