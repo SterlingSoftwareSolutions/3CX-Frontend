@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^api/(.*)$ /backend/api/$1 [P,L]
+  RewriteRule ^api/(.*) backend/api/$1 [L]
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
