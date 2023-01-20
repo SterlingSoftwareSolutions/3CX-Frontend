@@ -313,6 +313,24 @@ const Inquiry = (props) => {
     }
   };
 
+  let handleSubmit = () => {
+   
+    if (localState.call_type_group_id == 1) {
+      handleSubmitOne();
+    }
+    if (localState.call_type_group_id == 2) {
+      handleSubmitTwo();
+    }
+    if (localState.call_type_group_id == 3) {
+      handleSubmitThree();
+    }
+    if (localState.call_type_group_id == 4) {
+      handleSubmitFour();
+    }
+    if (localState.call_type_group_id == 5) {
+      handleSubmitThree();
+    }
+  };
   let apiRequest = async (followUpApi, apiData) => {
     const requestOptions = {
       method: "POST",
@@ -495,9 +513,9 @@ const Inquiry = (props) => {
                   </option>
                 ))}
               </Form.Select>
-               {/* error message */}
+              {/* error message */}
               <p className="form-validation">{followerror}</p>
-             
+
             </Form.Group>
 
             {followOrCloseup == "1" ? (
@@ -558,11 +576,7 @@ const Inquiry = (props) => {
             className="btn btn mt-3"
             style={{ backgroundColor: "#16c5d5", color: "white" }}
             onClick={(e) => {
-              if (localState.call_type_group_id === 1) handleSubmitOne(e);
-              if (localState.call_type_group_id === 2) handleSubmitTwo(e);
-              if (localState.call_type_group_id === 3) handleSubmitThree(e);
-              if (localState.call_type_group_id === 4) handleSubmitFour(e);
-              if (localState.call_type_group_id === 5) handleSubmitThree(e);
+              handleSubmit(e);
             }}
           >
             Save
