@@ -1,17 +1,17 @@
 on:
   push:
     branches:
-      - staging
-name: 🚀 Deploy website on push
+      - Staging
+name: Deploy Staging on Push
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     env:
       CI: false
 
     steps:
-    - name: 🚚 Get latest code
+    - name: Get latest code
       uses: actions/checkout@v2
     
     - name: Setup Node.js
@@ -25,10 +25,10 @@ jobs:
     - name: Build project
       run: npm run build
 
-    - name: 📂 Sync files
+    - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: 68.178.148.226
         local-dir: ./build/
-        username: ${{ secrets.ftp_staging_username }}
-        password: ${{ secrets.ftp_staging_password }}
+        username: ${{ secrets.ftp_username_staging }}
+        password: ${{ secrets.ftp_password_staging }}

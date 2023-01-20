@@ -1,17 +1,17 @@
 on:
   push:
     branches:
-      - main
-name: 🚀 Deploy website on push
+      - Develop
+name: Deploy Develop on Push
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: Deploy
     runs-on: ubuntu-latest
     env:
       CI: false
 
     steps:
-    - name: 🚚 Get latest code
+    - name: Get latest code
       uses: actions/checkout@v2
     
     - name: Setup Node.js
@@ -20,15 +20,15 @@ jobs:
         node-version: 16
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     
     - name: Build project
       run: npm run build
 
-    - name: 📂 Sync files
+    - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
         server: 68.178.148.226
         local-dir: ./build/
-        username: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }}
+        username: ${{ secrets.ftp_username_dev }}
+        password: ${{ secrets.ftp_password_dev }}
