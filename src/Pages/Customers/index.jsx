@@ -9,6 +9,7 @@ const CustomerTable = () => {
       email: "",
       name: "",
       created_at: "",
+      location:"",
     },
   ]);
 
@@ -37,6 +38,12 @@ const CustomerTable = () => {
       dataIndex: "comment",
       key: "address",
     },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "address",
+    },
+
   ];
   //Get api url
   const api = "/api/customers";
