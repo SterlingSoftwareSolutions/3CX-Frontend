@@ -1,0 +1,12 @@
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .chart-container > div {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
