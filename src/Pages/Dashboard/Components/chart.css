@@ -1,12 +1,65 @@
-.chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-  }
+.container-piechart h4{
+  padding-top: 5px;
+  text-align: center;
+ 
+}
+.container-piechart h5{
+  text-align: center;
+}
 
-  .chart-container > div {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.container-piechart{
+  width:730px;
+  background-color: rgb(255, 255, 255);
+  height: 600px;
+  margin-top: 160px;
+  border-radius: 20px;
+  border: 0.5px solid beige;
+}
+.chart-container{
+
+}
+.dashboard-chart{
+  display: flex;
+  width: 100%;
+  margin-top: -40em;
+}
+
+.recharts-surface{
+  margin-top: -100px !important;
+  width: 300px !important;
+  margin-left: 50px;
+  margin-bottom: 200px;
+}
+
+.call-type h6{
+  margin-top: -500px !important;
+  margin-left: 120px;
+}
+
+.chart-value1{
+  margin-top: 10em !important;
+  margin-left: 25px!important;
+}
+.chart-value2{
+  margin-top: -2px!important;
+  margin-left: 25px!important;
+}
+
+.chart-side-box1{
+  width: 10px;
+  height: 10px;
+  border: 1px solid #0081B4;
+  box-sizing: border-box;
+  background-color: #0081B4;
+  margin-top: -45px;
+  margin-left: 10px;
+}
+.chart-side-box2{
+  width: 10px;
+  height: 10px;
+  border: 1px solid #39B5E0;
+  box-sizing: border-box;
+  background-color: #39B5E0;
+  margin-top: 10px;
+  margin-left: 10px;
 }
