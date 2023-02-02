@@ -14,9 +14,15 @@
     height: 300px;
 }
 
-.table-head h6 {
-  margin-top: -38px !important;
+.table-head .link01 {
+  margin-top: -37px !important;
   padding-top: 15px !important;
+  border: none;
+}
+.table-head .link02 {
+  margin-top: -42px !important;
+  padding-top: 15px !important;
+  margin-left: 50px;
 }
 
 .table-name {
@@ -53,14 +59,15 @@
   transition: all 0.5s;
   cursor: pointer;
   display: inline-block;
+  font-weight: 500;
 }
 
 .btn:after {
     content: '»';
     position: absolute;
     opacity: 0;  
-    top: 110px;
-    left: 63.2em;
+    top: 118px;
+    left: 62em;
     transition: 0.5s;
     color: #fff;
   }
@@ -91,5 +98,20 @@
 .btn-icon {
   margin-left: 840px;
   margin-top: -50px;
+}
+.dropdown{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border: none;
+}
+.dropdown:empty{
+  border: none;
+}
+.dropdown-row{
+  cursor: pointer;
+  text-align: start;
+  margin: 2px 0;
 }
 

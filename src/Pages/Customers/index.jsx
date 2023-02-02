@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, swall } from "react";
 import Table from "../../Components/table/table";
 import { fetchArray } from "../../Utils/utils";
 import "./index.css";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
-import { Button,Popconfirm,Space,Form } from "antd";
-import {MdDelete} from 'react-icons/md';
-import {FiEdit} from 'react-icons/fi';
+import { Button, Popconfirm, Space, Form } from "antd";
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import {} from "@mui/icons-material";
+import axios from "axios";
 
+const editURl = "";
 
+const CustomerTable = (history) => {
+  const [editRowKey, setEditRowKey] = useState("");
+  const [form] = Form.useForm();
 
-const CustomerTable = () => {
-  const [editRowKey, setEditRowKey] = useState("")
-  const [searchTerm, setSearchTerm] = useState('');
-  const [form] = Form.useForm()
   const [data, setData] = useState([
     {
       id: 1,
@@ -24,18 +27,42 @@ const CustomerTable = () => {
     },
   ]);
 
-  const isEditing = (record) => {
-    return record.key === editRowKey; 
+  function onEdit(history, endURL) {
+    let tempURL = endURL;
+    return function (data) {
+      history.push({ pathname: tempURL, state: { ...data } });
+    };
   }
+  const editItem = onEdit(history, editURl);
+
+  const isEditing = (record) => {
+    return record.key === editRowKey;
+  };
 
   const edit = (record) => {
     form.setFieldsValue({
       name: "",
       email: "",
-      message: "", 
-      ...record
+      message: "",
+      ...record,
     });
-    setEditRowKey(record.key); 
+    setEditRowKey(record.key);
+  };
+
+  const deleteCatagory = (e, customerAddress) => {
+    e.preventDefault();
+    const thisClicked = e.currentTarget;
+    thisClicked.innerText = "Deleting";
+
+    api.delete(`/api/customers/CustomerAddress${customerAddress}`).then((res) => {
+      if (res.data.status === 200) {
+        swall("success", res.data.message, "success");
+        thisClicked.closest("columns").remove();
+      } else if (res.data.status === 404) {
+        swall("success", res.data.message, "success");
+        thisClicked.innerText = "Delete";
+      }
+    });
   };
 
   const columns = [
@@ -46,7 +73,6 @@ const CustomerTable = () => {
     {
       title: "Name",
       dataIndex: "name",
-      
     },
     {
       title: "Email",
@@ -71,35 +97,40 @@ const CustomerTable = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: (key, record) =>{
+      render: (key, record) => {
         const editable = isEditing(record);
         return data.length >= 1 ? (
           <Space>
-            <Popconfirm
+            {/* <Popconfirm
               title="Are you sure want to delete?"
-              onConfirm={() => handleDelete(record)}
-            >
-           {/* delete button */}
-          <Button style={{ width: '47px', height: '47px',border:'none' }}>
-            <MdDelete  style={{ width: '40px', height: '40px' }}/>
-          </Button>
-
-            </Popconfirm>
-            {editable ?(
+              > */}
+            {/* delete button */}
+            <Button style={{ width: "47px", height: "47px", border: "none" }}>
+              <MdDelete
+                style={{ width: "40px", height: "40px" }}
+                onClick={(e) => deleteCatagory(e, data.id)}
+              />
+            </Button>
+            {/* </Popconfirm> */}
+            {editable ? (
               <span>
                 <Space size={"middle"}>
-                 
-        {/* edit button */}
-         <Button  style={{ width: '50px', height: '50px',border:'none' }}>
-          <FiEdit style={{ width: '40px', height: '40px' }}/>
-          </Button>
-                                   
+                  {/* edit button */}
+
+                  <Button
+                    style={{ width: "50px", height: "50px", border: "none" }}>
+                    <FiEdit style={{ width: "40px", height: "40px" }} />
+                  </Button>
                 </Space>
               </span>
-            ):(
-              <Button onClick={() => edit(record)} style={{ width: '50px', height: '50px',border:'none' }} >
-                <FiEdit style={{ width: '40px', height: '40px' }}/>
-              </Button>
+            ) : (
+              <Link to="/Editcustomer">
+                <Button
+                  onClick={() => editItem}
+                  style={{ width: "50px", height: "50px", border: "none" }}>
+                  <FiEdit style={{ width: "40px", height: "40px" }} />
+                </Button>
+              </Link>
             )}
           </Space>
         ) : null;
@@ -114,20 +145,43 @@ const CustomerTable = () => {
     fetchArray(api, setData);
   }, []);
 
-  //delete action row 
-  const handleDelete = (value) => {
-    const dataSource = [...data];
-    const filteredData = dataSource.filter((record) => record.id !== value.id);
-    setData(filteredData);
-  }
+  //delete action row
 
-  //serach text
-  const filteredData = data.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  //search data
+  const [value, setValue] = useState("");
+
+  const onChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const onSearch = (searchTerm) => {
+    setValue(searchTerm);
+    //our api to fetch the search result
+    console.log("search", searchTerm);
+  };
+
+
+  //search item 
+  
+    const [query, setQuery] = useState("");
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await axios.get(`/api/customers?q=${query}`);
+        setData(res.data);
+      };
+      if (query.length === 0 || query.length > 2) fetchData();
+    }, [query]);
+console.log(query);
 
   return (
     <div className="table-container">
       <div className="table-head">
-        <h6> Home / Customer</h6>
+        <Link to="/">
+          {" "}
+          <h6 className="link01"> Home </h6>{" "}
+        </Link>
+        <h6 className="link02">/ Customer</h6>
         <div className="table-name">
           <h3>Customers</h3>
           <form className="search">
@@ -135,29 +189,30 @@ const CustomerTable = () => {
               type="text"
               name="text"
               placeholder="Search Name"
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={value}
+              onChange={(e) => setQuery(e.target.value.toLowerCase())}
             />
             <div className="serach-icon">
-            <Button>
-              <BsSearch />
-            </Button>
+              {/* globalSearch */}
+              <Button onClick={() => onSearch(value)}>
+                <BsSearch />
+              </Button>
             </div>
+           
           </form>
-
-          <div className="btn">
-            <input type="button" value="Add Customer" />
-          </div>
+          <Link to="/AddCustomer">
+            <div className="btn">
+              <input type="button" value="Add Customer" />
+            </div>
+          </Link>
           <div className="btn-icon">
-            <MdPersonAddAlt1  style={{ width: '25px', height: '25px' }} />
+            <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
         </div>
 
-        <Table className='data-table' dataSource={filteredData} users={data} columns={columns} />
-       
+        <Table className="data-table" users={data} columns={columns} />
       </div>
-     
     </div>
-   
   );
 };
 export default CustomerTable;
