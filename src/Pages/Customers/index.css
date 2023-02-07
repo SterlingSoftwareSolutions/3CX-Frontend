@@ -6,12 +6,16 @@
 }
 .table-head {
   width: 1065px;
-  height: 680px;
+  height:700px;
   margin-left: 20px;
 }
 
-.data-table{
+/* .data-table{
     height: 300px;
+} */
+.Data_table{
+  height: 300px;
+  width: 450px;
 }
 
 .table-head .link01 {
@@ -114,4 +118,17 @@
   text-align: start;
   margin: 2px 0;
 }
+.delete-btn{
+margin-left: -110px !important;
+width: 43px !important;
+height: 43px !important;
+border: "none";
+}
+.edit-btn{
+margin-top: 20px;
+width: 43px !important;
+height: 43px !important;
+border: "none";
+}
+
 

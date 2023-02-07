@@ -14,7 +14,33 @@ export const AddCustomer = () => {
   const post_email = useRef(null);
   const post_location = useRef(null);
   const post_comment = useRef(null);
+  const post_address = useRef(null);
   const token = localStorage.getItem("token");
+
+  const [message , setMessage] = useState([{
+    name:'',
+    phone:'',
+    email:'',
+    location:'',
+    comment:'',
+    address:''
+  }]);
+
+
+  const handleChange = event =>{
+    setMessage(event.target.value);
+  };
+
+  const handleClick =() =>{
+    setMessage([...message,{
+      name:'',
+      phone:'',
+      email:'',
+      location:'',
+      comment:'',
+      address:''
+    }]);
+  }
 
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
@@ -26,8 +52,11 @@ export const AddCustomer = () => {
       email: post_email.current.value,
       location: post_location.current.value,
       comment: post_comment.current.value,
+      address:post_address.current.value,
     };
+
     try {
+      
       const res = await fetch(`${baseURL}/customers`, {
         method: "post",
         headers: {
@@ -58,10 +87,7 @@ export const AddCustomer = () => {
     }
   }
 
-  const clearPostOutput = () => {
-    setPostResult(null);
-  }
-
+ 
   return (
     <div className='container1'>
         <Link to ='/'><h6 className='link01'>Home </h6> </Link>
@@ -76,6 +102,8 @@ export const AddCustomer = () => {
           name="name"
           ref={post_phone}
           placeholder="Enter Customer Phone Number"
+          value={message}
+          onChange={handleChange}
         />
         <label>E-mail</label>
         <input
@@ -83,6 +111,8 @@ export const AddCustomer = () => {
           name="email"
           ref={post_email}
           placeholder="Enter Customer E-mail"
+          // value={message}
+          onChange={handleChange}
         />
         <label>Location</label>
         <input
@@ -90,6 +120,8 @@ export const AddCustomer = () => {
           name="name"
           ref={post_location}
           placeholder="Enter Customer Location"
+          // value={message}
+          onChange={handleChange}
         />
       </div>
 
@@ -100,12 +132,17 @@ export const AddCustomer = () => {
           name="name"
           ref={post_name}
           placeholder="Enter Customer Name"
+          // value={message}
+          onChange={handleChange}
         />
         <label>Customer Address</label>
         <input
           type="text"
           name="name"
           placeholder="Enter Customer Address"
+          ref={post_address}
+          onChange={handleChange}
+          // value={message}
         />
         <label>Comment</label>
         <textarea
@@ -113,6 +150,8 @@ export const AddCustomer = () => {
           rows={2}
           placeholder="Enter Customer Commnet"
           ref={post_comment}
+          onChange={handleChange}
+          // value={message}
         />
       </div>
 
@@ -120,7 +159,7 @@ export const AddCustomer = () => {
             <Button className='btn-save' onClick={postData}>
               Save
             </Button>
-            <Button className='cansel' onClick={clearPostOutput}>Cansel</Button>
+            <Button className='cansel' onClick={handleClick}>Cansel</Button>
         </div>
        
     </div>

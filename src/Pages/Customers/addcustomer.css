@@ -85,6 +85,10 @@ body{
     color: white;
     border-radius: 15px;
 }
+.container-btn .btn-save::after{
+    background-color: rgb(0, 60, 255);
+    color: aquamarine;
+}
 
 .container-btn .cansel{
     width: 100px;

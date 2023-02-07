@@ -38,6 +38,7 @@
     "react-swal": "^4.0.0",
     "react-time-picker": "^5.1.0",
     "recharts": "^2.2.0",
+    "sweetalert2": "^11.7.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
