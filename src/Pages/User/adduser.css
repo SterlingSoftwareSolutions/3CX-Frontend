@@ -1,0 +1,107 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.container1 {
+  background-color: rgb(241, 239, 239);
+  margin-top: 70px !important;
+  margin-left: 30px !important;
+  height: 400px;
+  border-radius: 20px;
+  width: 900px !important;
+}
+.container1 .link01 {
+  padding-top: 45px;
+  padding-left: 40px;
+  font-size: 1em;
+  font-weight: 500;
+}
+.container1 .link02 {
+  margin-top: -25px;
+  padding-left: 85px;
+  font-size: 1em;
+  font-weight: 500;
+}
+.container1 .link03 {
+  margin-top: -25px;
+  padding-left: 160px;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.container1 h4 {
+  padding-top: 20px;
+  padding-left: 40px;
+}
+
+/* colomn start */
+.grid-container {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  padding-left: 40px;
+  line-height: 40px;
+}
+
+.grid-container input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+}
+.grid-container-two {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  margin-left: 450px;
+  line-height: 40px;
+  margin-top: -243px;
+  border: none;
+}
+
+.grid-container-two input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.grid-container-two textarea {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+}
+.grid-container select {
+  border: none;
+  border-radius: 1px solid black;
+  height: 35px;
+}
+/* end column */
+
+.container-btn {
+  margin-left: 600px !important;
+  margin-top: 45px;
+}
+.container-btn .btn-save {
+  margin-right: 30px;
+  width: 100px;
+  background-color: aqua;
+  font-weight: 700;
+  font-size: medium;
+  height: 40px;
+  color: white;
+  border-radius: 15px;
+}
+.container-btn .btn-save::after {
+  background-color: rgb(0, 60, 255);
+  color: aquamarine;
+}
+
+.container-btn .cansel {
+  width: 100px;
+  height: 40px;
+  background-color: aqua;
+  font-weight: 700;
+  font-size: medium;
+  color: white;
+  border-radius: 15px;
+}
