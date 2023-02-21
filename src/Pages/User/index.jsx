@@ -8,7 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./index.css";
+import "./index1.css";
 
 const Users = () => {
   const [data, setData] = useState([
@@ -117,10 +117,10 @@ const Users = () => {
           {" "}
           <h6 className="link01"> Home </h6>{" "}
         </Link>
-        
+
         <h6 className="link02"> / User</h6>
         <div className="table-name">
-        
+          <h4>User Page </h4>
           <form className="search">
             <input
               type="text"

@@ -26,20 +26,27 @@ export const Adduser = () => {
       userrole: "",
     });
   };
+  
 
   const options = ["Admin", "User", "Agent"];
   const onOptionChangeHandler = (event) => {
     console.log("User Selected Value - ", event.target.value);
   };
 
+
   const handleSave = async () => {};
+
+
+
+
+
 
   return (
     <div className="container1">
       <Link to="/">
         <h6 className="link01">Home </h6>{" "}
       </Link>
-      <Link to="/adduser">
+      <Link to="/users">
         <h6 className="link02">/ User </h6>{" "}
       </Link>
       <h6 className="link03">/ Add User</h6>
