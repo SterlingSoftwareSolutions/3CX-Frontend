@@ -3,72 +3,103 @@ import { Button } from "antd";
 import "./editcustomer.css";
 import { Link, useParams } from "react-router-dom";
 
-
 export const Editcustomer = () => {
-
-  const { phone } = useParams();
-
-  const [location, setLocation] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [comment, setComment] = useState("");
-  const [address, setAddress] = useState("");
+  const { id, phone } = useParams();
   const token = localStorage.getItem("token");
+  const [customerAddress, setCustomerAddress] = useState([]);
   const [customerDetails, setCustomerDetails] = useState({
-    phone:'',
-    location:"",
-    name:"",
-    email:"",
-    comment:"",
-    address:"",
+    phone: "",
+    location: "",
+    name: "",
+    email: "",
+    comment: "",
+    address: "",
   });
 
-  console.log(customerDetails,"this is cusdetails");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const customerDetails = { name, email, location, comment, address, };
-
-    fetch("/api/customers/" + phone, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(customerDetails),
-      Authorization: "Bearer " + token,
-    })
-      .then(() => {
-        alert("Saved successfully.");
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
+  //  clear function
+  const clearCustomerDetails = () => {
+    setCustomerDetails({
+      phone: "",
+      location: "",
+      name: "",
+      email: "",
+      comment: "",
+      address: "",
+    });
   };
 
-const fetchLocations = useCallback(async () => {
-  // const queryParams = new URLSearchParams(phone); ${queryParams}
-      const headers = new Headers({
-           Authorization: "Bearer " + token,
+  const fetchLocations = useCallback(async () => {
+    const queryParams = new URLSearchParams();
+    queryParams.set("phone", phone);
+
+    const headers = new Headers({
+      Authorization: "Bearer " + token,
+    });
+    try {
+      let fetchData = await fetch(`/api/customers/?${queryParams}`, {
+        headers,
       });
-  try {
-    let fetchData = await fetch("/api/customers/"  , { headers });
-    fetchData = await fetchData.json();
-    if (fetchData.error) {
-      throw new Error(fetchData.error);
-    } else {
-      setCustomerDetails(fetchData.data);
+      fetchData = await fetchData.json();
+      if (fetchData) {
+        console.log(fetchData);
+        setCustomerDetails(fetchData);
+        setCustomerAddress(fetchData.customer_address);
+      } else if (fetchData.error) {
+        throw new Error(fetchData.error);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-}, []);
+  }, []);
+  // console.log(customerAddress);
 
+  const handlePhoneChange = (event) => {
+    setCustomerDetails({ ...customerDetails, phone: event.target.value });
+  };
 
-useEffect(() => {
-  fetchLocations();
-}, []);
+  const handleNameChange = (event) => {
+    setCustomerDetails({ ...customerDetails, name: event.target.value });
+  };
 
-console.log(phone,'this is phone');
-// console.log(customerDetails,"thiss is data")
+  const handleEmailChange = (event) => {
+    setCustomerDetails({ ...customerDetails, email: event.target.value });
+  };
+  const handleAddressChange = (event) => {
+    setCustomerDetails({ ...customerDetails, address: event.target.value });
+  };
 
+  const handleCommentChange = (event) => {
+    setCustomerDetails({ ...customerDetails, comment: event.target.value });
+  };
+
+  const handleLocationChange = (event) => {
+    setCustomerDetails({ ...customerDetails, location: event.target.value });
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const handleSave = async () => {
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    });
+    try {
+      const response = await fetch(`/api/customers/${phone}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(customerDetails),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      // If the request was successful, redirect the user to the customer list page
+      window.location.href = "/customers";
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="container1">
@@ -85,25 +116,22 @@ console.log(phone,'this is phone');
         <label>Phone Number </label>
         <input
           type="text"
-          name="name"
-          onChange={e=>setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          value={customerDetails.phone}
+          onChange={handlePhoneChange}
           placeholder="Enter Customer Phone Number"
         />
         <label>E-mail</label>
         <input
           type="email"
-          name="email"
-          onChange={(e) => setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          value={customerDetails.email}
+          onChange={handleEmailChange}
           placeholder="Enter Customer E-mail"
         />
         <label>Location</label>
         <input
           type="text"
-          name="name"
-          onChange={(e) => setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          onChange={handleLocationChange}
+          value={customerDetails.location}
           placeholder="Enter Customer Location"
         />
       </div>
@@ -112,34 +140,35 @@ console.log(phone,'this is phone');
         <label>Customer Name</label>
         <input
           type="text"
-          name="name"
-          onChange={(e) => setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          onChange={handleNameChange}
+          value={customerDetails.name}
           placeholder="Enter Customer Name"
         />
         <label>Customer Address</label>
         <input
           type="text"
-          name="name"
-          onChange={(e) => setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          onChange={handleAddressChange}
+          value={
+            customerAddress.length > 0 ? customerAddress[0].address_line_1 : ""
+          }
           placeholder="Enter Customer Address"
         />
         <label>Comment</label>
         <textarea
-          name="name"
           rows={2}
-          onChange={(e) => setCustomerDetails(e.target.value)}
-          value={customerDetails}
+          onChange={handleCommentChange}
+          value={customerDetails.comment}
           placeholder="Enter Customer Commnet"
         />
       </div>
 
       <div className="container-btn">
-        <Button className="btn-save" >
+        <Button className="btn-save" onClick={handleSave}>
           Save
         </Button>
-        <Button className="cansel" onClick={fetchLocations}>Cansel</Button>
+        <Button className="cansel" onClick={clearCustomerDetails}>
+          Cancel
+        </Button>
       </div>
     </div>
   );

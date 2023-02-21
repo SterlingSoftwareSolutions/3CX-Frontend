@@ -2,7 +2,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .container1{
-    background-color: rgb(241, 239, 239);
+    background-color:#5F9DF7;
     margin-top: 70px !important;
     margin-left: 30px !important;
     height: 500px;
@@ -12,12 +12,22 @@ body{
 .container1 h6{
     padding-top: 45px;
     padding-left: 40px;
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 2em;
+    
+}
+.container1 .link01{
+    font-weight: 600;
+    color: black;
+}
+.container1 .link02{
+    font-weight: 600;
+    color: black;
 }
 .container1 h4{
     padding-top: 20px;
     padding-left: 40px;
+    font-weight: 650;
+
 }
 
 /* colomn start */
@@ -33,6 +43,13 @@ body{
     border: 0.5px solid rgb(219, 218, 216);
     border-radius: 10px;
     text-align: center;
+}
+
+.grid-container label{
+    font-weight: 600;
+}
+.grid-container-two label{
+    font-weight: 600;
 }
 .grid-container-two{
     display: grid;
@@ -65,20 +82,25 @@ body{
 .container-btn .btn-save{
     margin-right: 30px;
     width: 100px;
-    background-color: aqua;
+    background-color:#5F9DF7;
     font-weight: 700;
     font-size: medium;
     height: 40px;
     color: white;
     border-radius: 15px;
 }
-
+.btn-save:hover{
+background-color: aliceblue;
+}
 .container-btn .cansel{
     width: 100px;
     height: 40px;
-    background-color: aqua;
+    background-color:#5F9DF7;
     font-weight: 700;
     font-size: medium;
     color: white;
     border-radius: 15px;
+}
+.cansel:hover{
+    background-color: aliceblue;
 }

@@ -39,7 +39,7 @@ function App() {
               <Route path="/*" element={<Errorpage />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/addcustomer" element={<AddCustomer/>} />
-              <Route path="/editcustomer"element={<Editcustomer/>} />
+              <Route path="/editcustomer/:phone"element={<Editcustomer/>} />
             </Routes>
           </Col>
         </Row>
