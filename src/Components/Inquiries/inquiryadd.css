@@ -5,7 +5,7 @@ body {
   background-color: rgb(241, 239, 239);
   margin-top: 70px !important;
   margin-left: 30px !important;
-  height: 500px;
+  height: 540px;
   border-radius: 20px;
   width: 900px !important;
 }
@@ -42,7 +42,7 @@ body {
   padding-left: 40px;
   line-height: 40px;
 }
-.grid-container select{
+.grid-container select {
   border: none;
   height: 40px;
   border-radius: 10px;
@@ -63,11 +63,11 @@ body {
   width: 400px;
   margin-left: 450px;
   line-height: 40px;
-  margin-top: -250px;
+  margin-top: -330px;
   border: none;
 }
 
-.grid-container-two select{
+.grid-container-two select {
   border: none;
   height: 40px;
   border-radius: 10px;
@@ -88,27 +88,31 @@ body {
 
 .container-btn {
   margin-left: 620px !important;
-  margin-top: 85px;
+  margin-top: 25px;
 }
 .container-btn .btn-save {
   margin-right: 30px;
   width: 100px;
-  background-color: aqua;
+  background-color: dodgerblue;
   font-weight: 700;
   font-size: medium;
   height: 40px;
   color: white;
   border-radius: 15px;
 }
+.btn-save:hover {
+  background-color: aliceblue;
+  color: black;
+}
 .container-btn .btn-save::after {
-  background-color: rgb(0, 60, 255);
-  color: aquamarine;
+  background-color: rgb(14, 13, 13);
+  color: rgb(0, 0, 0);
 }
 
 .container-btn .cansel {
   width: 100px;
   height: 40px;
-  background-color: aqua;
+  background-color: dodgerblue;
   font-weight: 700;
   font-size: medium;
   color: white;

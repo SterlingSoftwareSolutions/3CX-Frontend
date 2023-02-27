@@ -2,24 +2,13 @@ import React, { useState, useRef } from "react";
 import { Button } from "antd";
 import "./inquiryadd.css";
 import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
-import moment from "moment";
 
 const InquiryAdd = () => {
   const token = localStorage.getItem("token");
   const api = "/api/inquiries";
-  const followUpApi = "/api/follow_ups";  
-  const [brand_availability_selet, set_select_brand_availability] = useState("");
-  const [product_category, setproduct_category] = useState("");
-  const [BrandOption, setBrandOption] = useState("");
-
-  // const [producterror, setError] = useState("");
-  // const [brandError, setBrandError] = useState("");
-  // const [brandAvierror, setBrandAviError] = useState("");
-  // const [followerror, setFollowError] = useState("");
-  // const [statusError, setStatusError] = useState("");
-  // const [dateError, setDateError] = useState("");
+  const call_type_id = localStorage.getItem("call_type_id");
+  const user_id = localStorage.getItem("user_id");
+  const customer_id = localStorage.getItem("customer_id");
 
   const [data, setData] = useState({
     brand: "",
@@ -27,6 +16,12 @@ const InquiryAdd = () => {
     open: "",
     status_remark: "",
     product_category: "",
+  });
+
+  const [userInfo, setUserInfo] = useState({
+    user_id: "",
+    customer_id: "",
+    call_type_id: "",
   });
 
   const [arr, setArr] = useState([
@@ -67,16 +62,9 @@ const InquiryAdd = () => {
     setData((prev) => ({ ...prev, [key]: value }));
   };
 
-  //  clear function
-  //   const clearUserDetails = () => {
-  //     setData({
-  //       brand: "",
-  //       brand_availability: "",
-  //       product_category: "",
-  //       status_remark: "",
-  //       option: "",
-  //     });
-  //   };
+  const onChangeIDValue = (key, value) =>{
+    setUserInfo((prev) => ({...prev,[key]: value}))
+  };
 
   const [followupStatus] = useState([
     { id: "", name: " " },
@@ -90,55 +78,46 @@ const InquiryAdd = () => {
     { name: "No" },
   ]);
 
-  //post method
-  // let handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!product_category) {
-  //     setError("Field Required");
-  //   } else {
-  //     setError("");
-  //   }
-  //   if (!data.brand) {
-  //     setBrandError("Field Required");
-  //   } else {
-  //     setBrandError("");
-  //   }
-  //   if (!brand_availability_selet) {
-  //     setBrandAviError("Field Required");
-  //   } else {
-  //     setBrandAviError("");
-  //   }
-  //   if (product_category && data.brand && brand_availability_selet) {
-  //     data.product_category = product_category;
-  //     data.brand_availability = brand_availability_selet;
-  //     const response = await apiRequest(api, data);
-  //     const dataFollowup = {
-  //       user_id: data.user_id,
-  //       customer_id: data.customer_id,
-  //       call_type_id: data.call_type_id,
-  //       time: data.time,
-  //     };
-  //     await apiRequest(followUpApi, dataFollowup);
-  //   }
-  // };
-  
-  let apiRequest = async (url, apiData) => {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(apiData),
-    };
-    const response = await fetch(url, requestOptions).then((response) =>
-      response.json()
-    );
-    console.log(response);
-    return response;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          user_id: userInfo.user_id || user_id,
+          customer_id: userInfo.customer_id || customer_id,
+          call_type_id: userInfo.call_type_id || call_type_id,
+        }),
+      });
+      if (response.ok) {
+        // handle success
+        console.log("Inquiry added successfully");
+        setData({
+          brand: "",
+          brand_availability: "",
+          open: "",
+          status_remark: "",
+          product_category: "",
+          user_id: "",
+          customer_id: "",
+          call_type_id: "",
+        });
+      } else {
+        // handle error
+        console.log("Failed to add inquiry");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  console.log(data);
+  console.log(userInfo);
   
-
 
 
   return (
@@ -154,31 +133,35 @@ const InquiryAdd = () => {
 
       {/* data start */}
       <div className="grid-container">
+        <label>User Id</label>
+        <input type="text" value={userInfo.user_id} 
+        onChange={(e) =>onChangeIDValue("user_id", e.target.value)}
+        placeholder="User Id" />
+
         <label>Brand</label>
-        {/* <p className="form-validation">{brandError}</p> */}
         <input
           type="text"
-          //value={inquiryDetails.brand}
+          value={data.brand}
           onChange={(e) => onChangeValue("brand", e.target.value)}
           placeholder="Brand"
         />
 
         <label>Product Catagory</label>
         <select
-          value={product_category}
-          onChange={(e) => setproduct_category(e.target.value)}>
+          value={data.product_category}
+          onChange={(e) => onChangeValue("product_category", e.target.value)}>
           {arr.map((item, index) => (
             <option key={index} value={item.name}>
               {item.name}
             </option>
           ))}
         </select>
-        {/* <p className="form-validation">{producterror}</p> */}
+
         <label>Open/Close</label>
 
         <select
-          onChange={(e) => setBrandOption(e.target.value)}
-          value={BrandOption}>
+          value={data.open}
+          onChange={(e) => onChangeValue("open", e.target.value)}>
           {followupStatus.map((item, index) => (
             <option key={index} value={item.id}>
               {item.name}
@@ -188,11 +171,20 @@ const InquiryAdd = () => {
       </div>
 
       <div className="grid-container-two">
+        <label>Customer Id</label>
+        <input type="text" value={userInfo.customer_id} 
+         onChange={(e) =>onChangeIDValue("customer_id", e.target.value)}
+        placeholder="Customer Id" />
+
+        <label>Call Type Id</label>
+        <input type="text" value={userInfo.call_type_id}  
+        onChange={(e) =>onChangeIDValue("call_type_id", e.target.value)}
+        placeholder="Call Type Id" />
+
         <label>Brand Availibility</label>
-        {/* <p className="form-validation">{brandError}</p> */}
         <select
-          onChange={(e) => set_select_brand_availability(e.target.value)}
-          value={brand_availability_selet}>
+          value={data.brand_availability}
+          onChange={(e) => onChangeValue("brand_availability", e.target.value)}>
           {brand_availability.map((item, index) => (
             <option key={index} value={item.name}>
               {item.name}
@@ -201,7 +193,7 @@ const InquiryAdd = () => {
         </select>
 
         <label>Status Remark</label>
-        {/* <p className="form-validation">{statusError}</p> */}
+
         <input
           type="text"
           placeholder="Status Remark"
@@ -212,15 +204,10 @@ const InquiryAdd = () => {
       </div>
 
       <div className="container-btn">
-        <Button className="btn-save">Save</Button>
-        <Button
-          className="cansel"
-          onClick={(e) => {
-           // handleSubmit(e);
-          }}>
-          {/* onClick={clearUserDetails} */}
-          Cancel
+        <Button className="btn-save" onClick={handleSubmit}>
+          Save
         </Button>
+        <Button className="cansel">Cancel</Button>
       </div>
     </div>
   );

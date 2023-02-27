@@ -181,7 +181,7 @@ const AllInquiries = () => {
           {/* add button page */}
           <Link to="/inquiryadd">
             <div className="btn">
-              <input type="button" value="Add User" />
+              <input type="button" value="Add Inquiry" />
             </div>
           </Link>
           <div className="btn-icon">
@@ -238,9 +238,8 @@ const AllInquiries = () => {
                           <td>{row.customer_id}</td>
                           <td>{row.call_type_id}</td>
                           <td>{row.created_at}</td>
-
                           <td>
-                            <Link to={"/editinquiry"}>
+                            <Link to={`/editinquiry/$(row.id)`}>
                               {/* edit button */}
                               <Button
                                 className="edit-btn"
