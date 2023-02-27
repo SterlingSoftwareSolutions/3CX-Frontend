@@ -239,7 +239,7 @@ const AllInquiries = () => {
                           <td>{row.call_type_id}</td>
                           <td>{row.created_at}</td>
                           <td>
-                            <Link to={`/editinquiry/$(row.id)`}>
+                            <Link to={`/editinquiry/${row.id}`}>
                               {/* edit button */}
                               <Button
                                 className="edit-btn"
