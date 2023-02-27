@@ -6,26 +6,26 @@ import { Link, useParams } from "react-router-dom";
 export const Edituser = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
-  const [usetDetails, setUsetDetails] = useState({
+  const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
     role: "",
-    id,
   });
-
+  
   //  clear function
   const clearCustomerDetails = () => {
-    setUsetDetails({
+    setUserDetails({
       name: "",
       email: "",
       role: "",
     });
   };
 
+  
   const fetchArray = useCallback(async () => {
     const queryParams = new URLSearchParams();
     queryParams.set("userid", id);
-
+  
     const headers = new Headers({
       Authorization: "Bearer " + token,
     });
@@ -35,8 +35,8 @@ export const Edituser = () => {
       });
       fetchData = await fetchData.json();
       if (fetchData) {
-        console.log(fetchData,'00000');
-        setUsetDetails(fetchData);
+        console.log(fetchData);
+       setUserDetails(fetchData);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
       }
@@ -44,23 +44,24 @@ export const Edituser = () => {
       console.error(error);
     }
   }, []);
+  
 
   const handleNameChange = (event) => {
-    setUsetDetails({ ...usetDetails, name: event.target.value });
+   setUserDetails({ ...userDetails, name: event.target.value });
   };
 
   const handleEmailChange = (event) => {
-    setUsetDetails({ ...usetDetails, email: event.target.value });
+   setUserDetails({ ...userDetails, email: event.target.value });
   };
 
   const handleRoleChange = (event) => {
-    setUsetDetails({ ...usetDetails, role: event.target.value });
+   setUserDetails({ ...userDetails, role: event.target.value });
   };
 
   //calling Api get method
   useEffect(() => {
     fetchArray();
-  }, []);
+  }, [fetchArray]);
 
   const handleSave = async () => {
     const headers = new Headers({
@@ -71,7 +72,7 @@ export const Edituser = () => {
       const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(usetDetails),
+        body: JSON.stringify(userDetails),
       });
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -98,7 +99,7 @@ export const Edituser = () => {
           <label>User Name</label>
           <input
             type="text"
-            value={usetDetails.name}
+            value={userDetails.name}
             onChange={handleNameChange}
             placeholder="Enter User Number"
           />
@@ -108,7 +109,7 @@ export const Edituser = () => {
             type="text"
             placeholder="Enter User Number"
             onChange={handleRoleChange}
-            value={usetDetails.role}
+            value={userDetails.role}
           />
         </div>
 
@@ -116,7 +117,7 @@ export const Edituser = () => {
           <label>User E-mail</label>
           <input
             type="email"
-            value={usetDetails.email}
+            value={userDetails.email}
             onChange={handleEmailChange}
             placeholder="Enter User E-mail"
           />
