@@ -123,7 +123,7 @@ const CustomerTable = () => {
                           <td >
                             <Link
                              
-                              to={"/editcustomer"}>
+                              to={`/editcustomer/${row.phone}`}>
                          
                               {/* edit button */}
                               <Button

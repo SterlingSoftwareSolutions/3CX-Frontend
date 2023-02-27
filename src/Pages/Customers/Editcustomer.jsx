@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
 import "./editcustomer.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const Editcustomer = () => {
+  const navigate = useNavigate();
   const { id, phone } = useParams();
   const token = localStorage.getItem("token");
   const [customerAddress, setCustomerAddress] = useState([]);
@@ -53,9 +55,9 @@ export const Editcustomer = () => {
   }, []);
   // console.log(customerAddress);
 
-  const handlePhoneChange = (event) => {
-    setCustomerDetails({ ...customerDetails, phone: event.target.value });
-  };
+  // const handlePhoneChange = (event) => {
+  //   setCustomerDetails({ ...customerDetails, phone: event.target.value });
+  // };
 
   const handleNameChange = (event) => {
     setCustomerDetails({ ...customerDetails, name: event.target.value });
@@ -81,22 +83,38 @@ export const Editcustomer = () => {
   }, []);
 
   const handleSave = async () => {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    });
+  
     try {
+      const headers = new Headers({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      });
+
       const response = await fetch(`/api/customers/${phone}`, {
         method: "PUT",
         headers,
         body: JSON.stringify(customerDetails),
       });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+      console.log(phone);
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Data saved successfully",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        // window.location.reload();
+        // clearCustomerDetails();
+        navigate("/customers/");
+      } else {
+        throw new Error("Failed to save Customers");
       }
-      // If the request was successful, redirect the user to the customer list page
-      window.location.href = "/customers";
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Something went wrong. Please try again.",
+      });
       console.error(error);
     }
   };
@@ -117,7 +135,7 @@ export const Editcustomer = () => {
         <input
           type="text"
           value={customerDetails.phone}
-          onChange={handlePhoneChange}
+          //onChange={handlePhoneChange}
           placeholder="Enter Customer Phone Number"
         />
         <label>E-mail</label>
