@@ -33,12 +33,12 @@ function App() {
               <Route path="/customer/:phone" element={<CustomerPopUp />} />
               <Route path="/types" element={<Types />} />
               <Route path="/inquiry-popup" element={<Inquiry />} />
-              <Route path="/inquiries/:id" element={<AllInquiry />} />
+              <Route path="/inquiries/" element={<AllInquiry />} />
               <Route path="/users" element={<Users />} />
               <Route path="/*" element={<Errorpage />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/inquiryadd" element={<InquiryAdd />} />
-              <Route path="/editinquiry" element={<EditInquiry />} />
+              <Route path="/editinquiry/:id" element={<EditInquiry />} />
             </Routes>
           </Col>
         </Row>
