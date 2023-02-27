@@ -1,22 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
-import "./edituser.css";
-import { Link, useParams,useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
-
+// import "./edituser.css";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const Edituser = () => {
-
   const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("token");
   const [data, setData] = useState({
     name: "",
     email: "",
-    role: ""
+    role: "",
   });
-  
-  
+
   //  clear function
   const clearCustomerDetails = () => {
     setData({
@@ -26,34 +23,33 @@ export const Edituser = () => {
     });
   };
 
-
   const fetchLocationsUsers = useCallback(async () => {
     const queryParams = new URLSearchParams();
     queryParams.set("inquiry", id);
 
     var url = window.location.href;
-    var user_id = url.substring(url.lastIndexOf("/") + 1);
-    console.log(user_id);
+    var id = url.substring(url.lastIndexOf("/") + 0);
+    console.log(id);
     const headers = new Headers({
       Authorization: "Bearer " + token,
     });
 
     try {
-      let fetchData = await fetch(`/api/users/${user_id}`, {
-        headers
+      let fetchData = await fetch(`/api/users/${id}`, {
+        headers,
       });
       fetchData = await fetchData.json();
-    
-      if (fetchData && fetchData.data && fetchData.data.length > 0) {
+
+      if (fetchData && fetchData.data) {
         // update the state with the correct data
-        setData(fetchData);
+        setData(fetchData.data[0]);
+        console.log(fetchData);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
       }
     } catch (error) {
       console.error(error);
     }
-    
   }, [id, token]);
 
   console.log(data);
@@ -62,33 +58,31 @@ export const Edituser = () => {
     fetchLocationsUsers();
   }, [fetchLocationsUsers]);
 
-
   const handleNameChange = (event) => {
-   setData({ ...data, name: event.target.value });
+    setData({ ...data, name: event.target.value });
   };
 
   const handleEmailChange = (event) => {
-   setData({ ...data, email: event.target.value });
+    setData({ ...data, email: event.target.value });
   };
 
   const handleRoleChange = (event) => {
-   setData({ ...data, role: event.target.value });
+    setData({ ...data, role: event.target.value });
   };
 
- 
   const handleSave = async () => {
     try {
       const headers = new Headers({
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       });
-  
+
       const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers,
         body: JSON.stringify(data),
       });
-  
+
       if (response.ok) {
         Swal.fire({
           icon: "success",
@@ -96,10 +90,9 @@ export const Edituser = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-       // window.location.reload();
-       // clearCustomerDetails();
-       navigate('/users/');
-
+        // window.location.reload();
+        // clearCustomerDetails();
+        navigate("/users/");
       } else {
         throw new Error("Failed to save users");
       }
