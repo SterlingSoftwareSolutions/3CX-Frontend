@@ -16,7 +16,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Edituser } from "./Pages/User/EditUser";
 import { Adduser } from "./Pages/User/Adduser";
 
-
 function App() {
   const loggedInUser = localStorage.getItem("authenticated");
   const [authenticated, setauthenticated] = useState(
@@ -38,8 +37,8 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/*" element={<Errorpage />} />
               <Route path="/customers" element={<Customers />} />
-              <Route path="/edituser" element={<Edituser />} />
-              <Route path="/addnewuser" element={<Adduser/>} />
+              <Route path="/edituser/:id" element={<Edituser />} />
+              <Route path="/addnewuser" element={<Adduser />} />
             </Routes>
           </Col>
         </Row>

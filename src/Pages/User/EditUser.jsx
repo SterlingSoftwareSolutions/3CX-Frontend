@@ -1,40 +1,30 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
-import "./adduser.css";
+import "./edituser.css";
 import { Link, useParams } from "react-router-dom";
 
 export const Edituser = () => {
   const { id } = useParams();
-
   const token = localStorage.getItem("token");
-
-  const [userDetails, setUserDetails] = useState({
+  const [usetDetails, setUsetDetails] = useState({
     name: "",
     email: "",
-    password: "",
-    confirm_password: "",
-    userrole: "",
+    role: "",
+    id,
   });
 
   //  clear function
-  const clearUserDetails = () => {
-    setUserDetails({
+  const clearCustomerDetails = () => {
+    setUsetDetails({
       name: "",
       email: "",
-      password: "",
-      confirm_password: "",
-      userrole: "",
+      role: "",
     });
   };
 
-  const options = ["Admin", "User", "Agent"];
-  const onOptionChangeHandler = (event) => {
-    console.log("User Selected Value - ", event.target.value);
-  };
-
-  const fetchLocations = useCallback(async () => {
+  const fetchArray = useCallback(async () => {
     const queryParams = new URLSearchParams();
-    queryParams.set("phone", id);
+    queryParams.set("userid", id);
 
     const headers = new Headers({
       Authorization: "Bearer " + token,
@@ -45,8 +35,8 @@ export const Edituser = () => {
       });
       fetchData = await fetchData.json();
       if (fetchData) {
-        console.log(fetchData);
-        setUserDetails(fetchData);
+        console.log(fetchData,'00000');
+        setUsetDetails(fetchData);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
       }
@@ -54,30 +44,22 @@ export const Edituser = () => {
       console.error(error);
     }
   }, []);
-  // console.log(customerAddress);
 
   const handleNameChange = (event) => {
-    setUserDetails({ ...userDetails, name: event.target.value });
+    setUsetDetails({ ...usetDetails, name: event.target.value });
   };
 
   const handleEmailChange = (event) => {
-    setUserDetails({ ...userDetails, email: event.target.value });
+    setUsetDetails({ ...usetDetails, email: event.target.value });
   };
 
-  const handlePasswordChange = (event) => {
-    setUserDetails({ ...userDetails, password: event.target.value });
+  const handleRoleChange = (event) => {
+    setUsetDetails({ ...usetDetails, role: event.target.value });
   };
 
-  const handleConfirmPasswordChange = (event) => {
-    setUserDetails({ ...userDetails, confirm_password: event.target.value });
-  };
-
-  const handleUserRoleChange = (event) => {
-    setUserDetails({ ...userDetails, userrole: event.target.value });
-  };
-
+  //calling Api get method
   useEffect(() => {
-    fetchLocations();
+    fetchArray();
   }, []);
 
   const handleSave = async () => {
@@ -89,13 +71,13 @@ export const Edituser = () => {
       const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(userDetails),
+        body: JSON.stringify(usetDetails),
       });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
       // If the request was successful, redirect the user to the customer list page
-      window.location.href = "/customers";
+      window.location.href = "/users";
     } catch (error) {
       console.error(error);
     }
@@ -111,53 +93,40 @@ export const Edituser = () => {
       </Link>
       <h6 className="link03">/ Edit User</h6>
       <h4>Edit User</h4>
+      <form>
+        <div className="grid-container">
+          <label>User Name</label>
+          <input
+            type="text"
+            value={usetDetails.name}
+            onChange={handleNameChange}
+            placeholder="Enter User Number"
+          />
 
-      <div className="grid-container">
-        <label>User Name</label>
-        <input
-          type="text"
-          value={userDetails.name}
-          onChange={handleNameChange}
-          placeholder="Enter User Number"
-        />
-        <label>password</label>
-        <input
-          type="text"
-          onChange={handlePasswordChange}
-          value={userDetails.password}
-          placeholder="Enter Your Password"
-        />
-        <label>User Role</label>
-        <select onChange={onOptionChangeHandler}>
-          <option></option>
-          {options.map((option, index) => {
-            return <option key={index}>{option}</option>;
-          })}
-        </select>
-      </div>
+          <label>User Role</label>
+          <input
+            type="text"
+            placeholder="Enter User Number"
+            onChange={handleRoleChange}
+            value={usetDetails.role}
+          />
+        </div>
 
-      <div className="grid-container-two">
-        <label>User E-mail</label>
-        <input
-          type="email"
-          onChange={handleEmailChange}
-          value={userDetails.email}
-          placeholder="Enter User E-mail"
-        />
-        <label>Confirm password</label>
-        <input
-          type="text"
-          onChange={ handleConfirmPasswordChange}
-          value={userDetails.password}
-          placeholder="Enter Your Password"
-        />
-      </div>
-
+        <div className="grid-container-two">
+          <label>User E-mail</label>
+          <input
+            type="email"
+            value={usetDetails.email}
+            onChange={handleEmailChange}
+            placeholder="Enter User E-mail"
+          />
+        </div>
+      </form>
       <div className="container-btn">
         <Button className="btn-save" onClick={handleSave}>
           Save
         </Button>
-        <Button className="cansel" onClick={clearUserDetails}>
+        <Button className="cansel" onClick={clearCustomerDetails}>
           Cancel
         </Button>
       </div>

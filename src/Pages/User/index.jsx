@@ -17,6 +17,8 @@ const Users = () => {
       email: "",
       name: "",
       created_at: "",
+      role:"",
+      password:"",
     },
   ]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,6 +54,17 @@ const Users = () => {
         return <span>{getDate(record)}</span>;
       },
     },
+    {
+      role: "Role",
+      dataIndex: "role",
+      key:"role"
+    },
+    {
+      password: "Password",
+      dataIndex: "password",
+      key:"password"
+    },
+
   ];
 
   //delete function
@@ -148,10 +161,11 @@ const Users = () => {
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Title</th>
+                      <th>Name</th>
                       <th>Email</th>
                       <th>User Created Date</th>
-
+                      <th>Role</th>
+                      {/* <th>Password</th> */}
                       <th
                         style={{
                           textAlign: "center",
@@ -180,9 +194,11 @@ const Users = () => {
                           <td>{row.name}</td>
                           <td>{row.email} </td>
                           <td>{row.created_at}</td>
+                          <td>{row.role}</td>
+                          {/* <td>{row.password}</td> */}
                           <td>
                             {/* `/edituser/${row.id}` */}
-                            <Link to={"/edituser"}>
+                            <Link to={`/edituser/${row.id}`}>
                               {/* edit button */}
                               <Button
                                 className="edit-btn"
