@@ -1,85 +1,114 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
 import "./edituser.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 export const Edituser = () => {
+
+  const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("token");
-  const [userDetails, setUserDetails] = useState({
+  const [data, setData] = useState({
     name: "",
     email: "",
-    role: "",
+    role: ""
   });
+  
   
   //  clear function
   const clearCustomerDetails = () => {
-    setUserDetails({
+    setData({
       name: "",
       email: "",
       role: "",
     });
   };
 
-  
-  const fetchArray = useCallback(async () => {
+
+  const fetchLocationsUsers = useCallback(async () => {
     const queryParams = new URLSearchParams();
-    queryParams.set("userid", id);
-  
+    queryParams.set("inquiry", id);
+
+    var url = window.location.href;
+    var user_id = url.substring(url.lastIndexOf("/") + 1);
+    console.log(user_id);
     const headers = new Headers({
       Authorization: "Bearer " + token,
     });
+
     try {
-      let fetchData = await fetch(`/api/users/?${queryParams}`, {
-        headers,
+      let fetchData = await fetch(`/api/users/${user_id}`, {
+        headers
       });
       fetchData = await fetchData.json();
-      if (fetchData) {
-        console.log(fetchData);
-       setUserDetails(fetchData);
+    
+      if (fetchData && fetchData.data && fetchData.data.length > 0) {
+        // update the state with the correct data
+        setData(fetchData);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
       }
     } catch (error) {
       console.error(error);
     }
-  }, []);
-  
+    
+  }, [id, token]);
+
+  console.log(data);
+
+  useEffect(() => {
+    fetchLocationsUsers();
+  }, [fetchLocationsUsers]);
+
 
   const handleNameChange = (event) => {
-   setUserDetails({ ...userDetails, name: event.target.value });
+   setData({ ...data, name: event.target.value });
   };
 
   const handleEmailChange = (event) => {
-   setUserDetails({ ...userDetails, email: event.target.value });
+   setData({ ...data, email: event.target.value });
   };
 
   const handleRoleChange = (event) => {
-   setUserDetails({ ...userDetails, role: event.target.value });
+   setData({ ...data, role: event.target.value });
   };
 
-  //calling Api get method
-  useEffect(() => {
-    fetchArray();
-  }, [fetchArray]);
-
+ 
   const handleSave = async () => {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    });
     try {
+      const headers = new Headers({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      });
+  
       const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(userDetails),
+        body: JSON.stringify(data),
       });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+  
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Data saved successfully",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+       // window.location.reload();
+       // clearCustomerDetails();
+       navigate('/users/');
+
+      } else {
+        throw new Error("Failed to save users");
       }
-      // If the request was successful, redirect the user to the customer list page
-      window.location.href = "/users";
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Something went wrong. Please try again.",
+      });
       console.error(error);
     }
   };
@@ -99,7 +128,7 @@ export const Edituser = () => {
           <label>User Name</label>
           <input
             type="text"
-            value={userDetails.name}
+            value={data.name}
             onChange={handleNameChange}
             placeholder="Enter User Number"
           />
@@ -109,7 +138,7 @@ export const Edituser = () => {
             type="text"
             placeholder="Enter User Number"
             onChange={handleRoleChange}
-            value={userDetails.role}
+            value={data.role}
           />
         </div>
 
@@ -117,7 +146,7 @@ export const Edituser = () => {
           <label>User E-mail</label>
           <input
             type="email"
-            value={userDetails.email}
+            value={data.email}
             onChange={handleEmailChange}
             placeholder="Enter User E-mail"
           />
