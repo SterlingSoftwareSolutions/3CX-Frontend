@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
-// import "./edituser.css";
+import "./edituser.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -8,7 +8,8 @@ export const Edituser = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("token");
-  const [data, setData] = useState({
+
+  const [userData, setUserData] = useState({
     name: "",
     email: "",
     role: "",
@@ -16,7 +17,7 @@ export const Edituser = () => {
 
   //  clear function
   const clearCustomerDetails = () => {
-    setData({
+    setUserData({
       name: "",
       email: "",
       role: "",
@@ -28,7 +29,7 @@ export const Edituser = () => {
     queryParams.set("inquiry", id);
 
     var url = window.location.href;
-    var id = url.substring(url.lastIndexOf("/") + 0);
+    var id = url.substring(url.lastIndexOf("/") + 1);
     console.log(id);
     const headers = new Headers({
       Authorization: "Bearer " + token,
@@ -42,7 +43,11 @@ export const Edituser = () => {
 
       if (fetchData && fetchData.data) {
         // update the state with the correct data
-        setData(fetchData.data[0]);
+        setUserData({
+          name: fetchData.data.name,
+          email: fetchData.data.email,
+          role: fetchData.data.role,
+        });
         console.log(fetchData);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
@@ -50,24 +55,24 @@ export const Edituser = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [id, token]);
+  }, []);
 
-  console.log(data);
+  console.log(userData);
 
   useEffect(() => {
     fetchLocationsUsers();
   }, [fetchLocationsUsers]);
 
   const handleNameChange = (event) => {
-    setData({ ...data, name: event.target.value });
+    setUserData({ ...userData, name: event.target.value });
   };
 
   const handleEmailChange = (event) => {
-    setData({ ...data, email: event.target.value });
+    setUserData({ ...userData, email: event.target.value });
   };
 
   const handleRoleChange = (event) => {
-    setData({ ...data, role: event.target.value });
+    setUserData({ ...userData, role: event.target.value });
   };
 
   const handleSave = async () => {
@@ -76,13 +81,12 @@ export const Edituser = () => {
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       });
-
+      console.log(userData);
       const response = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(data),
+        body: JSON.stringify(userData),
       });
-
       if (response.ok) {
         Swal.fire({
           icon: "success",
@@ -90,11 +94,22 @@ export const Edituser = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-        // window.location.reload();
-        // clearCustomerDetails();
         navigate("/users/");
       } else {
-        throw new Error("Failed to save users");
+        const errorResponse = await response.json();
+        if (
+          errorResponse.message &&
+          errorResponse.message.email
+          // && errorResponse.message.email[0] === "The email has already been taken."
+        ) {
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "The email address you entered already exists in the database. Please try again with a different email address.",
+          });
+        } else {
+          throw new Error("Failed to save users");
+        }
       }
     } catch (error) {
       Swal.fire({
@@ -107,7 +122,7 @@ export const Edituser = () => {
   };
 
   return (
-    <div className="container1">
+    <div className="contain">
       <Link to="/">
         <h6 className="link01">Home </h6>{" "}
       </Link>
@@ -118,40 +133,41 @@ export const Edituser = () => {
       <h4>Edit User</h4>
       <form>
         <div className="grid-container">
-          <label>User Name</label>
+          <label>User Name *</label>
           <input
             type="text"
-            value={data.name}
+            value={userData.name}
             onChange={handleNameChange}
             placeholder="Enter User Number"
           />
 
-          <label>User Role</label>
+          <label>User Role *</label>
           <input
             type="text"
             placeholder="Enter User Number"
             onChange={handleRoleChange}
-            value={data.role}
+            value={userData.role}
           />
         </div>
 
-        <div className="grid-container-two">
-          <label>User E-mail</label>
+        <div className="grid-containertwo">
+          <label>User E-mail *</label>
           <input
             type="email"
-            value={data.email}
+            value={userData.email}
             onChange={handleEmailChange}
             placeholder="Enter User E-mail"
           />
         </div>
       </form>
-      <div className="container-btn">
-        <Button className="btn-save" onClick={handleSave}>
+      <div className="container-btn1">
+        <Button className="btn-save1" onClick={handleSave}>
           Save
         </Button>
-        <Button className="cansel" onClick={clearCustomerDetails}>
+        <Link to ="/users">
+        <Button className="cansel1" onClick={clearCustomerDetails}>
           Cancel
-        </Button>
+        </Button></Link>
       </div>
     </div>
   );

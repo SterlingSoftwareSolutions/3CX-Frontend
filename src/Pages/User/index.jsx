@@ -232,7 +232,7 @@ const Users = () => {
 
             <div>
               {/* table content */}
-              <div className="pagination-btn">
+              <div className="pagination-btn1">
                 <button
                   className="btn-preview"
                   onClick={handlePrevPage}

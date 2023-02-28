@@ -2,30 +2,30 @@ body {
   font-family: "Roboto", sans-serif;
 }
 .container1 {
-  background-color: rgb(241, 239, 239);
+  background-color: white;
+  box-shadow: 2px 2px 4px black;
   margin-top: 70px !important;
   margin-left: 30px !important;
-  height: 400px;
-  border-radius: 20px;
+  height: 430px;
   width: 900px !important;
 }
 .container1 .link01 {
   padding-top: 45px;
   padding-left: 40px;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.2em;
+  font-weight: 600;
 }
 .container1 .link02 {
-  margin-top: -25px;
-  padding-left: 85px;
-  font-size: 1em;
-  font-weight: 500;
+  margin-top: -27px;
+  padding-left: 95px;
+  font-size: 1.2em;
+  font-weight: 600;
 }
 .container1 .link03 {
-  margin-top: -25px;
-  padding-left: 160px;
-  font-size: 1em;
-  font-weight: 500;
+  margin-top: -27px;
+  padding-left: 150px;
+  font-size: 1.2em;
+  font-weight: 700;
 }
 
 .container1 h4 {
@@ -47,6 +47,7 @@ body {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
+  /* border: none; */
 }
 .grid-container-two {
   display: grid;
@@ -78,30 +79,34 @@ body {
 /* end column */
 
 .container-btn {
-  margin-left: 600px !important;
-  margin-top: 45px;
+  margin-left: 620px !important;
+  margin-top: 65px;
 }
 .container-btn .btn-save {
   margin-right: 30px;
   width: 100px;
-  background-color: aqua;
+  background-color:#ff885c;
   font-weight: 700;
   font-size: medium;
   height: 40px;
   color: white;
   border-radius: 15px;
 }
-.container-btn .btn-save::after {
-  background-color: rgb(0, 60, 255);
+.btn-save:hover {
+  background-color:azure;
   color: aquamarine;
 }
 
 .container-btn .cansel {
   width: 100px;
   height: 40px;
-  background-color: aqua;
+  background-color:#ff885c;
   font-weight: 700;
   font-size: medium;
   color: white;
   border-radius: 15px;
+}
+.cansel:hover{
+  background-color:azure;
+  color: aquamarine;
 }
