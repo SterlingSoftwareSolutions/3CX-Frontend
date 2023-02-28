@@ -1,40 +1,40 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
-.container1{
-    background-color: rgb(241, 239, 239);
+.container2{
+    background-color: white;
     margin-top: 70px !important;
     margin-left: 30px !important;
     height: 500px;
-    border-radius: 20px;
     width: 900px !important;
+    box-shadow: 2px 2px 4px black;
 }
-.container1 .link01{
+.container2 .link01{
     padding-top: 45px;
     padding-left: 40px;
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 1.2em;
+    font-weight: 600;
 }
-.container1 .link02{
-   margin-top: -70px;
-    padding-left: 85px;
-    font-size: 1em;
-    font-weight: 500;
+.container2 .link02{
+   margin-top: -28px;
+    padding-left: 95px;
+    font-size: 1.2em;
+    font-weight: 600;
 }
-.container1 .link03{
-    margin-top: -70px;
-    padding-left: 160px;
-    font-size: 1em;
-    font-weight: 500;
+.container2 .link03{
+    margin-top: -28px;
+    padding-left: 190px;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
-.container1 h4{
-    padding-top: 20px;
+.container2 h4{
+    padding-top: 10px;
     padding-left: 40px;
 }
 
 /* colomn start */
-.grid-container {
+.grid-container1 {
     display: grid;
     grid-column-gap: 1em;
     align-items: center;
@@ -42,12 +42,12 @@ body{
     padding-left: 40px;
     line-height: 40px;
  }
-.grid-container input{
+.grid-container1 input{
     border: 0.5px solid rgb(219, 218, 216);
     border-radius: 10px;
     text-align: center;
 }
-.grid-container-two{
+.grid-container-two2{
     display: grid;
     grid-column-gap: 1em;
     align-items: center; 
@@ -58,44 +58,48 @@ body{
     border: none;
 }
 
-.grid-container-two input{
+.grid-container-two2 input{
     border: 0.5px solid rgb(219, 218, 216);
     border-radius: 10px;
     text-align: center;
 }
 
-.grid-container-two textarea{
+.grid-container-two2 textarea{
     border: 0.5px solid rgb(219, 218, 216);
     border-radius: 10px;
     text-align: center;
 }
 /* end column */
 
-.container-btn {
+.container-btn1 {
  margin-left: 600px !important;
  margin-top: 25px;
 }
-.container-btn .btn-save{
+.container-btn1 .btn-save1{
     margin-right: 30px;
     width: 100px;
-    background-color: aqua;
+    background-color: #ef5959;
     font-weight: 700;
     font-size: medium;
     height: 40px;
     color: white;
     border-radius: 15px;
 }
-.container-btn .btn-save::after{
-    background-color: rgb(0, 60, 255);
-    color: aquamarine;
+.btn-save1:hover{
+    background-color:white;
+    color:cornflowerblue;
 }
 
-.container-btn .cansel{
+.container-btn1 .cansel1{
     width: 100px;
     height: 40px;
-    background-color: aqua;
+    background-color:  #ef5959;
     font-weight: 700;
     font-size: medium;
     color: white;
     border-radius: 15px;
+}
+.cansel1:hover{
+    background-color:white;
+    color:cornflowerblue;
 }

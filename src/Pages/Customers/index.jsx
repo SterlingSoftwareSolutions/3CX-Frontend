@@ -31,7 +31,14 @@ const CustomerTable = () => {
     fetchArray(api, setData);
   }, []);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1); // reset current page when search query changes
+  };
 
   //delete function
   const deleteCustomer = async (phone) => {
@@ -67,7 +74,21 @@ const CustomerTable = () => {
   };
 
 
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
 
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const totalPages = Math.ceil(
+    data.filter((row) => {
+      const name1 = row.name.toLowerCase();
+      const query = searchQuery.toLowerCase();
+      return name1.includes(query);
+    }).length / itemsPerPage
+  );
 
 
   return (
@@ -81,7 +102,10 @@ const CustomerTable = () => {
         <div className="table-name">
           <h3>Customers</h3>
           <form className="search">
-            <input type="text" name="text" placeholder="Search Name"   />
+            <input type="text" name="text" 
+            value={searchQuery}
+              onChange={handleSearch}
+              placeholder="Search Name ..."   />
             <div className="serach-icon">
               <Button>
                 <BsSearch />
@@ -112,8 +136,13 @@ const CustomerTable = () => {
                   </thead>
                   <tbody> 
                     {/* row length  */}
-                    {data.length > 1 &&
-                      data.slice(0, 6).map((row, key) => (
+                    {data.filter((row) => {
+                        const Name = row.name.toLowerCase();
+                        const query = searchQuery.toLowerCase();
+                        return Name.includes(query);
+                      }).slice((currentPage - 1) * itemsPerPage,
+                      currentPage * itemsPerPage)
+                      .map((row, key) => (
                         <tr key={key}>
                           <td>{row.id}</td>
                           <td>{row.name}</td>
@@ -153,6 +182,24 @@ const CustomerTable = () => {
                       ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+          <div>
+              {/* table content */}
+              <div className="pagination-btn">
+                <button
+                  className="btn-preview"
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <button
+                  className="btn-next"
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}>
+                  Next
+                </button>
               </div>
             </div>
           </div>

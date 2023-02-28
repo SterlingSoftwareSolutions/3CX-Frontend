@@ -83,7 +83,6 @@ export const Editcustomer = () => {
   }, []);
 
   const handleSave = async () => {
-  
     try {
       const headers = new Headers({
         Authorization: "Bearer " + token,
@@ -120,17 +119,17 @@ export const Editcustomer = () => {
   };
 
   return (
-    <div className="container1">
+    <div className="container0">
       <Link to="/">
-        <h6 className="link01">Home </h6>{" "}
+        <h6 className="linkone">Home </h6>{" "}
       </Link>
       <Link to="/customers">
-        <h6 className="link02">/ Customer </h6>{" "}
+        <h6 className="linktwo">/ Customer </h6>{" "}
       </Link>
-      <h6 className="link03">/ Edit Customer</h6>
+      <h6 className="linkthre">/ Edit Customer</h6>
       <h4>Edit Customer</h4>
 
-      <div className="grid-container">
+      <div className="grid-container1">
         <label>Phone Number </label>
         <input
           type="text"
@@ -154,7 +153,7 @@ export const Editcustomer = () => {
         />
       </div>
 
-      <div className="grid-container-two">
+      <div className="grid-container1-two">
         <label>Customer Name</label>
         <input
           type="text"

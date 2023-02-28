@@ -1,9 +1,10 @@
 /* table  start*/
 .table-container {
-  background-color: #5F9DF7;
+  background-color: white;
   width: 1200px;
   border: 0.5px solid none;
-  border-radius: 40px;
+
+  box-shadow: 2px 2px 4px black;
 }
 .table-head {
   width: 1165px;
@@ -23,7 +24,7 @@
   border: none;
   margin-left: 50px;
   font-weight: 650;
-  color: white;
+  color: #5ca1e1;
 }
 .table-head .link02 {
   margin-top: -42px !important;
@@ -62,7 +63,10 @@
   color: #fff;
   font-size: medium;
 }
-
+.table td {
+  font-weight: 500;
+  font-size: 14.5px;
+}
 /* table  end*/
 
 /* table search start*/
@@ -76,8 +80,8 @@
   font-family: sans-serif, Arial;
 }
 .serach-icon {
-  margin-left: 372.5px;
-  margin-top: -30.6px;
+  margin-left: 382.5px;
+  margin-top: -35.6px;
   border: none;
 }
 .btn {
@@ -90,7 +94,6 @@
   cursor: pointer;
   display: inline-block;
   font-weight: 500;
-  
 }
 
 .btn:after {
@@ -121,17 +124,17 @@
   width: 170px;
   height: 40px;
   text-align: center;
-  background-color: #0F6292;
+  background-color: #ef5959;
   border: none;
   font-size: 16px bold;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   color: white;
+  font-weight: 600;
 }
 .btn-icon {
   margin-left: 970px;
   margin-top: -50px;
-  
 }
 
 /* table search Add button end */

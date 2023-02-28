@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import React, { useState,useRef} from 'react';
 import { Link } from 'react-router-dom';
 import './addcustomer.css';
-
+import swal from 'sweetalert2';
 
 export const AddCustomer = () => {
 
@@ -31,15 +31,15 @@ export const AddCustomer = () => {
     setMessage(event.target.value);
   };
 
-  const handleClick =() =>{
-    setMessage([...message,{
-      name:'',
-      phone:'',
-      email:'',
-      location:'',
-      comment:'',
-      address:''
-    }]);
+  const CustomerCancle =() =>{
+    setMessage({
+    name:'',
+    phone:'',
+    email:'',
+    location:'',
+    comment:'',
+    address:''
+    });
   }
 
   const fortmatResponse = (res) => {
@@ -54,18 +54,17 @@ export const AddCustomer = () => {
       comment: post_comment.current.value,
       address:post_address.current.value,
     };
-
     try {
       
       const res = await fetch(`${baseURL}/customers`, {
-        method: "post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
         body: JSON.stringify(postData),
       });
-
+console.log(postData);
       if (!res.ok) {
         const message = `An error has occured: ${res.status} - ${res.statusText}`;
         throw new Error(message);
@@ -82,27 +81,38 @@ export const AddCustomer = () => {
       };
 
       setPostResult(fortmatResponse(result));
+      swal.fire({
+        title: 'Success!',
+        text: 'Your request has been processed successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
     } catch (err) {
-      setPostResult(err.message);
+      setPostResult(err.message);swal.fire({
+        title: 'Error!',
+        text: 'An error occurred while processing your request.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   }
 
  
   return (
-    <div className='container1'>
+    <div className='container2'>
         <Link to ='/'><h6 className='link01'>Home </h6> </Link>
         <Link to ='/customers'><h6 className='link02'>/ Customer </h6> </Link>
         <h6 className='link03'>/ Add Customer</h6>
         <h4>Add Customer</h4>
        
-        <div className="grid-container">
+        <div className="grid-container1">
         <label>Phone Number </label>
         <input
-          type="number"
+          type="text"
           name="name"
           ref={post_phone}
           placeholder="Enter Customer Phone Number"
-          value={message}
+         // value={message}
           onChange={handleChange}
         />
         <label>E-mail</label>
@@ -125,7 +135,7 @@ export const AddCustomer = () => {
         />
       </div>
 
-      <div className="grid-container-two">
+      <div className="grid-container-two2">
         <label>Customer Name</label>
         <input
           type="text"
@@ -155,11 +165,12 @@ export const AddCustomer = () => {
         />
       </div>
 
-        <div className="container-btn">
-            <Button className='btn-save' onClick={postData}>
+        <div className="container-btn1">
+            <Button className='btn-save1' onClick={postData}>
               Save
             </Button>
-            <Button className='cansel' onClick={handleClick}>Cansel</Button>
+            <Link to ="/customers">
+            <Button className='cansel1'>Cansel</Button> </Link>
         </div>
        
     </div>
