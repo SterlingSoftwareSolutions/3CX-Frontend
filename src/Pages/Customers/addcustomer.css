@@ -13,24 +13,29 @@ body{
     padding-top: 45px;
     padding-left: 40px;
     font-size: 1.2em;
+    font-weight: 700;
+    color: #37304c;
     font-weight: 600;
 }
 .container2 .link02{
    margin-top: -28px;
     padding-left: 95px;
     font-size: 1.2em;
-    font-weight: 600;
+    font-weight: 700;
+    color: #37304c;
 }
 .container2 .link03{
     margin-top: -28px;
     padding-left: 190px;
     font-size: 1.2em;
-    font-weight: 600;
+    font-weight: 700;
+    color: #37304c;
 }
 
 .container2 h4{
     padding-top: 10px;
     padding-left: 40px;
+    font-weight: 700;
 }
 
 /* colomn start */
@@ -56,6 +61,7 @@ body{
     line-height: 40px;
     margin-top: -253px;
     border: none;
+    font-weight: 650;
 }
 
 .grid-container-two2 input{

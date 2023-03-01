@@ -107,9 +107,7 @@ const CustomerTable = () => {
               onChange={handleSearch}
               placeholder="Search Name ..."   />
             <div className="serach-icon">
-              <Button>
                 <BsSearch />
-              </Button>
             </div>
           </form>
           <Link to="/AddCustomer">
