@@ -3,13 +3,13 @@
   background-color: white;
   width: 1300px;
   border: 0.5px solid none;
-  box-shadow: 0.5px 0.5px 4px black;
+  /* box-shadow: 0.5px 0.5px 4px black; */
   height: 970px;
 }
 .table-head {
-  width: 1300px;
+  width: 103em;
   height: 710px;
-  margin-left: 0px;
+  margin-left: -65px;
 }
 
 .Data_table {
@@ -60,15 +60,6 @@ height: 100vh;
 
   border: #37304c;
   text-align: center;
-  
-}
-
-div.table-responsive[data-table=left] tbody th, div.table-responsive[data-table=both] tbody th {
-  border: 1px solid red;
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  z-index: 1;
 }
 
 table {
@@ -78,15 +69,14 @@ table {
 }
 
 .table thead {
-  border:1px solid red;
-  position: sticky;
+ 
+
 }
 
 .table th {
   background-color: #37304c;
   color: #fff;
   font-size: medium;
-  /* position: sticky; */
 }
 .table td {
   font-weight: 500;

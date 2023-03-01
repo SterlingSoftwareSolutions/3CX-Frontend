@@ -188,9 +188,9 @@ const AllInquiries = () => {
           <div className="col-12">
             <div className="card card-body">
               <div className="table-responsive" data-table="both">
-                <table className="table " ref={tableRef}>
-                  <thead>
-                    <tr>
+                <table className="table " ref={tableRef} >
+                  <thead >
+                    <tr style={{Position:"sticky"}}>
                       <th>Id</th>
                       <th>Create At</th>
                       <th>User Name</th>
