@@ -13,19 +13,22 @@ body {
   padding-top: 45px;
   padding-left: 40px;
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: 700;
+  color: #37304c;
 }
 .container1 .link02 {
   margin-top: -27px;
   padding-left: 95px;
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: 700;
+  color: #37304c;
 }
 .container1 .link03 {
   margin-top: -27px;
   padding-left: 150px;
   font-size: 1.2em;
   font-weight: 700;
+  color: #37304c;
 }
 
 .container1 h4 {
@@ -58,6 +61,7 @@ body {
   line-height: 40px;
   margin-top: -243px;
   border: none;
+  font-weight: 700;
 }
 
 .grid-container-two input {
