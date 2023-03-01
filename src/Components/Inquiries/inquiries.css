@@ -57,15 +57,36 @@ height: 100vh;
   /* border-radius: 20px 20px 0px 0px; */
 }
 .table {
+
   border: #37304c;
   text-align: center;
-
+  
 }
+
+div.table-responsive[data-table=left] tbody th, div.table-responsive[data-table=both] tbody th {
+  border: 1px solid red;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+table {
+  border:1px solid yellow;
+  position: relative;
+  border-collapse: collapse;
+}
+
+.table thead {
+  border:1px solid red;
+  position: sticky;
+}
+
 .table th {
   background-color: #37304c;
   color: #fff;
   font-size: medium;
-  
+  /* position: sticky; */
 }
 .table td {
   font-weight: 500;

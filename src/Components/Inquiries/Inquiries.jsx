@@ -166,14 +166,14 @@ const AllInquiries = () => {
           </form>
 
           {/* add button page */}
-          <Link to="/inquiryadd">
+          {/* <Link to="/inquiryadd">
             <div className="btn">
               <input type="button" value="Add Inquiry" />
             </div>
           </Link>
           <div className="btn-icon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
-          </div>
+          </div> */}
         {/* add button page end */}
         
           {/* export excel btn */}
@@ -187,7 +187,7 @@ const AllInquiries = () => {
           {/* export excel btn end */}
           <div className="col-12">
             <div className="card card-body">
-              <div className="table-responsive">
+              <div className="table-responsive" data-table="both">
                 <table className="table " ref={tableRef}>
                   <thead>
                     <tr>
