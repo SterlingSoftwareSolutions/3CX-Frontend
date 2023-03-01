@@ -62,15 +62,15 @@ const EditInquiry = () => {
       console.error(error);
     }
   }, [id, token]);
-  console.log(data);
+
 
   useEffect(() => {
     fetchLocations();
   }, [fetchLocations]);
 
-  const handleuseridChange = (event) => {
-    setData({ ...data, user_id: event.target.value });
-  };
+  // const handleuseridChange = (event) => {
+  //   setData({ ...data, user_id: event.target.value });
+  // };
 
   const handleBrandChange = (event) => {
     setData({ ...data, brand: event.target.value });
@@ -83,13 +83,13 @@ const EditInquiry = () => {
     setData({ ...data, open: event.target.value });
   };
 
-  const handleCustomerIdChange = (event) => {
-    setData({ ...data, customer_id: event.target.value });
-  };
+  // const handleCustomerIdChange = (event) => {
+  //   setData({ ...data, customer_id: event.target.value });
+  // };
 
-  const handleCalltypeChange = (event) => {
-    setData({ ...data, call_type_id: event.target.value });
-  };
+  // const handleCalltypeChange = (event) => {
+  //   setData({ ...data, call_type_id: event.target.value });
+  // };
 
   const handleBrandAvaChange = (event) => {
     setData({ ...data, brand_availability: event.target.value });
@@ -152,7 +152,7 @@ const EditInquiry = () => {
         <input
           type="text"
           value={data.user_id}
-          onChange={handleuseridChange}
+          //onChange={handleuseridChange}
           placeholder="User Id"
         />
 
@@ -186,7 +186,7 @@ const EditInquiry = () => {
         <input
           type="text"
           value={data.customer_id}
-          onChange={handleCustomerIdChange}
+         // onChange={handleCustomerIdChange}
           placeholder="Customer Id"
         />
 
@@ -194,7 +194,7 @@ const EditInquiry = () => {
         <input
           type="text"
           value={data.call_type_id}
-          onChange={handleCalltypeChange}
+         // onChange={handleCalltypeChange}
           placeholder="Call Type Id"
         />
 
@@ -221,9 +221,10 @@ const EditInquiry = () => {
         <Button className="btn-save" onClick={handleSave}>
           Save
         </Button>
+        <Link to="/inquiries">
         <Button className="cansel" onClick={clearCustomerDetails}>
           Cancel
-        </Button>
+        </Button></Link>
       </div>
     </div>
   );

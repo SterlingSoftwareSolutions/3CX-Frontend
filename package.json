@@ -24,6 +24,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-dropdown": "^1.11.0",
+    "react-export-table-to-excel": "^1.0.6",
     "react-hook-form": "^7.41.0",
     "react-icons": "^4.7.1",
     "react-icons-kit": "^2.0.0",
@@ -33,6 +34,7 @@
     "react-spinners": "^0.13.7",
     "react-time-picker": "^5.1.0",
     "recharts": "^2.2.0",
+    "sweetalert2": "^11.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

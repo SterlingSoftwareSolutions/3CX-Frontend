@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { Button } from "antd";
 import "./inquiryadd.css";
 import { Link } from "react-router-dom";
@@ -6,9 +6,17 @@ import { Link } from "react-router-dom";
 const InquiryAdd = () => {
   const token = localStorage.getItem("token");
   const api = "/api/inquiries";
-  const call_type_id = localStorage.getItem("call_type_id");
-  const user_id = localStorage.getItem("user_id");
-  const customer_id = localStorage.getItem("customer_id");
+  // const call_type_id = localStorage.getItem("call_type_id");
+  // const user_id = localStorage.getItem("user_id");
+  // const customer_id = localStorage.getItem("customer_id");
+  
+  const [userInfo, setUserInfo] = useState({
+    user_id: "",
+    customer_id: "",
+    call_type_id: "",
+  });
+  
+ 
 
   const [data, setData] = useState({
     brand: "",
@@ -16,13 +24,12 @@ const InquiryAdd = () => {
     open: "",
     status_remark: "",
     product_category: "",
-  });
-
-  const [userInfo, setUserInfo] = useState({
-    user_id: "",
+    user_id: userInfo.user_id,
     customer_id: "",
     call_type_id: "",
   });
+
+ 
 
   const [arr, setArr] = useState([
     { name: " " },
@@ -62,9 +69,9 @@ const InquiryAdd = () => {
     setData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const onChangeIDValue = (key, value) =>{
-    setUserInfo((prev) => ({...prev,[key]: value}))
-  };
+  // const onChangeIDValue = (key, value) =>{
+  //   setUserInfo((prev) => ({...prev,[key]: value}))
+  // };
 
   const [followupStatus] = useState([
     { id: "", name: " " },
@@ -78,34 +85,48 @@ const InquiryAdd = () => {
     { name: "No" },
   ]);
 
+  useEffect(() => {
+    const user_id = generateId();
+    const customer_id = generateId();
+    const call_type_id = generateId();
+
+    // localStorage.setItem("user_id", user_id);
+    localStorage.setItem("customer_id", customer_id);
+    localStorage.setItem("call_type_id", call_type_id);
+
+    setUserInfo((prev) => ({...prev, user_id, customer_id, call_type_id}))
+  }, []);
+
+  const generateId = () => {
+    return "_" + Math.random().toString(36).substr(2, 9);
+  }
+  const onChangeIDValue = (key, value) => {
+    setUserInfo((prev) => ({ ...prev, [key]: value }));
+    setData((prev) => ({ ...prev, [key]: value }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const user_id = localStorage.getItem("user_id");
+      const customer_id = localStorage.getItem("customer_id");
+      const call_type_id = localStorage.getItem("call_type_id");
+  
       const response = await fetch(api, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          ...data,
-          user_id: userInfo.user_id || user_id,
-          customer_id: userInfo.customer_id || customer_id,
-          call_type_id: userInfo.call_type_id || call_type_id,
-        }),
+        body: JSON.stringify({ data }),
       });
       if (response.ok) {
         // handle success
-        console.log("Inquiry added successfully");
         setData({
           brand: "",
           brand_availability: "",
           open: "",
           status_remark: "",
           product_category: "",
-          user_id: "",
-          customer_id: "",
-          call_type_id: "",
         });
       } else {
         // handle error
@@ -115,11 +136,8 @@ const InquiryAdd = () => {
       console.log(error);
     }
   };
-  console.log(data);
-  console.log(userInfo);
   
-
-
+  
   return (
     <div className="container1">
       <Link to="/">
@@ -134,7 +152,8 @@ const InquiryAdd = () => {
       {/* data start */}
       <div className="grid-container">
         <label>User Id</label>
-        <input type="text" value={userInfo.user_id} 
+        <input type="text"
+        value={userInfo.user_id} 
         onChange={(e) =>onChangeIDValue("user_id", e.target.value)}
         placeholder="User Id" />
 
@@ -207,7 +226,8 @@ const InquiryAdd = () => {
         <Button className="btn-save" onClick={handleSubmit}>
           Save
         </Button>
-        <Button className="cansel">Cancel</Button>
+        <Link to ="/inquiries">
+        <Button className="cansel">Cancel</Button></Link>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import Table from "../table/table";
 import "./inquiries.css";
 import { fetchArray, getDate } from "../../Utils/utils";
@@ -6,9 +6,11 @@ import { MdPersonAddAlt1 } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { Button } from "antd";
 import { MdDelete } from "react-icons/md";
+import { BiExport } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useDownloadExcel } from 'react-export-table-to-excel';
 
 const AllInquiries = () => {
   //popup the page in this section
@@ -25,8 +27,18 @@ const AllInquiries = () => {
       customer_id: "",
       call_type_id: "",
       created_at: "",
+      location: "",
+      feedback: "",
     },
   ]);
+
+  const tableRef = useRef(null);
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Users table',
+    sheet: 'Users'
+})
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -39,73 +51,47 @@ const AllInquiries = () => {
     setCurrentPage(1); // reset current page when search query changes
   };
 
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "name",
-    },
-    {
-      title: "Brand",
-      dataIndex: "brand",
-      key: "age",
-    },
-    {
-      title: "Brand Availability",
-      dataIndex: "brand_availability",
-      key: "address",
-    },
-    {
-      title: "Product Category",
-      dataIndex: "product_category",
-      key: "address",
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "address",
-    },
-    {
-      title: "Status Remark",
-      dataIndex: "status_remark",
-      key: "address",
-    },
-    {
-      title: "Open",
-      dataIndex: "open",
-      key: "address",
-    },
-    {
-      title: "User ID",
-      dataIndex: "user_id",
-      key: "address",
-    },
-    {
-      title: "Customer ID",
-      dataIndex: "customer_id",
-      key: "address",
-    },
-    {
-      title: "Call Type ID",
-      dataIndex: "call_type_id",
-      key: "address",
-    },
-    {
-      title: "Created At",
-      dataIndex: "created_at",
-      key: "address",
-      render: (key, record) => {
-        return <span>{getDate(record)}</span>;
-      },
-    },
-  ];
+
+
+
+
   //Get api url
   const api = "/api/inquiries";
+  const customerapi = "/api/customers";
 
   //calling Api get method
   useEffect(() => {
     fetchArray(api, setData);
   }, []);
+
+  if (data.length > 0) {
+    data.forEach((inquiry) => {
+      if (inquiry.customer !== undefined && inquiry.call_type !== undefined) {
+        inquiry["customer_name"] = inquiry.customer.name;
+        inquiry["phone"] = inquiry.customer.phone;
+
+        inquiry["location"] = inquiry.customer.location;
+        inquiry["user_name"] = inquiry.user.name;
+        inquiry["call_type_name"] = inquiry.call_type.name;
+       
+      
+        if (inquiry.feedback !== null) {
+          if (inquiry.feedback.feedback !== null) {
+             
+             inquiry["feedback_customer"] = inquiry.feedback.feedback;
+          }
+           
+          // inquiry["feedback_customer"] = ;
+        }
+      
+        if (inquiry.open === 1) {
+          inquiry["open"] = "Open";
+        } else {
+          inquiry["open"] = "Closed";
+        }
+      }
+    });
+  }
 
   //delete function
   const deleteCustomer = async (phone) => {
@@ -124,7 +110,7 @@ const AllInquiries = () => {
     if (!isConfirm) {
       return;
     }
-    fetch("/api/inquiries" + phone, {
+    fetch("/api/inquiries/" + phone, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -132,11 +118,10 @@ const AllInquiries = () => {
       },
     })
       .then((res) => {
-        alert("Removed successfully.");
-        // window.location.reload();
+       window.location.reload();
       })
       .catch((err) => {
-        console.log(err.message);
+        console.warn(err.message);
       });
   };
 
@@ -158,12 +143,13 @@ const AllInquiries = () => {
 
   return (
     <div className="table-container">
+    
       <div className="table-head">
         <Link to="/">
           {" "}
           <h6 className="link01"> Home </h6>{" "}
         </Link>
-        <h6 className="link02"> / Inquiriesr</h6>
+        <h6 className="link02"> / Inquiries</h6>
         <div className="table-name">
           <h3>Inquiries Page</h3>
           <form className="search">
@@ -178,6 +164,7 @@ const AllInquiries = () => {
               <BsSearch style={{ width: "20px", height: "20px" }} />
             </div>
           </form>
+
           {/* add button page */}
           <Link to="/inquiryadd">
             <div className="btn">
@@ -187,10 +174,21 @@ const AllInquiries = () => {
           <div className="btn-icon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
+        {/* add button page end */}
+        
+          {/* export excel btn */}
+          <div className="btn_export">
+         
+              <input type="button"  value="Export" onClick={onDownload} /> 
+            </div>
+          <div className="btn_exporticon">
+            <BiExport style={{ width: "25px", height: "25px" }}/>
+          </div>
+          {/* export excel btn end */}
           <div className="col-12">
             <div className="card card-body">
               <div className="table-responsive">
-                <table className="table ">
+                <table className="table " ref={tableRef}>
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -198,12 +196,14 @@ const AllInquiries = () => {
                       <th>Brand Availability</th>
                       <th>Product Category</th>
                       <th> Status Remark</th>
-                      <th> Open</th>
-                      <th>User Id</th>
-                      <th>Customer Id</th>
-                      <th>Call Type Id</th>
+                      <th> Status</th>
+                      <th>User Name</th>
+                      <th>Customer Name</th>
+                      <th>Customer Phone</th>
+                      <th>Call Type </th>
                       <th>Create At</th>
-
+                      <th>FeedBack</th>
+                      <th>Location</th>
                       <th
                         style={{
                           textAlign: "center",
@@ -222,10 +222,10 @@ const AllInquiries = () => {
                         const query = searchQuery.toLowerCase();
                         return brand.includes(query);
                       })
-                      .slice(
-                        (currentPage - 1) * itemsPerPage,
-                        currentPage * itemsPerPage
-                      )
+                      // .slice(
+                      //   (currentPage - 1) * itemsPerPage,
+                      //   currentPage * itemsPerPage
+                      // )
                       .map((row, index) => (
                         <tr key={index}>
                           <td>{row.id}</td>
@@ -234,10 +234,13 @@ const AllInquiries = () => {
                           <td>{row.product_category}</td>
                           <td>{row.status_remark}</td>
                           <td>{row.open}</td>
-                          <td>{row.user_id}</td>
-                          <td>{row.customer_id}</td>
-                          <td>{row.call_type_id}</td>
+                          <td>{row.user_name}</td>
+                          <td>{row.customer_name}</td>
+                          <td>{row.phone}</td>
+                          <td>{row.call_type_name}</td>
                           <td>{row.created_at}</td>
+                          <td>{row.feedback_customer}</td>
+                          <td>{row.location}</td>
                           <td>
                             <Link to={`/editinquiry/${row.id}`}>
                               {/* edit button */}
@@ -251,8 +254,11 @@ const AllInquiries = () => {
                                 />
                               </Button>
 
+                            
+                              
+                            </Link>
                               {/* delete button */}
-                              <Button
+                            <Button
                                 className="delete-btn"
                                 onClick={() => deleteCustomer(row.id)}
                                 style={{
@@ -262,7 +268,6 @@ const AllInquiries = () => {
                                   style={{ width: "30px", height: "30px" }}
                                 />
                               </Button>
-                            </Link>
                           </td>
                         </tr>
                       ))}
@@ -271,8 +276,8 @@ const AllInquiries = () => {
               </div>
             </div>
 
-            <div>
-              {/* table content */}
+            {/* <div>
+          
               <div className="pagination-btn">
                 <button
                   className="btn-preview"
@@ -287,7 +292,7 @@ const AllInquiries = () => {
                   Next
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <Table users={data} columns={columns} /> */}

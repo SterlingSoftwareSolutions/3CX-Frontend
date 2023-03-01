@@ -2,11 +2,11 @@ body {
   font-family: "Roboto", sans-serif;
 }
 .container1 {
-  background-color: rgb(241, 239, 239);
+  background-color:rgb(253, 252, 252);
   margin-top: 70px !important;
   margin-left: 30px !important;
-  height: 540px;
-  border-radius: 20px;
+  height: 550px;
+  box-shadow: 2px 2px 4px black;
   width: 900px !important;
 }
 .container1 .link01 {
@@ -41,11 +41,13 @@ body {
   width: 400px;
   padding-left: 40px;
   line-height: 40px;
+  font-weight: 500;
 }
 .grid-container select {
-  border: none;
+  /* border: none; */
   height: 40px;
   border-radius: 10px;
+  border: 0.5px solid rgb(219, 218, 216);
 }
 /* .grid-container select option{
   line-height: 1.6px;
@@ -55,6 +57,7 @@ body {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
+  font-weight: 500;
 }
 .grid-container-two {
   display: grid;
@@ -65,18 +68,21 @@ body {
   line-height: 40px;
   margin-top: -330px;
   border: none;
+  font-weight: 500;
 }
 
 .grid-container-two select {
-  border: none;
+  /* border: none; */
   height: 40px;
   border-radius: 10px;
+  border: 0.5px solid rgb(219, 218, 216);
 }
 
 .grid-container-two input {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
+  font-weight: 500;
 }
 
 .grid-container-two textarea {
@@ -93,7 +99,7 @@ body {
 .container-btn .btn-save {
   margin-right: 30px;
   width: 100px;
-  background-color: dodgerblue;
+  background-color: #ef5959;
   font-weight: 700;
   font-size: medium;
   height: 40px;
@@ -112,7 +118,7 @@ body {
 .container-btn .cansel {
   width: 100px;
   height: 40px;
-  background-color: dodgerblue;
+  background-color: #ef5959;
   font-weight: 700;
   font-size: medium;
   color: white;
