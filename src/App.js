@@ -13,10 +13,13 @@ import Inquiry from "./Components/Inquiries/Inquiry";
 import AllInquiry from "./Components/Inquiries/Inquiries";
 import Errorpage from "./Pages/404/404";
 import "react-datepicker/dist/react-datepicker.css";
+import { Edituser } from "./Pages/User/EditUser";
+import { Adduser } from "./Pages/User/Adduser";
 import InquiryAdd from "./Components/Inquiries/InquiryAdd";
 import EditInquiry from "./Components/Inquiries/EditInquiry";
 import { AddCustomer } from "./Pages/Customers/AddCustomer";
 import { Editcustomer } from "./Pages/Customers/Editcustomer";
+
 
 function App() {
   const loggedInUser = localStorage.getItem("authenticated");
@@ -39,6 +42,8 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/*" element={<Errorpage />} />
               <Route path="/customers" element={<Customers />} />
+              <Route path="/edituser/:id" element={<Edituser />} />
+              <Route path="/addnewuser" element={<Adduser />} />
               <Route path="/inquiryadd" element={<InquiryAdd />} />
               <Route path="/editinquiry/:id" element={<EditInquiry />} />
               <Route path="/addcustomer" element={<AddCustomer/>} />
