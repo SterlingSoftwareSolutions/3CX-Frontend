@@ -13,6 +13,9 @@ import Inquiry from "./Components/Inquiries/Inquiry";
 import AllInquiry from "./Components/Inquiries/Inquiries";
 import Errorpage from "./Pages/404/404";
 import "react-datepicker/dist/react-datepicker.css";
+import { AddCustomer } from "./Pages/Customers/AddCustomer";
+import { Editcustomer } from "./Pages/Customers/Editcustomer";
+
 
 function App() {
   const loggedInUser = localStorage.getItem("authenticated");
@@ -35,6 +38,8 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/*" element={<Errorpage />} />
               <Route path="/customers" element={<Customers />} />
+              <Route path="/addcustomer" element={<AddCustomer/>} />
+              <Route path="/editcustomer/:phone"element={<Editcustomer/>} />
             </Routes>
           </Col>
         </Row>
