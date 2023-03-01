@@ -1,0 +1,111 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.container2{
+    background-color: white;
+    margin-top: 70px !important;
+    margin-left: 30px !important;
+    height: 500px;
+    width: 900px !important;
+    box-shadow: 2px 2px 4px black;
+}
+.container2 .link01{
+    padding-top: 45px;
+    padding-left: 40px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #37304c;
+    font-weight: 600;
+}
+.container2 .link02{
+   margin-top: -28px;
+    padding-left: 95px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #37304c;
+}
+.container2 .link03{
+    margin-top: -28px;
+    padding-left: 190px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #37304c;
+}
+
+.container2 h4{
+    padding-top: 10px;
+    padding-left: 40px;
+    font-weight: 700;
+}
+
+/* colomn start */
+.grid-container1 {
+    display: grid;
+    grid-column-gap: 1em;
+    align-items: center;
+    width: 400px; 
+    padding-left: 40px;
+    line-height: 40px;
+ }
+.grid-container1 input{
+    border: 0.5px solid rgb(219, 218, 216);
+    border-radius: 10px;
+    text-align: center;
+}
+.grid-container-two2{
+    display: grid;
+    grid-column-gap: 1em;
+    align-items: center; 
+    width: 400px; 
+    margin-left: 450px;
+    line-height: 40px;
+    margin-top: -253px;
+    border: none;
+    font-weight: 650;
+}
+
+.grid-container-two2 input{
+    border: 0.5px solid rgb(219, 218, 216);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.grid-container-two2 textarea{
+    border: 0.5px solid rgb(219, 218, 216);
+    border-radius: 10px;
+    text-align: center;
+}
+/* end column */
+
+.container-btn1 {
+ margin-left: 600px !important;
+ margin-top: 25px;
+}
+.container-btn1 .btn-save1{
+    margin-right: 30px;
+    width: 100px;
+    background-color: #ef5959;
+    font-weight: 700;
+    font-size: medium;
+    height: 40px;
+    color: white;
+    border-radius: 15px;
+}
+.btn-save1:hover{
+    background-color:white;
+    color:cornflowerblue;
+}
+
+.container-btn1 .cansel1{
+    width: 100px;
+    height: 40px;
+    background-color:  #ef5959;
+    font-weight: 700;
+    font-size: medium;
+    color: white;
+    border-radius: 15px;
+}
+.cansel1:hover{
+    background-color:white;
+    color:cornflowerblue;
+}
