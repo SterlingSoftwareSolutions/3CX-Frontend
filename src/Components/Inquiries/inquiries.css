@@ -18,19 +18,20 @@
 }
 
 .table-head .link01 {
-  content: ">";
   margin-top: -37px !important;
   padding-top: 25px !important;
   border: none;
   margin-left: 50px;
-  font-weight: 650;
-  color: #5ca1e1;
+  font-weight: 700;
+  font-size: 18px;
+  color: #37304c;
 }
 .table-head .link02 {
   margin-top: -42px !important;
-  padding-top: 15px !important;
-  margin-left: 100px;
-  font-weight: 650;
+  padding-top: 12px !important;
+  margin-left: 105px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .table-name {
