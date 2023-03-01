@@ -1,0 +1,116 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.container0 {
+  background-color: white;
+  margin-top: 70px !important;
+  margin-left: 30px !important;
+  height: 515px;
+  width: 900px !important;
+  box-shadow: 2px 2px 4px black;
+}
+.linkone {
+  padding-left: 45px;
+  padding-top: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #37304c;
+}
+.linktwo {
+  padding-left: 105px;
+  font-weight: 500;
+ margin-top: -30px;
+ font-weight: 700;
+ font-size: 18px;
+ color: #37304c;
+}
+.linkthre {
+  padding-left: 205px;
+  font-weight: 700;
+  padding-top: min(-80px, 10%);
+  margin-top: -28px;
+  font-size: 18px;
+
+}
+.container0 h4 {
+  padding-top: 10px;
+  padding-left: 40px;
+  font-weight: 650;
+}
+
+/* colomn start */
+.grid-container1 {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  padding-left: 40px;
+  line-height: 40px;
+}
+.grid-container1 input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.grid-container1 label {
+  font-weight: 700;
+}
+.grid-container1-two label {
+  font-weight: 700;
+}
+.grid-container1-two {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  margin-left: 450px;
+  line-height: 40px;
+  margin-top: -253px;
+  border: none;
+}
+
+.grid-container1-two input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.grid-container1-two textarea {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+}
+/* end column */
+
+.container-btn {
+  margin-left: 620px !important;
+  margin-top: 25px;
+}
+.container-btn .btn-save {
+  margin-right: 30px;
+  width: 100px;
+  background-color: #ef5959;
+  font-weight: 700;
+  font-size: medium;
+  height: 40px;
+  color: white;
+  border-radius: 15px;
+}
+.btn-save:hover {
+  background-color: aliceblue;
+}
+.container-btn .cansel {
+  width: 100px;
+  height: 40px;
+  background-color: #ef5959;
+  font-weight: 700;
+  font-size: medium;
+  color: white;
+  border-radius: 15px;
+}
+.cansel:hover {
+  background-color: aliceblue;
+}
