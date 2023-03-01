@@ -192,18 +192,18 @@ const AllInquiries = () => {
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Brand</th>
-                      <th>Brand Availability</th>
-                      <th>Product Category</th>
-                      <th> Status Remark</th>
-                      <th> Status</th>
+                      <th>Create At</th>
                       <th>User Name</th>
+                      <th>Location</th>
                       <th>Customer Name</th>
                       <th>Customer Phone</th>
-                      <th>Call Type </th>
-                      <th>Create At</th>
+                      <th>Call Type</th>
+                      <th>Product Category</th>
+                      <th>Brand</th>
+                      <th>Brand Availability</th>
                       <th>FeedBack</th>
-                      <th>Location</th>
+                      <th>Open</th>
+                      <th>Status Remark</th>
                       <th
                         style={{
                           textAlign: "center",
@@ -229,18 +229,18 @@ const AllInquiries = () => {
                       .map((row, index) => (
                         <tr key={index}>
                           <td>{row.id}</td>
-                          <td>{row.brand}</td>
-                          <td>{row.brand_availability} </td>
-                          <td>{row.product_category}</td>
-                          <td>{row.status_remark}</td>
-                          <td>{row.open}</td>
-                          <td>{row.user_name}</td>
+                          <td>{row.created_at}</td>
+                          <td>{row.user_name} </td>
+                          <td>{row.location}</td>
                           <td>{row.customer_name}</td>
                           <td>{row.phone}</td>
                           <td>{row.call_type_name}</td>
-                          <td>{row.created_at}</td>
+                          <td>{row.product_category}</td>
+                          <td>{row.brand}</td>
+                          <td>{row.brand_availability}</td>
                           <td>{row.feedback_customer}</td>
-                          <td>{row.location}</td>
+                          <td>{row.open}</td>
+                          <td>{row.status_remark}</td>
                           <td>
                             <Link to={`/editinquiry/${row.id}`}>
                               {/* edit button */}
