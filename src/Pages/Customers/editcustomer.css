@@ -1,3 +1,8 @@
+
+*{
+  padding: 0;
+  margin: 0;
+}
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -39,7 +44,7 @@ body {
 }
 
 /* colomn start */
-.grid-container1 {
+.grid_containerleft {
   display: grid;
   grid-column-gap: 1em;
   align-items: center;
@@ -47,41 +52,44 @@ body {
   padding-left: 40px;
   line-height: 40px;
 }
-.grid-container1 input {
+.grid_containerleft input {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
-  font-weight: 600;
+  font-size: 16px;
 }
 
-.grid-container1 label {
+.grid_containerleft label {
   font-weight: 700;
+  font-size: 16px;
 }
-.grid-container1-two label {
-  font-weight: 700;
-}
-.grid-container1-two {
+
+.grid_container1_right {
   display: grid;
   grid-column-gap: 1em;
   align-items: center;
   width: 400px;
   margin-left: 450px;
   line-height: 40px;
-  margin-top: -253px;
+  margin-top: -240px;
   border: none;
 }
-
-.grid-container1-two input {
+.grid_container1_right label {
+  font-weight: 700;
+  font-size: 16px;
+}
+.grid_container1_right input {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
-  font-weight: 600;
+  font-size: 16px;
 }
 
-.grid-container1-two textarea {
+.grid_container1_right textarea {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
+  font-size: 16px;
 }
 /* end column */
 

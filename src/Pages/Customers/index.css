@@ -26,10 +26,11 @@
 
 .tableName {
   margin-bottom: 2rem !important;
+  margin-left: 100px;
 }
 .tableName h3 {
   margin-top: 10px !important;
-  margin-left: 30px;
+  margin-left: -70px;
   font-weight: 650;
 }
 

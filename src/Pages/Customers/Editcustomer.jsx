@@ -129,7 +129,7 @@ export const Editcustomer = () => {
       <h6 className="linkthre">/ Edit Customer</h6>
       <h4>Edit Customer</h4>
 
-      <div className="grid-container1">
+      <div className="grid_containerleft">
         <label>Phone Number </label>
         <input
           type="text"
@@ -153,7 +153,7 @@ export const Editcustomer = () => {
         />
       </div>
 
-      <div className="grid-container1-two">
+      <div className="grid_container1_right">
         <label>Customer Name</label>
         <input
           type="text"

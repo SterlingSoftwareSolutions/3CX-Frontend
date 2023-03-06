@@ -100,12 +100,12 @@ console.log(postData);
  
   return (
     <div className='container2'>
-        <Link to ='/'><h6 className='link01'>Home </h6> </Link>
+        <Link to ='/'><h6 className='linkhome'>Home </h6> </Link>
         <Link to ='/customers'><h6 className='link02'>/ Customer </h6> </Link>
         <h6 className='link03'>/ Add Customer</h6>
         <h4>Add Customer</h4>
        
-        <div className="grid-container1">
+        <div className="grid-containerone">
         <label>Phone Number </label>
         <input
           type="text"
@@ -135,7 +135,7 @@ console.log(postData);
         />
       </div>
 
-      <div className="grid-container-two2">
+      <div className="grid_container_two">
         <label>Customer Name</label>
         <input
           type="text"
