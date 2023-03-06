@@ -1,55 +1,47 @@
 /* table  start*/
-.table-container {
+.table_tablecontainer {
   background-color: white;
-  width: 1200px;
+  width: 1250px;
+  height: 670px;
   border: 0.5px solid none;
-
   box-shadow: 2px 2px 4px black;
-}
-.table-head {
-  width: 1165px;
-  height: 710px;
-  margin-left: 20px;
+  margin-top: 100px;
 }
 
-.Data_table {
-  height: 300px;
-  width: 450px;
-}
-
-.table-head .link01 {
- 
+.table-head1 .link-home {
   margin-top: -37px !important;
   padding-top: 25px !important;
   border: none;
-  margin-left: 50px;
+  margin-left: 30px;
   font-weight: 650;
   color: #37304c;
   font-size: 16px;
 }
-.table-head .link02 {
+.table-head1 .link-cus {
   margin-top: -42px !important;
   padding-top: 15px !important;
-  margin-left: 100px;
+  margin-left: 90px;
   font-weight: 650;
 }
 
-.table-name {
+.tableName {
   margin-bottom: 2rem !important;
 }
-.table-name h3 {
+.tableName h3 {
   margin-top: 10px !important;
-  margin-left: 50px;
+  margin-left: 30px;
   font-weight: 650;
 }
 
-.table-name form {
+.tableName form {
   margin-left: 500px;
   margin-top: -35px;
 }
-
+/* data table */
 .card {
   /* border-radius: 15px; */
+  height: 540px;
+  width: 1200px;
 }
 
 .table-responsive {
@@ -68,6 +60,13 @@
   font-weight: 500;
   font-size: 14.5px;
 }
+.table tr{
+  overflow: auto;
+}
+.table-row {
+  max-width: 800px; /* sets the maximum width of the table row to 800 pixels */
+  min-width: 400px; /* sets the minimum width of the table row to 400 pixels */
+}
 /* table  end*/
 
 /* table search start*/
@@ -85,20 +84,20 @@
   margin-top: -30.6px;
   border: none;
 }
-.btn {
+.btn-add {
   margin-left: 950px;
-  margin-top: -55px;
+  margin-top: -30px;
   border: none;
   /* dd */
   border-radius: 4px;
   transition: all 0.5s;
   cursor: pointer;
-  display: inline-block;
+  /* display: inline-block; */
   font-weight: 500;
 }
 
-.btn:after {
-  content: "»";
+.btn-add:after {
+  /* content: "»"; */
   position: absolute;
   opacity: 0;
   top: 132px;
@@ -107,12 +106,12 @@
   color: #fff;
 }
 
-.btn:hover {
+.btn-add:hover {
   padding-right: 24px;
   padding-left: 8px;
 }
 
-.btn:hover:after {
+.btn-add:hover:after {
   opacity: 1;
   right: 10px;
 }
@@ -120,7 +119,7 @@
 
 /* table search Add button start */
 
-.btn input {
+.btn-add input {
   border-radius: 10px;
   width: 170px;
   height: 40px;
@@ -128,14 +127,12 @@
   background-color: #ef5959;
   border: none;
   font-size: 16px bold;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
   color: white;
   font-weight: 600;
 }
-.btn-icon {
-  margin-left: 970px;
-  margin-top: -50px;
+.btn-iconicon {
+  margin-left: 957px;
+  margin-top: -35px;
 }
 
 /* table search Add button end */
@@ -159,9 +156,10 @@
 /* table  edit button end */
 
 /*table  pagination start */
-.pagination-btn {
+.pagination-btnbtn {
   color: #37304c;
-  margin-left: 20px;
+  margin-left: 85px;
+
 }
 .btn-next {
   color: #37304c;
@@ -200,3 +198,8 @@
 }
 
 /*table  pagination end */
+@media(max-width:1250px){
+  .table_tablecontainer{
+    min-width: 1000px;
+  }
+}

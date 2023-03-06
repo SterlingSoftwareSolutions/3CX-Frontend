@@ -92,14 +92,14 @@ const CustomerTable = () => {
 
 
   return (
-    <div className="table-container">
-      <div className="table-head">
+    <div className="table_tablecontainer">
+      <div className="table-head1">
         <Link to="/">
           {" "}
-          <h6 className="link01"> Home </h6>{" "}
+          <h6 className="link-home"> Home </h6>{" "}
         </Link>
-        <h6 className="link02">/ Customer</h6>
-        <div className="table-name">
+        <h6 className="link-cus">/ Customer</h6>
+        <div className="tableName">
           <h3>Customers</h3>
           <form className="search">
             <input type="text" name="text" 
@@ -110,16 +110,20 @@ const CustomerTable = () => {
                 <BsSearch />
             </div>
           </form>
+         
           <Link to="/AddCustomer">
-            <div className="btn">
+            <div className="btn-add">
               <input type="button" value="Add Customer" />
             </div>
           </Link>
-          <div className="btn-icon">
+          <div className="btn-iconicon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
+          </div>
           <div className="col-12">
-            <div className="card card-body">
+            {/* table start */}
+            <div className="card">
+              {/* table end */}
               <div className="table-responsive">
                 <table className="table table-bordered mb-0 text-center">
                   <thead>
@@ -128,7 +132,7 @@ const CustomerTable = () => {
                       <th>Name</th>
                       <th>Email</th>
                       <th>Phone Number</th>
-                      <th>Remark</th>
+                      <th style={{maxWidth:'100px'}}>Remark</th>
                       <th style={{paddingLeft:'80px',justifyContent:'center'}}>Action</th>
                     </tr>
                   </thead>
@@ -138,8 +142,9 @@ const CustomerTable = () => {
                         const Name = row.name.toLowerCase();
                         const query = searchQuery.toLowerCase();
                         return Name.includes(query);
-                      }).slice((currentPage - 1) * itemsPerPage,
-                      currentPage * itemsPerPage)
+                      })
+                      // .slice((currentPage - 1) * itemsPerPage,
+                      // currentPage * itemsPerPage)
                       .map((row, key) => (
                         <tr key={key}>
                           <td>{row.id}</td>
@@ -185,7 +190,7 @@ const CustomerTable = () => {
 
           <div>
               {/* table content */}
-              <div className="pagination-btn">
+              {/* <div className="pagination-btnbtn">
                 <button
                   className="btn-preview"
                   onClick={handlePrevPage}
@@ -198,10 +203,10 @@ const CustomerTable = () => {
                   disabled={currentPage === totalPages}>
                   Next
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
-        </div>
+        
         {/* <Table className="data-table" users={data}  /> */}
       </div>
     </div>

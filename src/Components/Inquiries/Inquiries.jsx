@@ -133,13 +133,13 @@ const AllInquiries = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const totalPages = Math.ceil(
-    data.filter((row) => {
-      const brand = row.brand.toLowerCase();
-      const query = searchQuery.toLowerCase();
-      return brand.includes(query);
-    }).length / itemsPerPage
-  );
+  // const totalPages = Math.ceil(
+  //   data.filter((row) => {
+  //     const brand = row.brand.toLowerCase();
+  //     const query = searchQuery.toLowerCase();
+  //     return brand.includes(query);
+  //   }).length / itemsPerPage
+  // );
 
   return (
     <div className="table-container">
