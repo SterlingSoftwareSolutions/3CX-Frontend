@@ -124,14 +124,14 @@ const Users = () => {
   );
 
   return (
-    <div className="table-container">
-      <div className="table-head">
+    <div className="table_container">
+      <div className="table_head">
         <Link to="/">
           {" "}
-          <h6 className="link01"> Home </h6>{" "}
+          <h6 className="link_01"> Home </h6>{" "}
         </Link>
 
-        <h6 className="link02"> / User</h6>
+        <h6 className="link_02"> / User</h6>
         <div className="table-name">
           <h4>User Page </h4>
           <form className="search">
@@ -147,15 +147,18 @@ const Users = () => {
             </div>
           </form>
           <Link to="/addnewuser">
-            <div className="btn">
+            <div className="btnAdd">
               <input type="button" value="Add User" />
             </div>
           </Link>
-          <div className="btn-icon">
+          <div className="btn_icon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
+
+          </div>
+
           <div className="col-12">
-            <div className="card card-body">
+            <div className="card-body">
               <div className="table-responsive">
                 <table className="table ">
                   <thead>
@@ -232,9 +235,9 @@ const Users = () => {
 
             <div>
               {/* table content */}
-              <div className="pagination-btn1">
+              <div className="pagination_btnbtn">
                 <button
-                  className="btn-preview"
+                  className="btn_preview"
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}>
                   Previous
@@ -248,7 +251,7 @@ const Users = () => {
               </div>
             </div>
           </div>
-        </div>
+       
         {/* <Table users={data} columns={columns} /> */}
       </div>
     </div>

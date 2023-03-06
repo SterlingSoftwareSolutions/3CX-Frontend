@@ -47,6 +47,7 @@ body {
   padding-left: 40px;
   line-height: 40px;
   font-weight: 700;
+  font-size: 16px;
 }
 
 .grid-container input {
@@ -54,6 +55,7 @@ body {
   border-radius: 10px;
   text-align: center;
   font-weight: 600;
+ 
 }
 .grid-containertwo {
   display: grid;
@@ -64,7 +66,9 @@ body {
   line-height: 40px;
   margin-top: -170px;
   border: none;
-  font-weight: 700;
+ font-size: 16px;
+ font-weight: 600;
+
 }
 
 .grid-containertwo input {
@@ -74,23 +78,14 @@ body {
   font-weight: 600;
 }
 
-.grid-container-two textarea {
-  border: 0.5px solid rgb(219, 218, 216);
-  border-radius: 10px;
-  text-align: center;
-}
-.grid-container select {
-  border: none;
-  border-radius: 1px solid black;
-  height: 35px;
-}
+
 /* end column */
 
-.container-btn1 {
-  margin-left: 600px !important;
-  margin-top: 95px;
+.footer_btn {
+  margin-left: 620px !important;
+  margin-top: 115px;
 }
-.container-btn1 .btn-save1 {
+.footer_btn .btn-save1 {
   margin-right: 30px;
   width: 100px;
   background-color: #ff885c;
@@ -105,7 +100,7 @@ body {
   color: aquamarine;
 }
 
-.container-btn1 .cansel1 {
+.footer_btn .cansel1 {
   width: 100px;
   height: 40px;
   background-color: #ff885c;
