@@ -134,7 +134,9 @@ const Users = () => {
         <h6 className="link_02"> / User</h6>
         <div className="table-name">
           <h4>User Page </h4>
-          <form className="search">
+
+       
+          <form className="search_bar">
             <input
               type="text"
               name="text"
@@ -146,11 +148,11 @@ const Users = () => {
               <BsSearch style={{ width: "20px", height: "20px" }} />
             </div>
           </form>
-          <Link to="/addnewuser">
-            <div className="btnAdd">
-              <input type="button" value="Add User" />
-            </div>
+
+          <Link className="add-user" to="/addnewuser">
+          <button className="btn_btnAdd">Add User</button>
           </Link>
+
           <div className="btn_icon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
@@ -252,7 +254,7 @@ const Users = () => {
             </div>
           </div>
        
-        {/* <Table users={data} columns={columns} /> */}
+          {/* <Table users={data} columns={columns} /> */}
       </div>
     </div>
   );

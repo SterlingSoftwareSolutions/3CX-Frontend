@@ -67,7 +67,7 @@
 /* table  end*/
 
 /* table search start*/
-.search input {
+.search_bar input {
   width: 440px;
   height: 42px;
   text-align: center;
@@ -81,12 +81,8 @@
   margin-top: -32.6px;
   border: none;
 }
-.btnAdd {
-  margin: 10px;
-  margin-top: -32px;
-}
-.btnAdd input {
-  margin-left: 950px;
+
+.btn_btnAdd {
   border: none;
   cursor: pointer;
   color: white;
@@ -96,6 +92,9 @@
   border-radius: 10px;
   font-size: 16px;
   font-weight: 650px;
+  position: absolute;
+  top: 125px;
+  right: -130px;
 }
 
 .btnAdd:after {
@@ -115,12 +114,12 @@
 
 /* table search end */
 
-
 /* table search Add button start */
 
 .btn_icon {
-  margin-left: 970px;
-  margin-top: -45px;
+  top: 130px;
+  right: -20px;
+  position: absolute;
 }
 
 /* table search Add button end */
