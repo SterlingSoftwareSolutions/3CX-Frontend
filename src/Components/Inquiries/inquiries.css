@@ -1,27 +1,21 @@
 /* table  start*/
 .table-container {
   background-color: white;
-  width: 1300px;
+  width: 1250px;
   border: 0.5px solid none;
-  /* box-shadow: 0.5px 0.5px 4px black; */
-  height: 970px;
+  box-shadow: 0.5px 0.5px 4px black;
+  height: 680px;
+  margin-right: -150px;
 }
 .table-head {
-  width: 103em;
-  height: 710px;
-  margin-left: -65px;
-}
-
-.Data_table {
-  height: 300px;
-  width: 450px;
+  margin-left: -140px;
 }
 
 .table-head .link01 {
   margin-top: -37px !important;
   padding-top: 25px !important;
   border: none;
-  margin-left: 50px;
+  margin-left: 180px;
   font-weight: 700;
   font-size: 18px;
   color: #37304c;
@@ -29,7 +23,7 @@
 .table-head .link02 {
   margin-top: -42px !important;
   padding-top: 12px !important;
-  margin-left: 105px;
+  margin-left: 245px;
   font-weight: 700;
   font-size: 18px;
 }
@@ -51,6 +45,7 @@
 .card {
   /* border-radius: 15px; */
   box-shadow: 1px 1px 5px black;
+  width: 1200px;
 }
 
 .table-responsive {
@@ -87,12 +82,12 @@ table {
 
 /* export btn*/
 .btn_export {
-  padding-left: 83em;
+  padding-left: 79.5em;
   margin-top: -2.2em;
 }
 .btn_export input{
   background-color:rgb(10, 211, 10);
-  width: 100px;
+  width: 115px;
   height: 40px;
   border-radius: 10px;
   border: none;
@@ -100,7 +95,7 @@ table {
   font-weight: 500;
 }
 .btn_exporticon{
-padding-left: 83.18em;
+padding-left: 79.9em;
 margin-top: -2.5em;
 }
 /* export btn end*/
@@ -116,8 +111,8 @@ margin-top: -2.5em;
   font-family: sans-serif, Arial;
 }
 .serach-icon {
-  margin-left: 372.5px;
-  margin-top: -30.6px;
+  margin-left: 400.5px;
+  margin-top: -31.6px;
   border: none;
 }
 .btn {

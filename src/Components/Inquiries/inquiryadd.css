@@ -12,25 +12,30 @@ body {
 .container1 .link01 {
   padding-top: 45px;
   padding-left: 40px;
-  font-size: 1.2em;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 650;
+  color: #37304c;
 }
 .container1 .link02 {
-  margin-top: -27px;
-  padding-left: 90px;
-  font-size: 1.2em;
-  font-weight: 600;
+  margin-top: -29px;
+  padding-left: 97px;
+  font-size: 18px;
+  font-weight: 650;
+color: #37304c;
 }
 .container1 .link03 {
   margin-top: -27px;
-  padding-left: 160px;
-  font-size: 1.2em;
-  font-weight: 600;
+  padding-left: 175px;
+  font-weight: 650;
+  color: #37304c;
+  font-size: 18px;
 }
 
 .container1 h4 {
   padding-top: 20px;
   padding-left: 40px;
+  font-size: 26px;
+  font-weight: 650;
 }
 
 /* colomn start */

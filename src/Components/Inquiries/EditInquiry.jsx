@@ -1,24 +1,28 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "antd";
 import "./inquiryadd.css";
-import { Link, useParams,useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
-
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { forEach } from "lodash";
 
 const EditInquiry = () => {
   const token = localStorage.getItem("token");
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [customerName, setCustomerName] = useState({ customer: "" });
+  const [callType, setCallType] = useState({
+    call_type_name: "",
+  });
+  const [userName, setUserName] = useState({
+    user_name: "",
+  });
   const [data, setData] = useState({
     brand: "",
     brand_availability: "",
     open: "",
     status_remark: "",
     product_category: "",
-    user_id: "",
-    customer_id: "",
-    call_type_id: "",
   });
 
   //  clear function
@@ -29,9 +33,9 @@ const EditInquiry = () => {
       open: "",
       status_remark: "",
       product_category: "",
-      user_id: "",
-      customer_id: "",
-      call_type_id: "",
+      user_name: "",
+      customer_name: "",
+      call_type_name: "",
     });
   };
 
@@ -55,6 +59,9 @@ const EditInquiry = () => {
       if (fetchData && fetchData.data) {
         // update the state with the correct data
         setData(fetchData.data[0]);
+        setCustomerName(fetchData.data[0].customer);
+        setCallType(fetchData.data[0].call_type);
+        setUserName(fetchData.data[0].user);
       } else if (fetchData.error) {
         throw new Error(fetchData.error);
       }
@@ -63,14 +70,13 @@ const EditInquiry = () => {
     }
   }, [id, token]);
 
-
   useEffect(() => {
     fetchLocations();
-  }, [fetchLocations]);
+  }, []);
 
-  // const handleuseridChange = (event) => {
-  //   setData({ ...data, user_id: event.target.value });
-  // };
+  const handleusernameChange = (event) => {
+    setUserName({ ...data, name: event.target.value });
+  };
 
   const handleBrandChange = (event) => {
     setData({ ...data, brand: event.target.value });
@@ -79,17 +85,18 @@ const EditInquiry = () => {
   const handleProductChange = (event) => {
     setData({ ...data, product_category: event.target.value });
   };
+
   const handleOpenChange = (event) => {
     setData({ ...data, open: event.target.value });
   };
 
-  // const handleCustomerIdChange = (event) => {
-  //   setData({ ...data, customer_id: event.target.value });
-  // };
+  const handleCustomernameChange = (event) => {
+    setCustomerName({ ...data, name: event.target.value });
+  };
 
-  // const handleCalltypeChange = (event) => {
-  //   setData({ ...data, call_type_id: event.target.value });
-  // };
+  const handleCalltypeChange = (event) => {
+    setCallType({ ...data, name: event.target.value });
+  };
 
   const handleBrandAvaChange = (event) => {
     setData({ ...data, brand_availability: event.target.value });
@@ -98,19 +105,20 @@ const EditInquiry = () => {
   const handleStatusChange = (event) => {
     setData({ ...data, status_remark: event.target.value });
   };
+
   const handleSave = async () => {
     try {
       const headers = new Headers({
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       });
-  
+
       const response = await fetch(`/api/inquiries/${id}`, {
         method: "PUT",
         headers,
         body: JSON.stringify(data),
       });
-  
+
       if (response.ok) {
         Swal.fire({
           icon: "success",
@@ -118,10 +126,9 @@ const EditInquiry = () => {
           timer: 2000,
           showConfirmButton: false,
         });
-       // window.location.reload();
-       // clearCustomerDetails();
-       navigate('/inquiries/');
-
+        // window.location.reload();
+        // clearCustomerDetails();
+        navigate("/inquiries/");
       } else {
         throw new Error("Failed to save inquiry");
       }
@@ -143,17 +150,17 @@ const EditInquiry = () => {
       <Link to="/inquiries">
         <h6 className="link02">/ Inquiry </h6>{" "}
       </Link>
-      <h6 className="link03">/ Edi Inquiry</h6>
-      <h4>Add Inquiry</h4>
+      <h6 className="link03">/ Edit Inquiry</h6>
+      <h4>Edit Inquiry</h4>
 
       {/* data start */}
       <div className="grid-container">
-        <label>User Id</label>
+        <label>User Name</label>
         <input
           type="text"
-          value={data.user_id}
-          //onChange={handleuseridChange}
-          placeholder="User Id"
+          value={userName.name}
+          onChange={handleusernameChange}
+          placeholder="User Name"
         />
 
         <label>Brand</label>
@@ -173,29 +180,53 @@ const EditInquiry = () => {
         />
 
         <label>Open/Close</label>
-        <input
+        {/* <input
           type="text"
           placeholder=""
           value={data.open}
           onChange={handleOpenChange}
-        />
+        /> */}
+        {data.open === 1 ? (
+          <div>
+            <label htmlFor="status"></label>
+            <input
+              type="text"
+              id="status"
+              name="status"
+              value="Open"
+              disabled
+              onChange={handleOpenChange}
+            />
+          </div>
+        ) : (
+          <div>
+            <label htmlFor="status"></label>
+            <input
+              type="text"
+              id="status"
+              name="status"
+              value="Closed"
+              disabled
+            />
+          </div>
+        )}
       </div>
 
       <div className="grid-container-two">
-        <label>Customer Id</label>
+        <label>Customer Name</label>
         <input
           type="text"
-          value={data.customer_id}
-         // onChange={handleCustomerIdChange}
-          placeholder="Customer Id"
+          onChange={handleCustomernameChange}
+          value={customerName.name}
+          placeholder="Customer Name"
         />
 
-        <label>Call Type Id</label>
+        <label>Call Type Name</label>
         <input
           type="text"
-          value={data.call_type_id}
-         // onChange={handleCalltypeChange}
-          placeholder="Call Type Id"
+          value={callType.name}
+          onChange={handleCalltypeChange}
+          placeholder="Call Type Name"
         />
 
         <label>Brand Availibility</label>
@@ -222,9 +253,10 @@ const EditInquiry = () => {
           Save
         </Button>
         <Link to="/inquiries">
-        <Button className="cansel" onClick={clearCustomerDetails}>
-          Cancel
-        </Button></Link>
+          <Button className="cansel" onClick={clearCustomerDetails}>
+            Cancel
+          </Button>
+        </Link>
       </div>
     </div>
   );
