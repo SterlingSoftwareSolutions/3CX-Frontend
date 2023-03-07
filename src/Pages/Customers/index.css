@@ -97,25 +97,6 @@
   font-weight: 500;
 }
 
-.btn-add:after {
-  /* content: "»"; */
-  position: absolute;
-  opacity: 0;
-  top: 132px;
-  left: 70em;
-  transition: 0.5s;
-  color: #fff;
-}
-
-.btn-add:hover {
-  padding-right: 24px;
-  padding-left: 8px;
-}
-
-.btn-add:hover:after {
-  opacity: 1;
-  right: 10px;
-}
 /* table search end */
 
 /* table search Add button start */
