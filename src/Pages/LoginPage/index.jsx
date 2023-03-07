@@ -26,8 +26,16 @@ const LoginPage = () => {
       if (data.error) {
         setError(data.error);
         alert(data.error);
+        //admin login role
+      } else if (data.data.user.role === "admin") {
+        localStorage.setItem("role", data.data.user.role);
+        localStorage.setItem("token", data.data.token);
+        localStorage.setItem("authenticated", true);
+        setauthenticated(true);
+        navigate("/"); // set location
+        window.location.reload();
       } else {
-        localStorage.setItem("user_id", data.data.user.id);
+        localStorage.setItem("user_role", data.data.user.role); //old feature  user_id,data.data.user.id
         localStorage.setItem("token", data.data.token);
         localStorage.setItem("authenticated", true);
         setauthenticated(true);
@@ -44,8 +52,7 @@ const LoginPage = () => {
       title="Login"
       headStyle={{ fontSize: "24px" }}
       className="title-style"
-      style={{ boxShadow: "0 0 5px rgba(0,0,0,1" }}
-    >
+      style={{ boxShadow: "0 0 5px rgba(0,0,0,1" }}>
       <Form>
         <div className="row-style">
           <p>
@@ -55,8 +62,9 @@ const LoginPage = () => {
             className="input-style"
             name="email"
             onChange={(e) => setUsername(e.target.value)}
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
+            rules={[
+              { required: true, message: "Please input your username!" },
+            ]}>
             <Input />
           </Form.Item>
         </div>
@@ -68,8 +76,9 @@ const LoginPage = () => {
             className="input-style"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
+            rules={[
+              { required: true, message: "Please input your password!" },
+            ]}>
             <Input.Password />
           </Form.Item>
           <p className="error">{error}</p>
