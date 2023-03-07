@@ -325,7 +325,7 @@ const Inquiry = (props) => {
     const response = await fetch(followUpApi, requestOptions).then((response) =>
       response.json()
     );
-    console.log(response);
+
     return response;
   };
 
@@ -558,11 +558,11 @@ const Inquiry = (props) => {
             className="btn btn mt-3"
             style={{ backgroundColor: "#16c5d5", color: "white" }}
             onClick={(e) => {
-              if (localState.call_type_group_id === 1) handleSubmitOne(e);
-              if (localState.call_type_group_id === 2) handleSubmitTwo(e);
-              if (localState.call_type_group_id === 3) handleSubmitThree(e);
-              if (localState.call_type_group_id === 4) handleSubmitFour(e);
-              if (localState.call_type_group_id === 5) handleSubmitThree(e);
+              if (localState.call_type_group_id == 1) handleSubmitOne(e);
+              if (localState.call_type_group_id == 2) handleSubmitTwo(e);
+              if (localState.call_type_group_id == 3) handleSubmitThree(e);
+              if (localState.call_type_group_id == 4) handleSubmitFour(e);
+              if (localState.call_type_group_id == 5) handleSubmitThree(e);
             }}
           >
             Save
