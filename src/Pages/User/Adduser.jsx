@@ -140,17 +140,19 @@ export const Adduser = () => {
   }
 
   return (
-    <div className="container1">
+    <div className="container_container">
       <Link to="/">
-        <h6 className="link01">Home </h6>{" "}
+        <h6 className="link_linktext">Home </h6>{" "}
       </Link>
       <Link to="/users">
-        <h6 className="link02">/ User </h6>{" "}
+        <h6 className="link_02">/ User </h6>{" "}
       </Link>
-      <h6 className="link03">/ Add User</h6>
+      <h6 className="link_03">/ Add User</h6>
       <h4>Add User</h4>
 
-      <div className="grid-container">
+
+
+      <div className="grid_containerOne">
         <label>User Name</label>
         <input
           type="text"
@@ -182,7 +184,7 @@ export const Adduser = () => {
         />
       </div>
 
-      <div className="grid-container-two">
+      <div className="grid_container_lefttwo">
         <label>User E-mail</label>
         <input
           type="email"
@@ -201,7 +203,7 @@ export const Adduser = () => {
         />
       </div>
 
-      <div className="container-btn">
+      <div className="container_btn">
         <Button className="btn-save" onClick={postData}>
           Save
         </Button>

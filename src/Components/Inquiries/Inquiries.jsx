@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Table from "../table/table";
 import "./inquiries.css";
 import { fetchArray, getDate } from "../../Utils/utils";
@@ -10,7 +10,7 @@ import { BiExport } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useDownloadExcel } from 'react-export-table-to-excel';
+import { useDownloadExcel } from "react-export-table-to-excel";
 
 const AllInquiries = () => {
   //popup the page in this section
@@ -36,24 +36,13 @@ const AllInquiries = () => {
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
-    filename: 'Users table',
-    sheet: 'Users'
-})
+    filename: "Users table",
+    sheet: "Users",
+  });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [searchedVal, setSearchedVal] = useState("");
 
   const token = localStorage.getItem("token");
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-    setCurrentPage(1); // reset current page when search query changes
-  };
-
-
-
-
 
   //Get api url
   const api = "/api/inquiries";
@@ -73,17 +62,15 @@ const AllInquiries = () => {
         inquiry["location"] = inquiry.customer.location;
         inquiry["user_name"] = inquiry.user.name;
         inquiry["call_type_name"] = inquiry.call_type.name;
-       
-      
+
         if (inquiry.feedback !== null) {
           if (inquiry.feedback.feedback !== null) {
-             
-             inquiry["feedback_customer"] = inquiry.feedback.feedback;
+            inquiry["feedback_customer"] = inquiry.feedback.feedback;
           }
-           
+
           // inquiry["feedback_customer"] = ;
         }
-      
+
         if (inquiry.open === 1) {
           inquiry["open"] = "Open";
         } else {
@@ -118,32 +105,15 @@ const AllInquiries = () => {
       },
     })
       .then((res) => {
-       window.location.reload();
+        window.location.reload();
       })
       .catch((err) => {
         console.warn(err.message);
       });
   };
 
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const totalPages = Math.ceil(
-    data.filter((row) => {
-      const brand = row.brand.toLowerCase();
-      const query = searchQuery.toLowerCase();
-      return brand.includes(query);
-    }).length / itemsPerPage
-  );
-
   return (
     <div className="table-container">
-    
       <div className="table-head">
         <Link to="/">
           {" "}
@@ -156,8 +126,7 @@ const AllInquiries = () => {
             <input
               type="text"
               name="text"
-              value={searchQuery}
-              onChange={handleSearch}
+              onChange={(e) => setSearchedVal(e.target.value)}
               placeholder="Search Name ...."
             />
             <div className="serach-icon">
@@ -174,23 +143,22 @@ const AllInquiries = () => {
           <div className="btn-icon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div> */}
-        {/* add button page end */}
-        
+          {/* add button page end */}
+
           {/* export excel btn */}
           <div className="btn_export">
-         
-              <input type="button"  value="Export" onClick={onDownload} /> 
-            </div>
+            <input type="button" value="Export" onClick={onDownload} />
+          </div>
           <div className="btn_exporticon">
-            <BiExport style={{ width: "25px", height: "25px" }}/>
+            <BiExport style={{ width: "25px", height: "25px" }} />
           </div>
           {/* export excel btn end */}
           <div className="col-12">
             <div className="card card-body">
               <div className="table-responsive" data-table="both">
-                <table className="table " ref={tableRef} >
-                  <thead >
-                    <tr style={{Position:"sticky"}}>
+                <table className="table " ref={tableRef}>
+                  <thead>
+                    <tr style={{ Position: "sticky" }}>
                       <th>Id</th>
                       <th>Create At</th>
                       <th>User Name</th>
@@ -217,15 +185,16 @@ const AllInquiries = () => {
                   <tbody>
                     {/* row length & filtered data*/}
                     {data
-                      .filter((row) => {
-                        const brand = row.brand.toLowerCase();
-                        const query = searchQuery.toLowerCase();
-                        return brand.includes(query);
-                      })
-                      // .slice(
-                      //   (currentPage - 1) * itemsPerPage,
-                      //   currentPage * itemsPerPage
-                      // )
+                      .filter(
+                        (row) =>
+                          !searchedVal.length ||
+                          (row.customer_name &&
+                            row.phone &&
+                            row.location
+                              .toString()
+                              .toLowerCase()
+                              .includes(searchedVal.toString().toLowerCase()))
+                      )
                       .map((row, index) => (
                         <tr key={index}>
                           <td>{row.id}</td>
@@ -253,21 +222,18 @@ const AllInquiries = () => {
                                   style={{ width: "30px", height: "30px" }}
                                 />
                               </Button>
-
-                            
-                              
                             </Link>
-                              {/* delete button */}
+                            {/* delete button */}
                             <Button
-                                className="delete-btn"
-                                onClick={() => deleteCustomer(row.id)}
-                                style={{
-                                  border: "none",
-                                }}>
-                                <MdDelete
-                                  style={{ width: "30px", height: "30px" }}
-                                />
-                              </Button>
+                              className="delete-btn"
+                              onClick={() => deleteCustomer(row.id)}
+                              style={{
+                                border: "none",
+                              }}>
+                              <MdDelete
+                                style={{ width: "30px", height: "30px" }}
+                              />
+                            </Button>
                           </td>
                         </tr>
                       ))}
@@ -276,23 +242,7 @@ const AllInquiries = () => {
               </div>
             </div>
 
-            {/* <div>
-          
-              <div className="pagination-btn">
-                <button
-                  className="btn-preview"
-                  onClick={handlePrevPage}
-                  disabled={currentPage === 1}>
-                  Previous
-                </button>
-                <button
-                  className="btn-next"
-                  onClick={handleNextPage}
-                  disabled={currentPage === totalPages}>
-                  Next
-                </button>
-              </div>
-            </div> */}
+            <div></div>
           </div>
         </div>
         {/* <Table users={data} columns={columns} /> */}

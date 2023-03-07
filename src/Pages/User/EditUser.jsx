@@ -160,7 +160,7 @@ export const Edituser = () => {
           />
         </div>
       </form>
-      <div className="container-btn1">
+      <div className="footer_btn">
         <Button className="btn-save1" onClick={handleSave}>
           Save
         </Button>
