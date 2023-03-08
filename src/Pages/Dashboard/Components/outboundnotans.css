@@ -1,6 +1,7 @@
 .container-header{
-    margin-top: 470px;
-    margin-left: 100px;
+position: absolute;
+left: 65px;
+top: 450px;
 }
 
 .pie-chart{
@@ -11,6 +12,7 @@ padding-top: 70px;
   margin-top: -455px !important;
   margin-left: 100px;
   width: 600px;
+  font-weight: 700;
 }
 
 .chart-value1 {

@@ -1,19 +1,19 @@
-.container-piechart h4{
-  padding-top: 5px;
-  text-align: center;
- 
+
+.container-piechart{
+  position: absolute;
+  top: 150px;
+  left: -80px;
 }
 .container-piechart h5{
   text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  padding-left: -10px;
+  position: relative;
 }
-
-.container-piechart{
-  width:730px;
-  background-color: rgb(255, 255, 255);
-  height: 600px;
-  margin-top: 180px;
-  border-radius: 20px;
-  border: 0.5px solid beige;
+.container-piechart h4{
+  padding-top: 5px;
+  text-align: center;
 }
 .chart-container{
 
@@ -34,6 +34,7 @@
 .call-type h6{
   margin-top: -500px !important;
   margin-left: 120px;
+  font-weight: 700;
 }
 
 .chart-value1{
@@ -63,3 +64,16 @@
   margin-top: 10px;
   margin-left: 10px;
 }
+.agent_list{
+
+        
+}
+
+/* media quiry */
+/* @media(max-width:2100px){
+  .dashboard-chart{
+    position: absolute;
+    left: 150px;
+  }
+ 
+} */
