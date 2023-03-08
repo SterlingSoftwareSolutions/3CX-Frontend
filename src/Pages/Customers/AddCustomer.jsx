@@ -26,26 +26,25 @@ export const AddCustomer = () => {
     address:''
   }]);
 
-
   const handleChange = event =>{
     setMessage(event.target.value);
   };
-
-  const CustomerCancle =() =>{
-    setMessage({
-    name:'',
-    phone:'',
-    email:'',
-    location:'',
-    comment:'',
-    address:''
-    });
-  }
 
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   }
   async function postData() {
+
+    const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(post_phone.current.value)) {
+    swal.fire({
+      title: 'Error!',
+      text: 'Please enter a valid phone number.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
     const postData = {
       name: post_name.current.value,
       phone: post_phone.current.value,
@@ -64,7 +63,7 @@ export const AddCustomer = () => {
         },
         body: JSON.stringify(postData),
       });
-console.log(postData);
+     
       if (!res.ok) {
         const message = `An error has occured: ${res.status} - ${res.statusText}`;
         throw new Error(message);
@@ -90,7 +89,7 @@ console.log(postData);
     } catch (err) {
       setPostResult(err.message);swal.fire({
         title: 'Error!',
-        text: 'An error occurred while processing your request.',
+        text: 'Please Check Again.',
         icon: 'error',
         confirmButtonText: 'OK'
       });
@@ -113,8 +112,9 @@ console.log(postData);
           ref={post_phone}
           placeholder="Enter Customer Phone Number"
          // value={message}
-          onChange={handleChange}
+         onChange={handleChange}
         />
+        {/* {phoneError && <div className="error-message">{phoneError}</div>} */}
         <label>E-mail</label>
         <input
           type="email"
@@ -124,6 +124,7 @@ console.log(postData);
           // value={message}
           onChange={handleChange}
         />
+       
         <label>Location</label>
         <input
           type="text"
@@ -145,6 +146,7 @@ console.log(postData);
           // value={message}
           onChange={handleChange}
         />
+        
         <label>Customer Address</label>
         <input
           type="text"
