@@ -11,8 +11,7 @@ const PieCharts = (props) => {
   return (
     <div className="container-piechart">
       <h4></h4>
-      <h5>Calls - Last 30 days</h5>
-
+      <h5>Calls - Last 30 Days</h5>
       <div
         className="chart-container"
         style={{ width: "250px", height: "500px" }}>
