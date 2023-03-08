@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Divider, List, Skeleton } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProfilePic from "./ProfilePic";
+import "./chart.css";
 
 const AgentList = () => {
   const token = localStorage.getItem("token");
@@ -31,7 +32,7 @@ const AgentList = () => {
     loadMoreData();
   }, []);
   return (
-    <div
+    <div className="agent_list"
       id="scrollableDiv"
       style={{
         width: "90%",

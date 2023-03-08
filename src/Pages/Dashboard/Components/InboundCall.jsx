@@ -10,7 +10,7 @@ const data = [
 
 export const InboundCall = () => {
   return (
-    <div className="container1">
+    <div className="Container_head">
       <div
         className="chart-container1"
         style={{ width: "250px", height: "500px" }}>

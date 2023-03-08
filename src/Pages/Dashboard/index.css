@@ -37,3 +37,8 @@
 .outbound-call-ansewer{
   margin-left: -660px;
 }
+.dashboard-row{
+  position: absolute;
+  left: 190px;
+}
+
