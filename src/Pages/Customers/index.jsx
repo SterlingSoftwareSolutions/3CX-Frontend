@@ -1,4 +1,4 @@
-import React, { useEffect, useState,} from "react";
+import React, { useEffect, useState } from "react";
 import { fetchArray } from "../../Utils/utils";
 import "./index.css";
 import { MdPersonAddAlt1 } from "react-icons/md";
@@ -6,12 +6,12 @@ import { BsSearch } from "react-icons/bs";
 import { Button } from "antd";
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
-import { Link ,useParams} from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const CustomerTable = () => {
-
+  const navigate = useNavigate();
+  const [searchitem, setearchItem] = useState("");
   const [data, setData] = useState([
     {
       id: 1,
@@ -30,15 +30,6 @@ const CustomerTable = () => {
   useEffect(() => {
     fetchArray(api, setData);
   }, []);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-    setCurrentPage(1); // reset current page when search query changes
-  };
 
   //delete function
   const deleteCustomer = async (phone) => {
@@ -65,31 +56,14 @@ const CustomerTable = () => {
       },
     })
       .then((res) => {
-        // alert('Removed successfully.')
-        window.location.reload();
+        alert("Removed successfully.");
+        // window.location.reload();
+        navigate("/customers");
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const totalPages = Math.ceil(
-    data.filter((row) => {
-      const name1 = row.name.toLowerCase();
-      const query = searchQuery.toLowerCase();
-      return name1.includes(query);
-    }).length / itemsPerPage
-  );
-
 
   return (
     <div className="table_tablecontainer">
@@ -102,15 +76,17 @@ const CustomerTable = () => {
         <div className="tableName">
           <h3>Customers</h3>
           <form className="search">
-            <input type="text" name="text" 
-            value={searchQuery}
-              onChange={handleSearch}
-              placeholder="Search Name ..."   />
+            <input
+              type="text"
+              name="text"
+              onChange={(e) => setearchItem(e.target.value)}
+              placeholder="Search Name ..."
+            />
             <div className="serach-icon">
-                <BsSearch />
+              <BsSearch />
             </div>
           </form>
-         
+
           <Link to="/AddCustomer">
             <div className="btn-add">
               <input type="button" value="Add Customer" />
@@ -119,78 +95,80 @@ const CustomerTable = () => {
           <div className="btn-iconicon">
             <MdPersonAddAlt1 style={{ width: "25px", height: "25px" }} />
           </div>
-          </div>
-          <div className="col-12">
-            {/* table start */}
-            <div className="card">
-              {/* table end */}
-              <div className="table-responsive">
-                <table className="table table-bordered mb-0 text-center">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone Number</th>
-                      <th style={{maxWidth:'100px'}}>Remark</th>
-                      <th style={{paddingLeft:'80px',justifyContent:'center'}}>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody> 
-                    {/* row length  */}
-                    {data.filter((row) => {
-                        const Name = row.name.toLowerCase();
-                        const query = searchQuery.toLowerCase();
-                        return Name.includes(query);
-                      })
-                      // .slice((currentPage - 1) * itemsPerPage,
-                      // currentPage * itemsPerPage)
-                      .map((row, key) => (
-                        <tr key={key}>
-                          <td>{row.id}</td>
-                          <td>{row.name}</td>
-                          <td>{row.email} </td>
-                          <td>{row.phone}</td>
-                          <td>{row.comment}</td>
-                          <td >
-                            <Link
-                             
-                              to={`/editcustomer/${row.phone}`}>
-                         
-                              {/* edit button */}
-                              <Button
-                                className="edit-btn"
-                                style={{
-                                  border: "none",
-                                }}>
-                                <FiEdit 
-                                  style={{ width: "30px", height: "30px" }}
-                                />
-                              </Button>
+        </div>
+        <div className="col-12">
+          {/* table start */}
+          <div className="card">
+            {/* table end */}
+            <div className="table-responsive">
+              <table className="table table-bordered mb-0 text-center">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th style={{ maxWidth: "100px" }}>Remark</th>
+                    <th
+                      style={{ paddingLeft: "80px", justifyContent: "center" }}>
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* row length  */}
+                  {data
+                    .filter(
+                      (row) =>
+                        !searchitem.length ||
+                        row.name
+                          .toString()
+                          .toLocaleLowerCase()
+                          .includes(searchitem.toString().toLocaleLowerCase())
+                    )
+                    .map((row, key) => (
+                      <tr key={key}>
+                        <td>{row.id}</td>
+                        <td>{row.name}</td>
+                        <td>{row.email} </td>
+                        <td>{row.phone}</td>
+                        <td>{row.comment}</td>
+                        <td>
+                          <Link to={`/editcustomer/${row.phone}`}>
+                            {/* edit button */}
+                            <Button
+                              className="edit-btn"
+                              style={{
+                                border: "none",
+                              }}>
+                              <FiEdit
+                                style={{ width: "30px", height: "30px" }}
+                              />
+                            </Button>
 
-                                   {/* delete button */}
-                              <Button
-                                className="delete-btn"
-                                onClick={() => deleteCustomer(row.phone)}
-                                style={{
-                                  border: "none",
-                                }}>
-                                <MdDelete 
-                                  style={{ width: "30px", height: "30px",}}
-                                />
-                              </Button>
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
+                            {/* delete button */}
+                            <Button
+                              className="delete-btn"
+                              onClick={() => deleteCustomer(row.phone)}
+                              style={{
+                                border: "none",
+                              }}>
+                              <MdDelete
+                                style={{ width: "30px", height: "30px" }}
+                              />
+                            </Button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
+          </div>
 
           <div>
-              {/* table content */}
-              {/* <div className="pagination-btnbtn">
+            {/* table content */}
+            {/* <div className="pagination-btnbtn">
                 <button
                   className="btn-preview"
                   onClick={handlePrevPage}
@@ -204,9 +182,9 @@ const CustomerTable = () => {
                   Next
                 </button>
               </div> */}
-            </div>
           </div>
-        
+        </div>
+
         {/* <Table className="data-table" users={data}  /> */}
       </div>
     </div>
