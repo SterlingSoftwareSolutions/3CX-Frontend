@@ -1,0 +1,111 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.container_container {
+  background-color: white;
+  box-shadow: 2px 2px 4px black;
+  margin-top: 70px !important;
+  margin-left: 30px !important;
+  height: 430px;
+  width: 900px !important;
+}
+.container_container .link_linktext {
+  padding-top: 45px;
+  padding-left: 40px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #37304c;
+}
+.container_container .link_02 {
+  margin-top: -30px;
+  padding-left: 100px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #37304c;
+}
+.container_container .link_03 {
+  margin-top: -28px;
+  padding-left: 160px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #37304c;
+}
+
+.container_container h4 {
+  padding-top: 20px;
+  padding-left: 40px;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+/* colomn start */
+.grid_containerOne {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  padding-left: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.grid_containerOne input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+  /* border: none; */
+}
+.grid_container_lefttwo {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  margin-left: 450px;
+  line-height: 40px;
+  margin-top: -245px;
+  border: none;
+ font-size: 16px;
+ font-weight: 600;
+}
+
+.grid_container_lefttwo input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* end column */
+
+.container_btn {
+  margin-left: 625px !important;
+  margin-top: 40px;
+}
+.container_btn .btn-save {
+  margin-right: 30px;
+  width: 100px;
+  background-color:#ff885c;
+  font-weight: 700;
+  font-size: medium;
+  height: 40px;
+  color: white;
+  border-radius: 15px;
+}
+.btn-save:hover {
+  background-color:azure;
+  color: aquamarine;
+}
+
+.container_btn .cansel {
+  width: 100px;
+  height: 40px;
+  background-color:#ff885c;
+  font-weight: 700;
+  font-size: medium;
+  color: white;
+  border-radius: 15px;
+}
+.cansel:hover{
+  background-color:azure;
+  color: aquamarine;
+}

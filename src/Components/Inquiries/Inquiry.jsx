@@ -325,7 +325,7 @@ const Inquiry = (props) => {
     const response = await fetch(followUpApi, requestOptions).then((response) =>
       response.json()
     );
-    console.log(response);
+
     return response;
   };
 

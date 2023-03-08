@@ -1,0 +1,46 @@
+.container1{
+    margin-top: 50px;
+}
+/* .recharts-surface {
+  margin-top: -20px !important;
+  width: 300px !important;
+  margin-left: 50px;
+  margin-bottom: 150px;
+} */
+.chart-container1{
+padding-top: 70px;
+}
+
+.call-type1 h6 {
+  margin-top: -470px !important;
+  margin-left: 100px;
+  width: 600px;
+}
+
+.chart-value1 {
+  margin-top: 10em !important;
+  margin-left: 25px !important;
+}
+.chart-value2 {
+  margin-top: -2px !important;
+  margin-left: 25px !important;
+}
+
+.chart-side-box1 {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #0081B4;
+  box-sizing: border-box;
+  background-color: #0081B4;
+  margin-top: -45px;
+  margin-left: 10px;
+}
+.chart-side-box2 {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #39B5E0;
+  box-sizing: border-box;
+  background-color: #39B5E0;
+  margin-top: 10px;
+  margin-left: 10px;
+}

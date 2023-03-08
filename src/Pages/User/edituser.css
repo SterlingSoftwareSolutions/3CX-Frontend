@@ -1,0 +1,115 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.contain {
+  background-color: white;
+  box-shadow: 2px 2px 4px black;
+  margin-top: 70px !important;
+  margin-left: 30px !important;
+  height: 400px;
+  /* border-radius: 20px; */
+  width: 900px !important;
+}
+.contain .link01 {
+  padding-top: 45px;
+  padding-left: 40px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #37304c;
+}
+.contain .link02 {
+  margin-top: -27px;
+  padding-left: 95px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #37304c;
+}
+.contain .link03 {
+  margin-top: -27px;
+  padding-left: 145px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #37304c;
+}
+
+.contain h4 {
+  padding-top: 20px;
+  padding-left: 40px;
+  color: #37304c;
+}
+
+/* colomn start */
+.grid-container {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  padding-left: 40px;
+  line-height: 40px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.grid-container input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+ 
+}
+.grid-containertwo {
+  display: grid;
+  grid-column-gap: 1em;
+  align-items: center;
+  width: 400px;
+  margin-left: 450px;
+  line-height: 40px;
+  margin-top: -170px;
+  border: none;
+ font-size: 16px;
+ font-weight: 600;
+
+}
+
+.grid-containertwo input {
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+/* end column */
+
+.footer_btn {
+  margin-left: 620px !important;
+  margin-top: 115px;
+}
+.footer_btn .btn-save1 {
+  margin-right: 30px;
+  width: 100px;
+  background-color: #ff885c;
+  font-weight: 700;
+  font-size: medium;
+  height: 40px;
+  color: white;
+  border-radius: 15px;
+}
+.btn-save1:hover {
+  background-color: azure;
+  color: aquamarine;
+}
+
+.footer_btn .cansel1 {
+  width: 100px;
+  height: 40px;
+  background-color: #ff885c;
+  font-weight: 700;
+  font-size: medium;
+  color: white;
+  border-radius: 15px;
+}
+.cansel1:hover {
+  background-color: azure;
+  color: aquamarine;
+}

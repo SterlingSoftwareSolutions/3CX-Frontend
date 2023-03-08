@@ -1,29 +1,26 @@
 import React from "react";
-import { ResponsiveContainer, PieChart, Pie, } from "recharts";
-import "./chart.css";
+import { ResponsiveContainer, PieChart, Pie, Legend } from "recharts";
+import "./outboundans.css";
 
 const data = [
-  { name: "Group A", value: 400 , fill:'#39B5E0'},
-  { name: "Group B", value: 300, fill :'#0081B4'},
+  { name: "Group A", value: 100 ,fill:'#39B5E0' },
+  { name: "Group B", value: 300 ,fill:'#0081B4'},
 ];
 
-const PieCharts = (props) => {
+export const OutboundAns = () => {
   return (
-    <div className="container-piechart">
-      <h4></h4>
-      <h5>Calls - Last 30 days</h5>
-
+    <div className="container-top">
       <div
-        className="chart-container"
+        className="chart"
         style={{ width: "250px", height: "500px" }}>
         <ResponsiveContainer>
           <PieChart>
-            <Pie dataKey="value" data={data} label />
+            <Pie dataKey="value" data={data}  label />
           </PieChart>
         </ResponsiveContainer>
       </div>
-      <div className="call-type">
-        <h6>Inbound Call(Answered)</h6>
+      <div className="call-type3">
+        <h6>Outbound Call(Answered)</h6>
       </div>
       <div className="chart-value1">
         <h6>Abans</h6>
@@ -37,5 +34,3 @@ const PieCharts = (props) => {
     </div>
   );
 };
-
-export default PieCharts;
