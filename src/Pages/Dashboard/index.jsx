@@ -5,6 +5,11 @@ import "./index.css";
 import AnimatedNumber from "./Components/AnimatedNumber";
 import AgentList from "./Components/AgentList";
 import PieCharts from "./Components/PieCharts";
+import { InboundCall } from "./Components/InboundCall";
+import { OutboundAns } from "./Components/OutboundAns";
+import { OutboundnotAns } from "./Components/OutboundnotAns";
+
+
 
 const projectdata = [
   { name: "Abans", value: 207 },
@@ -49,6 +54,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#fc4242"];
 const Dashboard = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const loggedInUser = localStorage.getItem("authenticated");
+  const [userRole, setUserRole] = useState(""); // logged role
   const [authenticated, setauthenticated] = useState(
     loggedInUser ? loggedInUser : false
   );
@@ -56,12 +62,49 @@ const Dashboard = () => {
   useEffect(() => {
     if (loggedInUser) {
       setauthenticated(true);
+      const role = localStorage.getItem("role");
+      setUserRole(role);
     }
   }, []);
 
-  if (!authenticated) {
+  if (userRole === "admin") {
+    return (
+      <div className="dashboard-row">
+      <Row style={{ marginTop: "6%", width: "1100px" }}>
+        <AnimatedNumber />
+      </Row>
+      <Row style={{ marginTop: "1%", width: "1100px" }}>
+        <Col span={16}></Col>
+        <Col span={8}>
+          <AgentList />
+        </Col>
+      </Row>
+      <Row className="dashboard-chart">
+        <Col className="dashboard-char1" span={6}>
+          <PieCharts />
+        </Col>
+        <Col className="dashboard-chart2" span={6}>
+          <InboundCall />
+        </Col>
+        <Col className="outbound-call-ansewer" span={6}>
+        <OutboundAns/>
+        </Col>
+        <Col className="outbound-call-notanswer" span={6}>
+         <OutboundnotAns/>
+        </Col>
+      </Row>
+    </div>
+    );
+  } else if (userRole === "user") {
+    return <div style={{ fontSize: "200px" }}>Welcome User!</div>;
+  } else if (!authenticated) {
     return <Navigate replace to="/login" />;
-  } else {
+  }
+
+  // if (!authenticated) {
+  //   return <Navigate replace to="/login" />;
+  // }
+  else {
     return (
       <div className="dashboard-row">
         <Row style={{ marginTop: "6%", width: "1100px" }}>
@@ -72,12 +115,6 @@ const Dashboard = () => {
           <Col span={8}>
             <AgentList />
           </Col>
-        </Row>
-        <Row>
-          <Col span={6}>{/* <PieCharts /> */}</Col>
-          <Col span={6}>{/* <PieCharts /> */}</Col>
-          <Col span={6}>{/* <PieCharts /> */}</Col>
-          <Col span={6}>{/* <PieCharts /> */}</Col>
         </Row>
       </div>
     );
