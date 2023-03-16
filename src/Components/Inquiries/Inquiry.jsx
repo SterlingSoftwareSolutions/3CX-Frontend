@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import moment from "moment";
+import { fetchArray } from "../../Utils/utils";
 
 const Inquiry = (props) => {
   useEffect(() => {
@@ -90,6 +91,31 @@ const Inquiry = (props) => {
   ]);
   const [followUpDate, setFollowUpDate] = useState(new Date());
   const [time, setTime] = useState(moment().format("hh:mm:ss"));
+  //get current user
+  const [user, setUser] = useState();
+  const userAPI = "/api/user";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(userAPI, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        });
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   //set path api
   const api = "/api/inquiries";
@@ -149,7 +175,7 @@ const Inquiry = (props) => {
     ) {
       data.call_type_id = call_type_id;
       data.customer_id = customer_id;
-      data.user_id = user_id;
+      data.user_id = user.id;
       data.product_category = product_category;
       data.brand_availability = brand_availability_selet;
       data.feedback = feedback;
@@ -157,6 +183,7 @@ const Inquiry = (props) => {
       data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
 
       const response = await apiRequest(api, data);
+  
       const Inquiry_id_new = response.data.id;
 
       const dataFollowup = {
@@ -208,7 +235,7 @@ const Inquiry = (props) => {
     ) {
       data.call_type_id = call_type_id;
       data.customer_id = customer_id;
-      data.user_id = user_id;
+      data.user_id = user.id;
       data.open = followOrCloseup;
       data.time = moment(followUpDate).format("YYYY-MM-DD") + " " + time;
 
@@ -341,8 +368,7 @@ const Inquiry = (props) => {
         onHide={handleClose}
         show={show}
         backdrop="static"
-        keyboard={false}
-      >
+        keyboard={false}>
         <ModalHeader>
           {/* page header title */}
           <Modal.Title>Add Inquiry</Modal.Title>
@@ -360,8 +386,7 @@ const Inquiry = (props) => {
                     aria-label="Product Category"
                     id="product_category"
                     value={product_category}
-                    onChange={(e) => setproduct_category(e.target.value)}
-                  >
+                    onChange={(e) => setproduct_category(e.target.value)}>
                     {arr.map((item, index) => (
                       <option key={index} value={item.name}>
                         {item.name}
@@ -394,8 +419,7 @@ const Inquiry = (props) => {
                     onChange={(e) =>
                       set_select_brand_availability(e.target.value)
                     }
-                    value={brand_availability_selet}
-                  >
+                    value={brand_availability_selet}>
                     {brand_availability.map((item, index) => (
                       <option key={index} value={item.name}>
                         {item.name}
@@ -412,8 +436,7 @@ const Inquiry = (props) => {
                     aria-label="Feedback"
                     id="arrayselect"
                     value={feedback}
-                    onChange={(e) => setfeedback(e.target.value)}
-                  >
+                    onChange={(e) => setfeedback(e.target.value)}>
                     {feedbacks.map((item, index) => (
                       <option key={index} value={item.feedback}>
                         {item.feedback}
@@ -487,17 +510,15 @@ const Inquiry = (props) => {
                 aria-label="action"
                 id="action"
                 value={followOrCloseup}
-                onChange={(e) => setfollowOrCloseup(e.target.value)}
-              >
+                onChange={(e) => setfollowOrCloseup(e.target.value)}>
                 {followupStatus.map((item, index) => (
                   <option key={index} value={item.id}>
                     {item.name}
                   </option>
                 ))}
               </Form.Select>
-               {/* error message */}
+              {/* error message */}
               <p className="form-validation">{followerror}</p>
-             
             </Form.Group>
 
             {followOrCloseup == "1" ? (
@@ -547,8 +568,7 @@ const Inquiry = (props) => {
           <Link to="/types">
             <Button
               className="btn btn mt-3"
-              style={{ backgroundColor: "#16c5d5", color: "white" }}
-            >
+              style={{ backgroundColor: "#16c5d5", color: "white" }}>
               Back
             </Button>
           </Link>
@@ -563,8 +583,7 @@ const Inquiry = (props) => {
               if (localState.call_type_group_id == 3) handleSubmitThree(e);
               if (localState.call_type_group_id == 4) handleSubmitFour(e);
               if (localState.call_type_group_id == 5) handleSubmitThree(e);
-            }}
-          >
+            }}>
             Save
           </Button>
         </Modal.Footer>
