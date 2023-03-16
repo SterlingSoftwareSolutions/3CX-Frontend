@@ -168,8 +168,9 @@ const Users = () => {
                       <th>Id</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>User Created Date</th>
                       <th>Role</th>
+                      <th>Projects</th>
+                      <th>User Created Date</th>
                       {/* <th>Password</th> */}
                       <th
                         style={{
@@ -198,8 +199,9 @@ const Users = () => {
                           <td>{row.id}</td>
                           <td>{row.name}</td>
                           <td>{row.email} </td>
-                          <td>{row.created_at}</td>
                           <td>{row.role}</td>
+                          <td>{row.project}</td>
+                          <td>{row.created_at}</td>
                           {/* <td>{row.password}</td> */}
                           <td>
                             {/* `/edituser/${row.id}` */}

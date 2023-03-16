@@ -6,7 +6,7 @@ body {
   box-shadow: 2px 2px 4px black;
   margin-top: 70px !important;
   margin-left: 30px !important;
-  height: 430px;
+  height: 480px;
   width: 900px !important;
 }
 .container_container .link_linktext {
@@ -56,6 +56,31 @@ body {
   text-align: center;
   /* border: none; */
 }
+.grid_containerOne select{
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  width: 250px;
+}
+.grid_containerOne option{
+  font-size: 16px;
+  font-weight: 600;
+}
+.grid_containerOne button{
+  position: absolute;
+  left: 400px;
+  top: 325px;
+  border: none;
+  height: 0px;
+}
+.grid_containerOne span{
+  position: absolute;
+  top: 272px;
+  left: 182px;
+}
+
 .grid_container_lefttwo {
   display: grid;
   grid-column-gap: 1em;
@@ -73,6 +98,25 @@ body {
   border: 0.5px solid rgb(219, 218, 216);
   border-radius: 10px;
   text-align: center;
+}
+.grid_container_lefttwo select{
+  border: 0.5px solid rgb(219, 218, 216);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  width: 250px;
+}
+.grid_container_lefttwo option{
+  font-size: 16px;
+  font-weight: 600;
+}
+.grid_container_lefttwo button{
+  position: absolute;
+  right: -40px;
+  top: 325px;
+  border: none;
+  height: 0px;
 }
 
 /* end column */

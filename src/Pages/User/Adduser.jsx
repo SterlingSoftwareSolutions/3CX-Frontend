@@ -1,20 +1,35 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "antd";
 import "./users.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import {FiEye} from 'react-icons/fi';
+import {FiEyeOff} from 'react-icons/fi';
+
+
 
 export const Adduser = () => {
+
   const [postResult, setPostResult] = useState(null);
   const baseURL = "/api";
   const token = localStorage.getItem("token");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [confirmshowPassword , setConfirmShowPassword] = useState('');
+  
+
+  const handleToggleVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleConfirmVisibility = (event) =>{
+    setConfirmShowPassword(event.target.value);
+  }
   const post_name = useRef(null);
   const post_email = useRef(null);
   const post_password = useRef(null);
   const post_Confirmpassword = useRef(null);
-  const post_Role = useRef(null);
+ // const post_Role = useRef(null);
 
   const [message, setMessage] = useState([
     {
@@ -72,12 +87,19 @@ export const Adduser = () => {
     }
   }
 
-  // const [selectedOption, setSelectedOption] = useState("");
-  // const options = ["Admin", "User", "Agent"];
+  const [projectAssign, setProjectAssign] = useState("")
+  const optionvalue = ["","Buy Abans","Big Deals","ASK","Watermart","MeGha","GPD"];
 
-  // const handleOptionChange = (event) => {
-  //   setSelectedOption(event.target.value);
-  // };
+  const hadlevalueChange = (e)=>{
+    setProjectAssign(e.target.value);
+  }
+
+  const [selectedOption, setSelectedOption] = useState("");
+  const options = ["","admin","agent"];
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
@@ -90,7 +112,9 @@ export const Adduser = () => {
       email: post_email.current.value,
       // Confirmpassword: post_Confirmpassword.current.value,
       // options:selectedOption.current.value,
-      role: post_Role.current.value,
+    //  role: post_Role.current.value,
+      project:projectAssign,
+      role:selectedOption,
     };
 
     try {
@@ -133,7 +157,7 @@ export const Adduser = () => {
       setPostResult(err.message);
       Swal.fire({
         icon: "error",
-        title: "Error",
+        title: "Please Check Password and Try Again",
         text: err.message,
       });
     }
@@ -157,31 +181,38 @@ export const Adduser = () => {
         <input
           type="text"
           ref={post_name}
-          // value={message}
+           //value={name}
+          
           onChange={handleChange}
+          className="form-control"
           placeholder="Enter User Number"
         />
+      
+
         <label>password</label>
         <input
-          type="password"
-          // value={message}
+          type={showPassword ? "text" : "password"}
+          value={message.password}
           ref={post_password}
           onChange={handleChange}
           placeholder="Enter Your Password"
         />
+        <button onClick={handleToggleVisibility}>{showPassword ?  <FiEye/>:<FiEyeOff/>}</button>
+
+
         <label>User Role</label>
-        {/* <select value={selectedOption} onChange={handleOptionChange}>
+        <select value={selectedOption} onChange={handleOptionChange}>
           {options.map((option, index) => {
             return <option key={index}>{option}</option>;
           })}
-        </select> */}
-        <input
+        </select>
+        {/* <input
           type="Role"
-          ref={post_Role}
+         // ref={post_Role}
           // value={message}
           onChange={handleChange}
           placeholder="Enter User Role"
-        />
+        /> */}
       </div>
 
       <div className="grid_container_lefttwo">
@@ -195,12 +226,21 @@ export const Adduser = () => {
         />
         <label>Confirm password</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
+         //type="password"
           ref={post_Confirmpassword}
-          // value={message}
+          value={message.confirmPassword}
           onChange={handleChange}
           placeholder="Enter Your Password"
         />
+        <button onClick={handleToggleVisibility}>{showPassword ? <FiEye/>:<FiEyeOff/>}</button>
+
+        <label>Add Project</label>
+        <select value={projectAssign} onChange ={hadlevalueChange}>
+        {optionvalue.map((optionvalue,index)=>{
+          return <option key={index}>{optionvalue}</option>
+        })}
+        </select>
       </div>
 
       <div className="container_btn">
