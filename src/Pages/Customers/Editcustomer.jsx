@@ -179,13 +179,14 @@ export const Editcustomer = () => {
         />
       </div>
 
-      <div className="container-btn">
+      <div className="container-btn001">
         <Button className="btn-save" onClick={handleSave}>
           Save
         </Button>
+        <Link to ="/customers">
         <Button className="cansel" onClick={clearCustomerDetails}>
           Cancel
-        </Button>
+        </Button></Link>
       </div>
     </div>
   );

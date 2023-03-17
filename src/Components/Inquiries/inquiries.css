@@ -1,5 +1,5 @@
 /* table  start*/
-.table-container {
+.table-container01 {
   background-color: white;
   width: 1250px;
   border: 0.5px solid none;
@@ -11,7 +11,7 @@
   margin-left: -140px;
 }
 
-.table-head .link01 {
+.table-head .link_link {
   margin-top: -37px !important;
   padding-top: 25px !important;
   border: none;
@@ -20,7 +20,7 @@
   font-size: 18px;
   color: #37304c;
 }
-.table-head .link02 {
+.table-head .link_link02 {
   margin-top: -42px !important;
   padding-top: 12px !important;
   margin-left: 245px;
@@ -28,65 +28,67 @@
   font-size: 18px;
 }
 
-.table-name {
+.table-name01 {
   margin-bottom: 2rem !important;
 }
-.table-name h3 {
+.table-name01 h3 {
   margin-top: 10px !important;
-  margin-left: 50px;
+  margin-left: 178px;
   font-weight: 650;
 }
 
-.table-name form {
+.table-name01 form {
   margin-left: 500px;
-  margin-top: -35px;
+  margin-top: -45px;
 }
 
 .card {
   /* border-radius: 15px; */
   box-shadow: 1px 1px 5px black;
   width: 1200px;
+  left: 150px;
 }
 
 .table-responsive {
-height: 100vh;
+  height: 100vh;
   /* border-radius: 20px 20px 0px 0px; */
 }
-.table {
-
+.table001 {
   border: #37304c;
   text-align: center;
 }
 
 table {
-  border:1px solid yellow;
+ 
   position: relative;
   border-collapse: collapse;
 }
 
-.table thead {
- 
-
+.table001 thead {
 }
 
-.table th {
+.table001 th {
   background-color: #37304c;
   color: #fff;
   font-size: medium;
+
 }
-.table td {
+.table001 td {
   font-weight: 500;
+}
+.table001 tr{
+  border: 1.5px solid #37304c;
 }
 
 /* table  end*/
 
 /* export btn*/
 .btn_export {
-  padding-left: 79.5em;
+  padding-left: 89.5em !important;
   margin-top: -2.2em;
 }
-.btn_export input{
-  background-color:rgb(10, 211, 10);
+.btn_export input {
+  background-color: rgb(10, 211, 10);
   width: 115px;
   height: 40px;
   border-radius: 10px;
@@ -94,9 +96,9 @@ table {
   color: #fff;
   font-weight: 500;
 }
-.btn_exporticon{
-padding-left: 79.9em;
-margin-top: -2.5em;
+.btn_exporticon {
+  padding-left: 89.9em !important;
+  margin-top: -2.5em;
 }
 /* export btn end*/
 
@@ -231,3 +233,52 @@ margin-top: -2.5em;
 }
 
 /*table  pagination end */
+
+/* media quiry start */
+@media only screen and (max-width: 1366px) {
+  .table-container {
+    position: relative;
+    left: -50px;
+    width: 1200px;
+    height: 550px;
+  }
+  .table-head .link_link {
+    position: relative;
+    top: -20px !important;
+    left: -70px;
+  }
+  .table-head .link_link02 {
+    position: relative;
+    margin-top: -62px !important;
+    left: -70px;
+  }
+  .table-name01 h3 {
+    position: relative;
+    top: -5px !important;
+    left: -70px;
+   
+  }
+  .table001 tr{
+    border: 1.5px solid #37304c;
+  }
+  .search {
+    position: relative;
+    top: -20px;
+    height: 10px;
+  }
+  .card {
+    width: 1200px;
+    height: 450px;
+    left:80px;
+  }
+  .btn_export {
+    position: relative;
+    left: 70px;
+    top: 0px;
+  }
+  .btn_exporticon {
+    position: relative;
+    left: 70px;
+    top: 0px;
+  }
+}

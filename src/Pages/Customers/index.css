@@ -39,17 +39,20 @@
   margin-top: -35px;
 }
 /* data table */
-.card {
+.card01 {
+  position: relative;
   /* border-radius: 15px; */
-  height: 540px;
+  left: 20px;
   width: 1200px;
+  height: 520px;
+  overflow: auto;
 }
 
 .table-responsive {
   /* border-radius: 20px 20px 0px 0px; */
 }
 .table {
-  
+  height: 50px;
   text-align: center;
 }
 .table th {
@@ -180,8 +183,31 @@
 }
 
 /*table  pagination end */
-@media(max-width:1250px){
+/* media quiry start */
+@media only screen and (max-width: 1366px) {
   .table_tablecontainer{
-    min-width: 1000px;
+    position: relative;
+    left: -10px;
+    width: 1100px !important;
+    height: 560px;
+  }
+  .card01 {
+    /* border-radius: 15px; */
+    position: absolute;
+    width: 1050px;
+    height: 420px;
+    overflow: auto;
+  }
+  .search{
+    position: relative;
+    left: -150px;
+  }
+  .btn-add{
+    position: relative;
+    left: -150px;
+  }
+  .btn-iconicon{
+    position: relative;
+    left: -150px;
   }
 }

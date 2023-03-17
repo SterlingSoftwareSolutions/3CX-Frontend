@@ -93,11 +93,11 @@ body {
 }
 /* end column */
 
-.container-btn {
+.container-btn001 {
   margin-left: 620px !important;
   margin-top: 25px;
 }
-.container-btn .btn-save {
+.container-btn001 .btn-save {
   margin-right: 30px;
   width: 100px;
   background-color: #ef5959;
@@ -110,7 +110,7 @@ body {
 .btn-save:hover {
   background-color: aliceblue;
 }
-.container-btn .cansel {
+.container-btn001 .cansel {
   width: 100px;
   height: 40px;
   background-color: #ef5959;
@@ -121,4 +121,9 @@ body {
 }
 .cansel:hover {
   background-color: aliceblue;
+}
+@media only screen and (max-width: 1366px) {
+  .container-btn001{
+
+  }
 }
