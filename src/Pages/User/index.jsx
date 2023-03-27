@@ -161,7 +161,7 @@ const Users = () => {
 
           <div className="col-12">
             <div className="card-body">
-              <div className="table-responsive">
+              <div className="table-responsive1">
                 <table className="table ">
                   <thead>
                     <tr>

@@ -98,9 +98,9 @@ const CustomerTable = () => {
         </div>
         <div className="col-12">
           {/* table start */}
-          <div className="card">
+          <div className="card01">
             {/* table end */}
-            <div className="table-responsive">
+            <div className="table-responsive00">
               <table className="table table-bordered mb-0 text-center">
                 <thead>
                   <tr>

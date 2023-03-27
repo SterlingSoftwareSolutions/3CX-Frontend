@@ -6,7 +6,7 @@
   background-color: white;
   box-shadow: 2px 2px 4px black;
   margin-top: 100px;
-  height: 640px;
+  height: 600px;
 }
 
 .table_head .link_01 {
@@ -188,3 +188,51 @@
 }
 
 /*table  pagination end */
+/* media quiry start */
+@media only screen and (max-width: 1366px) {
+
+  .table_container {
+    position: relative;
+    left: -10px;
+    width: 1100px;
+    height: 550px;
+  }
+  
+  .table_container .link_01 {
+    position: relative;
+    top: -10px;
+  }
+  .table_container .link_02 {
+    position: relative;
+    top: -10px;
+  }
+  .table-name {
+    position: relative !important;
+    top: -15px !important;
+  }
+  .search_bar {
+    position: relative;
+    top: -15px;
+    left: -170px;
+  }
+  .add-user {
+    position: relative;
+    top: -175px;
+    left: 820px;
+  }
+  .btn_icon {
+    position: relative;
+    right: -818px;
+    top: -42px;
+  }
+
+  .table-responsive1 {
+    position: relative;
+    top: -55px;
+  }
+  .pagination_btnbtn {
+    position: relative;
+    top: -80px;
+  }
+
+}

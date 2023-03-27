@@ -117,10 +117,10 @@ const AllInquiries = () => {
       <div className="table-head">
         <Link to="/">
           {" "}
-          <h6 className="link01"> Home </h6>{" "}
+          <h6 className="link_link"> Home </h6>{" "}
         </Link>
-        <h6 className="link02"> / Inquiries</h6>
-        <div className="table-name">
+        <h6 className="link_link02"> / Inquiries</h6>
+        <div className="table-name01">
           <h3>Inquiries Page</h3>
           <form className="search">
             <input
@@ -156,7 +156,7 @@ const AllInquiries = () => {
           <div className="col-12">
             <div className="card card-body">
               <div className="table-responsive" data-table="both">
-                <table className="table " ref={tableRef}>
+                <table className="table001" ref={tableRef}>
                   <thead>
                     <tr style={{ Position: "sticky" }}>
                       <th>Id</th>
